@@ -1,9 +1,9 @@
 package com.widgets.edittextformatter;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.widgets.edittextformatter.utils.FormatTextWatcher;
 
@@ -15,6 +15,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         EditText edFourDigitCode = findViewById(R.id.ed_four_digit_code);
-        edFourDigitCode.addTextChangedListener(new FormatTextWatcher("----"));
+        edFourDigitCode.addTextChangedListener(new FormatTextWatcher(edFourDigitCode));
     }
 }

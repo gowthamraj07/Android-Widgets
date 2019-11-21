@@ -2,12 +2,17 @@ package com.widgets.edittextformatter.utils;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.EditText;
 
 public class FormatTextWatcher implements TextWatcher {
-    private String format;
+    private EditText editText;
 
-    public FormatTextWatcher(String format) {
-        this.format = format;
+    public FormatTextWatcher(EditText editText) {
+        this.editText = editText;
+    }
+
+    public void init() {
+        editText.setText("");
     }
 
     @Override
