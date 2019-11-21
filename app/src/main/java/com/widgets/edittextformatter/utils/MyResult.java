@@ -1,6 +1,6 @@
 package com.widgets.edittextformatter.utils;
 
-class MyResult {
+public class MyResult {
     private final String formattedUserInput;
     private final int formattedCursorPosition;
 

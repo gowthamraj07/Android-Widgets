@@ -5,6 +5,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.widgets.edittextformatter.formatter.DashFormatter;
 import com.widgets.edittextformatter.utils.FormatTextWatcher;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         EditText edFourDigitCode = findViewById(R.id.ed_four_digit_code);
-        FormatTextWatcher.Formatter formatter = null;
+        FormatTextWatcher.Formatter formatter = new DashFormatter();
         edFourDigitCode.addTextChangedListener(new FormatTextWatcher(edFourDigitCode, formatter));
     }
 }
