@@ -27,5 +27,6 @@ public class FormatTextWatcherTest {
         textWatcher.init();
 
         verify(editText).setText("");
+        verify(editText).setSelection(0);
     }
 }

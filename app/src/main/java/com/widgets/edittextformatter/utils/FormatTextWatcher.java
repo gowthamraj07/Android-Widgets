@@ -13,6 +13,7 @@ public class FormatTextWatcher implements TextWatcher {
 
     public void init() {
         editText.setText("");
+        editText.setSelection(0);
     }
 
     @Override
