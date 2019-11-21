@@ -39,10 +39,11 @@ public class FormatTextWatcherTest {
         FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter);
 
         Editable editable = mock(Editable.class);
-        when(editable.toString()).thenReturn("1234");
+        String userInput = "1234";
+        when(editable.toString()).thenReturn(userInput);
         textWatcher.afterTextChanged(editable);
 
-        verify(formatter).format("1234");
+        verify(formatter).format(userInput);
     }
 
 
