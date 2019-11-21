@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         EditText edFourDigitCode = findViewById(R.id.ed_four_digit_code);
-        edFourDigitCode.addTextChangedListener(new FormatTextWatcher(edFourDigitCode));
+        FormatTextWatcher.Formatter formatter = null;
+        edFourDigitCode.addTextChangedListener(new FormatTextWatcher(edFourDigitCode, formatter));
     }
 }
