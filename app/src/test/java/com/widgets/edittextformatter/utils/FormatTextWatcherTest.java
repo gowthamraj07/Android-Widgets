@@ -35,15 +35,18 @@ public class FormatTextWatcherTest {
     }
 
     @Test
-    public void shouldFormatFinalInputFromUser() {
+    public void shouldFormatFinalInputFromUser_AndDisplayInSameEditText() {
+        String userInput = "1234";
+        String formattedUserInput = "12 34";
+        when(formatter.format(userInput)).thenReturn(formattedUserInput);
         FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter);
 
         Editable editable = mock(Editable.class);
-        String userInput = "1234";
         when(editable.toString()).thenReturn(userInput);
         textWatcher.afterTextChanged(editable);
 
         verify(formatter).format(userInput);
+        verify(editText).setText(formattedUserInput);
     }
 
 
