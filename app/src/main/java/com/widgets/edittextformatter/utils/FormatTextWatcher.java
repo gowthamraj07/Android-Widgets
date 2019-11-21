@@ -34,12 +34,12 @@ public class FormatTextWatcher implements TextWatcher {
     @Override
     public void afterTextChanged(Editable s) {
         //Log.d(TAG, "afterTextChanged: s=" + s);
-        String formattedInput = formatter.format(s.toString());
-        editText.setText(formattedInput);
-
+        MyResult formattedInput = formatter.format(s.toString(), editText.getSelectionStart());
+        editText.setText(formattedInput.getFormattedUserInput());
+        editText.setSelection(formattedInput.getFormattedCursorPosition());
     }
 
     public interface Formatter {
-        String format(String input);
+        MyResult format(String input, int currentCursorPosition);
     }
 }

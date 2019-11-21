@@ -35,18 +35,27 @@ public class FormatTextWatcherTest {
     }
 
     @Test
-    public void shouldFormatFinalInputFromUser_AndDisplayInSameEditText() {
+    public void shouldFormatFinalInputFromUserWithCursorPosition_AndDisplayInSameEditText() {
+        // Assign
         String userInput = "1234";
         String formattedUserInput = "12 34";
-        when(formatter.format(userInput)).thenReturn(formattedUserInput);
+        int currentCursorPosition = 3;
+        int formattedCursorPosition = 4;
+        MyResult result = new MyResult(formattedUserInput, formattedCursorPosition);
+
+        when(editText.getSelectionStart()).thenReturn(currentCursorPosition);
+        when(formatter.format(userInput, currentCursorPosition)).thenReturn(result);
         FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter);
 
+        // Act
         Editable editable = mock(Editable.class);
         when(editable.toString()).thenReturn(userInput);
         textWatcher.afterTextChanged(editable);
 
-        verify(formatter).format(userInput);
+        // Assert
+        verify(formatter).format(userInput, currentCursorPosition);
         verify(editText).setText(formattedUserInput);
+        verify(editText).setSelection(formattedCursorPosition);
     }
 
 
