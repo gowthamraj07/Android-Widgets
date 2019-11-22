@@ -44,4 +44,17 @@ public class DashFormatterTest {
         assertEquals(output, result.getFormattedUserInput());
         assertEquals(nextCursorPosition, result.getFormattedCursorPosition());
     }
+
+    @Test
+    @Parameters({
+            "1,1 | $$ 1,4"
+    })
+    public void shouldReturnFormattedOutputAndCursorAtRightPosition_WhenFormatNotStartingWithDash(String input, int currentCursorPosition, String output, int nextCursorPosition) {
+        DashFormatter formatter = new DashFormatter("$$ -- --");
+
+        Result result = formatter.format(input.replaceAll("s"," "), currentCursorPosition);
+
+        assertEquals(output, result.getFormattedUserInput());
+        assertEquals(nextCursorPosition, result.getFormattedCursorPosition());
+    }
 }

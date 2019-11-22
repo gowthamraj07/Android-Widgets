@@ -28,7 +28,7 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
         String formatWithoutDashes = truncatedFormatForInputCharacter.replaceAll("-", "");
         int noOfNonDashCharacters = formatWithoutDashes.length();
 
-        int formattedCursorPosition = currentCursorPosition + noOfNonDashCharacters - noOfNonDashCharactersInInput;
+        int formattedCursorPosition = currentCursorPosition + noOfNonDashCharacters - noOfNonDashCharactersInInput + format.indexOf("-");
         if(formattedCursorPosition > resultString.length()) {
             return new Result(resultString, resultString.length());
         }
