@@ -75,7 +75,7 @@ public class FormatTextWatcherTest {
 
 
     private class SpyFormatTextWatcher extends FormatTextWatcher {
-        public int spyMaxLength;
+        int spyMaxLength;
 
         SpyFormatTextWatcher(EditText editText, Formatter formatter) {
             super(editText, formatter);

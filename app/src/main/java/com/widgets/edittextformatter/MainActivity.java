@@ -17,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
 
         EditText edFourDigitCode = findViewById(R.id.ed_four_digit_code);
         FormatTextWatcher.Formatter formatter = new DashFormatter("-- -- --");
-        edFourDigitCode.addTextChangedListener(new FormatTextWatcher(edFourDigitCode, formatter));
+        FormatTextWatcher textWatcher = new FormatTextWatcher(edFourDigitCode, formatter);
+        textWatcher.init();
+
+        edFourDigitCode.addTextChangedListener(textWatcher);
     }
 }

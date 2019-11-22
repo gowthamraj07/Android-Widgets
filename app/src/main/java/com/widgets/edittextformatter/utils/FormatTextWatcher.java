@@ -1,6 +1,7 @@
 package com.widgets.edittextformatter.utils;
 
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
@@ -17,7 +18,7 @@ public class FormatTextWatcher implements TextWatcher {
         this.formatter = formatter;
     }
 
-    void init() {
+    public void init() {
         editText.setText("");
         editText.setSelection(0);
         int maxLengthOfEditText = formatter.getFormat().length() + 1;
@@ -25,7 +26,8 @@ public class FormatTextWatcher implements TextWatcher {
     }
 
     protected void setEditTextMaxLength(int maxLengthOfEditText) {
-        // TODO: set max length
+        InputFilter filter = new InputFilter.LengthFilter(maxLengthOfEditText);
+        editText.setFilters(new InputFilter[]{filter});
     }
 
     @Override
