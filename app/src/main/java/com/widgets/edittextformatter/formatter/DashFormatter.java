@@ -53,10 +53,22 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
     }
 
     private String removeFormatFrom(final String input) {
-        String formatWithoutDashes = format.replaceAll("-", "");
-        String unformattedInput = input;
-        for (char ch : formatWithoutDashes.toCharArray()) {
-            unformattedInput = unformattedInput.replaceAll("" + ch, "");
+        String unformattedInput = "";
+
+        for (int index = 0; index < input.length() && index < format.length(); index++) {
+            char charAtIndexInFormat = format.charAt(index);
+            char charAtIndexInInput = input.charAt(index);
+
+            if (charAtIndexInFormat == charAtIndexInInput) {
+                continue;
+            }
+
+            if (charAtIndexInFormat == '-') {
+                unformattedInput += charAtIndexInInput;
+                continue;
+            }
+
+            return input;
         }
 
         return unformattedInput.trim();
