@@ -54,18 +54,9 @@ public class FormatTextWatcher implements TextWatcher {
         editable = false;
 
         int formatLength = formatter.getFormat().length();
-        if (s.length() > formatLength) {
-
-            int cursorPosition = editText.getSelectionStart() - 1;
-            editText.setText(previousText);
-
-            if (cursorPosition > formatLength) {
-                editText.setSelection(formatLength);
-            } else {
-                editText.setSelection(cursorPosition);
-            }
+        if (isAlreadyReachedMaximumLength(s, formatLength)) {
+            maintainSameText(formatLength, editText, previousText);
         } else {
-
             Result formattedInput = formatter.format(s.toString(), editText.getSelectionStart());
             editText.setText(formattedInput.getFormattedUserInput());
             editText.setSelection(formattedInput.getFormattedCursorPosition());
@@ -78,5 +69,20 @@ public class FormatTextWatcher implements TextWatcher {
         Result format(String input, int currentCursorPosition);
 
         String getFormat();
+    }
+
+    private boolean isAlreadyReachedMaximumLength(Editable s, int formatLength) {
+        return s.length() > formatLength;
+    }
+
+    private void maintainSameText(int formatLength, EditText editText, String previousText) {
+        int cursorPosition = editText.getSelectionStart() - 1;
+        editText.setText(previousText);
+
+        if (cursorPosition > formatLength) {
+            editText.setSelection(formatLength);
+        } else {
+            editText.setSelection(cursorPosition);
+        }
     }
 }
