@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -26,12 +27,26 @@ public class FormatTextWatcherTest {
 
     @Test
     public void shouldDisplayNothingAndCursorShouldBeAt0_whenInitialized() {
+        String format = "----";
+        when(formatter.getFormat()).thenReturn(format);
         FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter);
 
         textWatcher.init();
 
         verify(editText).setText("");
         verify(editText).setSelection(0);
+    }
+
+    @Test
+    public void shouldGetTheFormatAndSetMaxLengthForEditText_WithTheLengthOfTheFormatPlus1() {
+        String format = "----";
+        when(formatter.getFormat()).thenReturn(format);
+        SpyFormatTextWatcher textWatcher = new SpyFormatTextWatcher(editText, formatter);
+
+        textWatcher.init();
+
+        verify(formatter).getFormat();
+        assertEquals(format.length()+1, textWatcher.spyMaxLength);
     }
 
     @Test
@@ -59,4 +74,17 @@ public class FormatTextWatcherTest {
     }
 
 
+    private class SpyFormatTextWatcher extends FormatTextWatcher {
+        public int spyMaxLength;
+
+        SpyFormatTextWatcher(EditText editText, Formatter formatter) {
+            super(editText, formatter);
+        }
+
+        @Override
+        protected void setEditTextMaxLength(int maxLengthOfEditText) {
+            super.setEditTextMaxLength(maxLengthOfEditText);
+            spyMaxLength = maxLengthOfEditText;
+        }
+    }
 }

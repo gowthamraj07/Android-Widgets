@@ -26,6 +26,11 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
         return new Result(resultString, currentCursorPosition);
     }
 
+    @Override
+    public String getFormat() {
+        return format;
+    }
+
     private String removeFormatFrom(final String input) {
         String formatWithoutDashes = format.replaceAll("-", "");
         String unformattedInput = input;

@@ -20,6 +20,12 @@ public class FormatTextWatcher implements TextWatcher {
     void init() {
         editText.setText("");
         editText.setSelection(0);
+        int maxLengthOfEditText = formatter.getFormat().length() + 1;
+        setEditTextMaxLength(maxLengthOfEditText);
+    }
+
+    protected void setEditTextMaxLength(int maxLengthOfEditText) {
+        // TODO: set max length
     }
 
     @Override
@@ -49,5 +55,6 @@ public class FormatTextWatcher implements TextWatcher {
 
     public interface Formatter {
         Result format(String input, int currentCursorPosition);
+        String getFormat();
     }
 }
