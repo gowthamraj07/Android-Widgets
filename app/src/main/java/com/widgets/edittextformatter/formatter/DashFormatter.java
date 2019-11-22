@@ -12,7 +12,15 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
 
     @Override
     public Result format(String input, int currentCursorPosition) {
-        Result result = new Result(input, currentCursorPosition);
-        return result;
+
+        String resultString = format;
+        for (char ch : input.toCharArray()) {
+            resultString = resultString.replaceFirst("\\-", "" + ch);
+        }
+
+        resultString = resultString.replaceAll("\\-"," ");
+        resultString = resultString.trim();
+
+        return new Result(resultString, currentCursorPosition);
     }
 }
