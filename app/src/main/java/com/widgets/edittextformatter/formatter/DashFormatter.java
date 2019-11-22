@@ -4,14 +4,14 @@ import com.widgets.edittextformatter.utils.FormatTextWatcher;
 import com.widgets.edittextformatter.utils.Result;
 
 public class DashFormatter implements FormatTextWatcher.Formatter {
-    private String format;
+    private final String format;
 
     public DashFormatter(String format) {
         this.format = format;
     }
 
     @Override
-    public Result format(final String input, int currentCursorPosition) {
+    public Result format(final String input, final int currentCursorPosition) {
 
         String unformattedInput = removeFormatFrom(input);
 
@@ -23,7 +23,11 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
         resultString = resultString.replaceAll("\\-", " ");
         resultString = resultString.trim();
 
-        return new Result(resultString, currentCursorPosition);
+        String truncatedFormatForInputCharacter = format.substring(0, currentCursorPosition);
+        String formatWithoutDashes = truncatedFormatForInputCharacter.replaceAll("-", "");
+        int noOfNonDashCharacters = formatWithoutDashes.length();
+
+        return new Result(resultString, currentCursorPosition + noOfNonDashCharacters);
     }
 
     @Override

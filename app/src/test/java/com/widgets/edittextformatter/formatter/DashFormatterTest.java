@@ -27,4 +27,18 @@ public class DashFormatterTest {
         assertEquals(output, result.getFormattedUserInput());
         assertEquals(nextCursorPosition, result.getFormattedCursorPosition());
     }
+
+    @Test
+    @Parameters({
+            "1,1 | 1,1",
+            "111,3 | 11 1,4"
+    })
+    public void shouldReturnNextCursorPosition_AfterFormatting(String input, int currentCursorPosition, String output, int nextCursorPosition) {
+        DashFormatter formatter = new DashFormatter("-- -- --");
+
+        Result result = formatter.format(input, currentCursorPosition);
+
+        assertEquals(output, result.getFormattedUserInput());
+        assertEquals(nextCursorPosition, result.getFormattedCursorPosition());
+    }
 }
