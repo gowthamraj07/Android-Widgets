@@ -11,16 +11,28 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
     }
 
     @Override
-    public Result format(String input, int currentCursorPosition) {
+    public Result format(final String input, int currentCursorPosition) {
+
+        String unformattedInput = removeFormatFrom(input);
 
         String resultString = format;
-        for (char ch : input.toCharArray()) {
+        for (char ch : unformattedInput.toCharArray()) {
             resultString = resultString.replaceFirst("\\-", "" + ch);
         }
 
-        resultString = resultString.replaceAll("\\-"," ");
+        resultString = resultString.replaceAll("\\-", " ");
         resultString = resultString.trim();
 
         return new Result(resultString, currentCursorPosition);
+    }
+
+    private String removeFormatFrom(final String input) {
+        String formatWithoutDashes = format.replaceAll("-", "");
+        String unformattedInput = input;
+        for (char ch : formatWithoutDashes.toCharArray()) {
+            unformattedInput = unformattedInput.replaceAll("" + ch, "");
+        }
+
+        return unformattedInput.trim();
     }
 }
