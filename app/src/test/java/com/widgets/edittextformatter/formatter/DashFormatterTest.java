@@ -17,12 +17,13 @@ public class DashFormatterTest {
     @Parameters({
             "1,1 | 1,1",
             "111,1 | 11 1,1",
-            "11 1,1 | 11 1,1"
+            "11 1,1 | 11 1,1",
+            "11s,1 | 11, 1"
     })
     public void shouldReturnFormattedOutput(String input, int currentCursorPosition, String output, int nextCursorPosition) {
         DashFormatter formatter = new DashFormatter("-- --");
 
-        Result result = formatter.format(input, currentCursorPosition);
+        Result result = formatter.format(input.replaceAll("s"," "), currentCursorPosition);
 
         assertEquals(output, result.getFormattedUserInput());
         assertEquals(nextCursorPosition, result.getFormattedCursorPosition());
