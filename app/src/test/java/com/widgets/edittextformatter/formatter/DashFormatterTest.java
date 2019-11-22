@@ -47,7 +47,8 @@ public class DashFormatterTest {
 
     @Test
     @Parameters({
-            "1,1 | $$ 1,4"
+            "1, 1 | $$ 1, 4",
+            "1234, 1 | $$ 12 34, 4"
     })
     public void shouldReturnFormattedOutputAndCursorAtRightPosition_WhenFormatNotStartingWithDash(String input, int currentCursorPosition, String output, int nextCursorPosition) {
         DashFormatter formatter = new DashFormatter("$$ -- --");
