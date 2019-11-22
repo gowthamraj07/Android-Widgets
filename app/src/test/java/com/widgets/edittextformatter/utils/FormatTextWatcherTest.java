@@ -41,7 +41,7 @@ public class FormatTextWatcherTest {
         String formattedUserInput = "12 34";
         int currentCursorPosition = 3;
         int formattedCursorPosition = 4;
-        MyResult result = new MyResult(formattedUserInput, formattedCursorPosition);
+        Result result = new Result(formattedUserInput, formattedCursorPosition);
 
         when(editText.getSelectionStart()).thenReturn(currentCursorPosition);
         when(formatter.format(userInput, currentCursorPosition)).thenReturn(result);

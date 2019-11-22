@@ -1,6 +1,6 @@
 package com.widgets.edittextformatter.formatter;
 
-import com.widgets.edittextformatter.utils.MyResult;
+import com.widgets.edittextformatter.utils.Result;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +20,7 @@ public class DashFormatterTest {
     public void shouldReturnFormattedOutput(String input, int currentCursorPosition, String output, int nextCursorPosition) {
         DashFormatter formatter = new DashFormatter("-- --");
 
-        MyResult result = formatter.format(input, currentCursorPosition);
+        Result result = formatter.format(input, currentCursorPosition);
 
         assertEquals(output, result.getFormattedUserInput());
         assertEquals(nextCursorPosition, result.getFormattedCursorPosition());

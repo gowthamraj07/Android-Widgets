@@ -1,10 +1,10 @@
 package com.widgets.edittextformatter.utils;
 
-public class MyResult {
+public class Result {
     private final String formattedUserInput;
     private final int formattedCursorPosition;
 
-    public MyResult(String formattedUserInput, int formattedCursorPosition) {
+    public Result(String formattedUserInput, int formattedCursorPosition) {
 
         this.formattedUserInput = formattedUserInput;
         this.formattedCursorPosition = formattedCursorPosition;
