@@ -53,9 +53,17 @@ public class FormatTextWatcher implements TextWatcher {
 
         editable = false;
 
-        if (s.length() > formatter.getFormat().length()) {
+        int formatLength = formatter.getFormat().length();
+        if (s.length() > formatLength) {
+
+            int cursorPosition = editText.getSelectionStart() - 1;
             editText.setText(previousText);
-            editText.setSelection(formatter.getFormat().length());
+
+            if (cursorPosition > formatLength) {
+                editText.setSelection(formatLength);
+            } else {
+                editText.setSelection(cursorPosition);
+            }
         } else {
 
             Result formattedInput = formatter.format(s.toString(), editText.getSelectionStart());
@@ -68,6 +76,7 @@ public class FormatTextWatcher implements TextWatcher {
 
     public interface Formatter {
         Result format(String input, int currentCursorPosition);
+
         String getFormat();
     }
 }
