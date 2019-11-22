@@ -55,9 +55,11 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
     private String removeFormatFrom(final String input) {
         String unformattedInput = "";
 
-        for (int index = 0; index < input.length() && index < format.length(); index++) {
-            char charAtIndexInFormat = format.charAt(index);
-            char charAtIndexInInput = input.charAt(index);
+        String inputWithoutSpace = input.replaceAll(" ", "");
+        String formatWithoutSpace = format.replaceAll(" ","");
+        for (int index = 0; index < inputWithoutSpace.length() && index < formatWithoutSpace.length(); index++) {
+            char charAtIndexInFormat = formatWithoutSpace.charAt(index);
+            char charAtIndexInInput = inputWithoutSpace.charAt(index);
 
             if (charAtIndexInFormat == charAtIndexInInput) {
                 continue;
@@ -68,7 +70,7 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
                 continue;
             }
 
-            return input;
+            return inputWithoutSpace;
         }
 
         return unformattedInput.trim();
