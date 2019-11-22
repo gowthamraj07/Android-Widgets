@@ -12,6 +12,7 @@ public class FormatTextWatcher implements TextWatcher {
     private EditText editText;
     private Formatter formatter;
     private boolean editable = true;
+    private String previousText;
 
     public FormatTextWatcher(EditText editText, Formatter formatter) {
         this.editText = editText;
@@ -33,6 +34,7 @@ public class FormatTextWatcher implements TextWatcher {
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         //Log.d(TAG, "beforeTextChanged: s=" + s + ", start=" + start + ", count=" + count + ", after=" + after);
+        previousText = s.toString();
     }
 
     @Override
@@ -48,9 +50,15 @@ public class FormatTextWatcher implements TextWatcher {
 
         editable = false;
 
-        Result formattedInput = formatter.format(s.toString(), editText.getSelectionStart());
-        editText.setText(formattedInput.getFormattedUserInput());
-        editText.setSelection(formattedInput.getFormattedCursorPosition());
+        if (s.length() > formatter.getFormat().length()) {
+            editText.setText(previousText);
+            editText.setSelection(formatter.getFormat().length());
+        } else {
+
+            Result formattedInput = formatter.format(s.toString(), editText.getSelectionStart());
+            editText.setText(formattedInput.getFormattedUserInput());
+            editText.setSelection(formattedInput.getFormattedCursorPosition());
+        }
 
         editable = true;
     }
