@@ -23,11 +23,12 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
         resultString = resultString.replaceAll("\\-", " ");
         resultString = resultString.trim();
 
+        int noOfNonDashCharactersInInput = getNonDashCharactersCountFrom(input, currentCursorPosition);
         String truncatedFormatForInputCharacter = format.substring(0, currentCursorPosition);
         String formatWithoutDashes = truncatedFormatForInputCharacter.replaceAll("-", "");
         int noOfNonDashCharacters = formatWithoutDashes.length();
 
-        return new Result(resultString, currentCursorPosition + noOfNonDashCharacters);
+        return new Result(resultString, currentCursorPosition + noOfNonDashCharacters - noOfNonDashCharactersInInput);
     }
 
     @Override
@@ -43,5 +44,17 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
         }
 
         return unformattedInput.trim();
+    }
+
+    private int getNonDashCharactersCountFrom(String input, int tillCurrentCursorPosition) {
+        int nonDashCharacterCount = 0;
+        for (int index = 0; index < input.length() && index < format.length() && index < tillCurrentCursorPosition; index++) {
+            if (format.charAt(index) != '-') {
+                if(format.charAt(index) == input.charAt(index)) {
+                    nonDashCharacterCount++;
+                }
+            }
+        }
+        return nonDashCharacterCount;
     }
 }

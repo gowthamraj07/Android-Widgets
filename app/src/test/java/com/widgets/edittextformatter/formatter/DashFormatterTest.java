@@ -31,7 +31,8 @@ public class DashFormatterTest {
     @Test
     @Parameters({
             "1,1 | 1,1",
-            "111,3 | 11 1,4"
+            "111,3 | 11 1,4",
+            "11 1,4 | 11 1,4"
     })
     public void shouldReturnNextCursorPosition_AfterFormatting(String input, int currentCursorPosition, String output, int nextCursorPosition) {
         DashFormatter formatter = new DashFormatter("-- -- --");
