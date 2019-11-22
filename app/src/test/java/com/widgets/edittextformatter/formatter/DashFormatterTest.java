@@ -34,12 +34,12 @@ public class DashFormatterTest {
             "1,1 | 1,1",
             "111,3 | 11 1,4",
             "11 1,4 | 11 1,4",
-            "11 11 11, 4 | 11 11 11, 4"
+            "11 11s, 6 | 11 11, 5"
     })
     public void shouldReturnNextCursorPosition_AfterFormatting(String input, int currentCursorPosition, String output, int nextCursorPosition) {
         DashFormatter formatter = new DashFormatter("-- -- --");
 
-        Result result = formatter.format(input, currentCursorPosition);
+        Result result = formatter.format(input.replaceAll("s"," "), currentCursorPosition);
 
         assertEquals(output, result.getFormattedUserInput());
         assertEquals(nextCursorPosition, result.getFormattedCursorPosition());
