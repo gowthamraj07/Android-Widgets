@@ -20,9 +20,12 @@ public class FormatTextWatcher implements TextWatcher {
     }
 
     public void init() {
-        editText.setText("");
+        String format = formatter.getFormat();
+        editText.setHint(format);
         editText.setSelection(0);
-        int maxLengthOfEditText = formatter.getFormat().length() + 1;
+        editText.setText("");
+
+        int maxLengthOfEditText = format.length() + 1;
         setEditTextMaxLength(maxLengthOfEditText);
     }
 

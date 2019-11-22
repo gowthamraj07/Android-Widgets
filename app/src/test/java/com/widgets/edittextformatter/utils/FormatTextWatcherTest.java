@@ -18,17 +18,19 @@ public class FormatTextWatcherTest {
 
     private EditText editText;
     private FormatTextWatcher.Formatter formatter;
+    private String format;
 
     @Before
     public void setUp() {
         editText = mock(EditText.class);
         formatter = mock(FormatTextWatcher.Formatter.class);
+
+        format = "----";
+        when(formatter.getFormat()).thenReturn(format);
     }
 
     @Test
     public void shouldDisplayNothingAndCursorShouldBeAt0_whenInitialized() {
-        String format = "----";
-        when(formatter.getFormat()).thenReturn(format);
         FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter);
 
         textWatcher.init();
@@ -38,9 +40,16 @@ public class FormatTextWatcherTest {
     }
 
     @Test
+    public void shouldDisplayFormatAsHint_whenInitialized() {
+        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter);
+
+        textWatcher.init();
+
+        verify(editText).setHint(format);
+    }
+
+    @Test
     public void shouldGetTheFormatAndSetMaxLengthForEditText_WithTheLengthOfTheFormatPlus1() {
-        String format = "----";
-        when(formatter.getFormat()).thenReturn(format);
         SpyFormatTextWatcher textWatcher = new SpyFormatTextWatcher(editText, formatter);
 
         textWatcher.init();
