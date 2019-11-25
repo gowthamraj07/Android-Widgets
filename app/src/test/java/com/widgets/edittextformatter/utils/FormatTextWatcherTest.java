@@ -69,6 +69,7 @@ public class FormatTextWatcherTest {
 
         when(editText.getSelectionStart()).thenReturn(currentCursorPosition);
         when(formatter.format(userInput, currentCursorPosition)).thenReturn(result);
+        when(formatter.canAcceptMoreCharacters(null)).thenReturn(true);
         FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter);
 
         // Act
