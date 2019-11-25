@@ -50,6 +50,11 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
         return removeFormatFrom(previousText).length() < getPossibleInputCount();
     }
 
+    @Override
+    public String removeFormat(String userInput) {
+        return removeFormatFrom(userInput);
+    }
+
     private int getPossibleInputCount() {
         int charCount = 0;
         for (int index = 0; index < format.length(); index++) {

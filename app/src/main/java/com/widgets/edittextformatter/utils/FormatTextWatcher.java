@@ -72,7 +72,7 @@ public class FormatTextWatcher implements TextWatcher {
             editText.setText(formattedInput.getFormattedUserInput());
             editText.setSelection(formattedInput.getFormattedCursorPosition());
 
-            if (validator.validate(formattedInput.getFormattedUserInput(), userInput)) {
+            if (validator.validate(formattedInput.getFormattedUserInput(), formatter.removeFormat(userInput))) {
                 listener.showHint();
             } else {
                 listener.showError();
@@ -86,6 +86,7 @@ public class FormatTextWatcher implements TextWatcher {
         Result format(String input, int currentCursorPosition);
         String getFormat();
         boolean canAcceptMoreCharacters(String previousText);
+        String removeFormat(String userInput);
     }
 
     private void maintainSameText(int formatLength, EditText editText, String previousText) {
