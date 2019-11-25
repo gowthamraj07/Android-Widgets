@@ -82,15 +82,4 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
         return inputCopy.trim();
     }
 
-    private int getNonDashCharactersCountFrom(String input, int tillCurrentCursorPosition) {
-        int nonDashCharacterCount = 0;
-        for (int index = 0; index < input.length() && index < format.length() && index < tillCurrentCursorPosition; index++) {
-            if (format.charAt(index) != '-') {
-                if (format.charAt(index) == input.charAt(index)) {
-                    nonDashCharacterCount++;
-                }
-            }
-        }
-        return nonDashCharacterCount;
-    }
 }
