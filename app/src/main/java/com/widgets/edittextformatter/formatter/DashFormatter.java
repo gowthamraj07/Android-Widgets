@@ -69,32 +69,13 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
     }
 
     private String removeFormatFrom(final String input) {
-        String unformattedInput = "";
-
         String inputCopy = input;
         String formatCopy = format;
-        for (int index = 0; index < inputCopy.length() && index < formatCopy.length(); index++) {
-            char charAtIndexInFormat = formatCopy.charAt(index);
-            char charAtIndexInInput = inputCopy.charAt(index);
-
-            if (charAtIndexInFormat == charAtIndexInInput) {
-                continue;
-            }
-
-            if (charAtIndexInFormat == '-') {
-                unformattedInput += charAtIndexInInput;
-                continue;
-            }
-
-            if (charAtIndexInFormat == ' ') {
-                unformattedInput += charAtIndexInInput;
-                return unformattedInput.trim();
-            }
-
-            return inputCopy;
+        for (int index = 0; index < formatCopy.length(); index++) {
+            inputCopy = inputCopy.replaceAll("\\"+formatCopy.charAt(index), "");
         }
 
-        return unformattedInput.trim();
+        return inputCopy.trim();
     }
 
     private int getNonDashCharactersCountFrom(String input, int tillCurrentCursorPosition) {
