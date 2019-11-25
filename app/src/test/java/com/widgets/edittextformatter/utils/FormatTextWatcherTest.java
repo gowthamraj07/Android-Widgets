@@ -89,12 +89,12 @@ public class FormatTextWatcherTest {
     }
 
     @Test
-    public void shouldInitializeInputLayoutWithHint_whenValidationListenerAndValidatorAreGiven() {
+    public void shouldInitializeInputLayoutWithEmpty_whenValidationListenerAndValidatorAreGiven() {
         FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
 
         textWatcher.init();
 
-        verify(listener).showSuccess();
+        verify(listener).showEmpty();
     }
 
     @Test
@@ -111,7 +111,6 @@ public class FormatTextWatcherTest {
         when(editText.getSelectionStart()).thenReturn(currentCursorPosition);
         when(formatter.format(userInput, currentCursorPosition)).thenReturn(result);
         when(formatter.canAcceptMoreCharacters(null)).thenReturn(true);
-        when(validator.validate(formattedUserInput, unformattedUserInput)).thenReturn(false);
         FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
 
         // Act
@@ -138,6 +137,7 @@ public class FormatTextWatcherTest {
         when(formatter.format(userInput, currentCursorPosition)).thenReturn(result);
         when(formatter.canAcceptMoreCharacters(null)).thenReturn(true);
         when(validator.validate(formattedUserInput, unformattedUserInput)).thenReturn(true);
+        when(formatter.removeFormat(userInput)).thenReturn(unformattedUserInput);
         FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
 
         // Act

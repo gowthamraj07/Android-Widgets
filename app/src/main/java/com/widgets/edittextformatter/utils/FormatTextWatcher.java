@@ -35,7 +35,7 @@ public class FormatTextWatcher implements TextWatcher {
         editText.setSelection(0);
         editText.setText("");
 
-        listener.showSuccess();
+        listener.showEmpty();
 
         int maxLengthOfEditText = format.length() + 1;
         setEditTextMaxLength(maxLengthOfEditText);
@@ -107,6 +107,7 @@ public class FormatTextWatcher implements TextWatcher {
     public interface ValidationListener {
         void showSuccess();
         void showError();
+        void showEmpty();
     }
 
     private class EmptyValidator implements Validator {
@@ -124,6 +125,11 @@ public class FormatTextWatcher implements TextWatcher {
 
         @Override
         public void showError() {
+
+        }
+
+        @Override
+        public void showEmpty() {
 
         }
     }

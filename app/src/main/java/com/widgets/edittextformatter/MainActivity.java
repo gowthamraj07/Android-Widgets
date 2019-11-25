@@ -37,6 +37,11 @@ public class MainActivity extends AppCompatActivity implements FormatTextWatcher
         textInputLayout1.setError("Not an even number");
     }
 
+    @Override
+    public void showEmpty() {
+        textInputLayout1.setError("");
+    }
+
     private class EvenNumberValidator implements FormatTextWatcher.Validator {
         @Override
         public boolean validate(String formattedUserInput, String unformattedUserInput) {
