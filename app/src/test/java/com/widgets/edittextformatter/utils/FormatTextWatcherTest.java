@@ -94,7 +94,7 @@ public class FormatTextWatcherTest {
 
         textWatcher.init();
 
-        verify(listener).showHint();
+        verify(listener).showSuccess();
     }
 
     @Test
@@ -147,7 +147,7 @@ public class FormatTextWatcherTest {
 
         // Assert
         verify(listener, times(0)).showError();
-        verify(listener).showHint();
+        verify(listener).showSuccess();
     }
 
     private class SpyFormatTextWatcher extends FormatTextWatcher {

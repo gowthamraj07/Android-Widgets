@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements FormatTextWatcher
     }
 
     @Override
-    public void showHint() {
+    public void showSuccess() {
         textInputLayout1.setError("");
     }
 

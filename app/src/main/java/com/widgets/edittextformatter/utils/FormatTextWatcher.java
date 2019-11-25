@@ -35,7 +35,7 @@ public class FormatTextWatcher implements TextWatcher {
         editText.setSelection(0);
         editText.setText("");
 
-        listener.showHint();
+        listener.showSuccess();
 
         int maxLengthOfEditText = format.length() + 1;
         setEditTextMaxLength(maxLengthOfEditText);
@@ -73,7 +73,7 @@ public class FormatTextWatcher implements TextWatcher {
             editText.setSelection(formattedInput.getFormattedCursorPosition());
 
             if (validator.validate(formattedInput.getFormattedUserInput(), formatter.removeFormat(userInput))) {
-                listener.showHint();
+                listener.showSuccess();
             } else {
                 listener.showError();
             }
@@ -105,7 +105,7 @@ public class FormatTextWatcher implements TextWatcher {
     }
 
     public interface ValidationListener {
-        void showHint();
+        void showSuccess();
         void showError();
     }
 
@@ -118,7 +118,7 @@ public class FormatTextWatcher implements TextWatcher {
 
     private class EmptyListener implements ValidationListener {
         @Override
-        public void showHint() {
+        public void showSuccess() {
 
         }
 
