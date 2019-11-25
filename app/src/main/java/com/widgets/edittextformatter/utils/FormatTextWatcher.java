@@ -9,6 +9,8 @@ public class FormatTextWatcher implements TextWatcher {
 
     private EditText editText;
     private Formatter formatter;
+    private final Validator validator;
+    private final ValidationListener listener;
     private boolean editable = true;
     private String previousText;
     private boolean isDelete = false;
@@ -16,6 +18,15 @@ public class FormatTextWatcher implements TextWatcher {
     public FormatTextWatcher(EditText editText, Formatter formatter) {
         this.editText = editText;
         this.formatter = formatter;
+        this.validator = new EmptyValidator();
+        this.listener = new EmptyListener();
+    }
+
+    public FormatTextWatcher(EditText editText, Formatter formatter, Validator validator, ValidationListener listener) {
+        this.editText = editText;
+        this.formatter = formatter;
+        this.validator = validator;
+        this.listener = listener;
     }
 
     public void init() {
@@ -23,6 +34,8 @@ public class FormatTextWatcher implements TextWatcher {
         editText.setHint(format);
         editText.setSelection(0);
         editText.setText("");
+
+        listener.showHint();
 
         int maxLengthOfEditText = format.length() + 1;
         setEditTextMaxLength(maxLengthOfEditText);
@@ -76,6 +89,23 @@ public class FormatTextWatcher implements TextWatcher {
             editText.setSelection(formatLength);
         } else {
             editText.setSelection(cursorPosition);
+        }
+    }
+
+    public interface Validator {
+    }
+
+    public interface ValidationListener {
+        void showHint();
+    }
+
+    private class EmptyValidator implements Validator {
+    }
+
+    private class EmptyListener implements ValidationListener {
+        @Override
+        public void showHint() {
+
         }
     }
 }

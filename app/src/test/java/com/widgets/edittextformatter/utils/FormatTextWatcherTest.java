@@ -19,11 +19,15 @@ public class FormatTextWatcherTest {
     private EditText editText;
     private FormatTextWatcher.Formatter formatter;
     private String format;
+    private FormatTextWatcher.Validator validator;
+    private FormatTextWatcher.ValidationListener listener;
 
     @Before
     public void setUp() {
         editText = mock(EditText.class);
         formatter = mock(FormatTextWatcher.Formatter.class);
+        validator = mock(FormatTextWatcher.Validator.class);
+        listener = mock(FormatTextWatcher.ValidationListener.class);
 
         format = "----";
         when(formatter.getFormat()).thenReturn(format);
@@ -83,6 +87,14 @@ public class FormatTextWatcherTest {
         verify(editText).setSelection(formattedCursorPosition);
     }
 
+    @Test
+    public void shouldInitializeInputLayoutWithHint_whenValidationListenerAndValidatorAreGiven() {
+        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
+
+        textWatcher.init();
+
+        verify(listener).showHint();
+    }
 
     private class SpyFormatTextWatcher extends FormatTextWatcher {
         int spyMaxLength;
