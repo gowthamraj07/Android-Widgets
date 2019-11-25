@@ -41,6 +41,22 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
         return format;
     }
 
+    @Override
+    public boolean canAcceptMoreCharacters(String previousText) {
+        return removeFormatFrom(previousText).length() < getPossibleInputCount();
+    }
+
+    private int getPossibleInputCount() {
+        int charCount = 0;
+        for (int index = 0; index < format.length(); index++) {
+            if (format.charAt(index) == '-') {
+                charCount++;
+            }
+        }
+
+        return charCount;
+    }
+
     private int calculateCursorPositionForUnformattedInput(final String input, final int currentCursorPosition) {
         int resultCursorPosition = currentCursorPosition;
         for (int index = 0; index < format.length() && index < input.length() && index < currentCursorPosition; index++) {

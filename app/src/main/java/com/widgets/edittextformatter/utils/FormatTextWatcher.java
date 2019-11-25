@@ -54,7 +54,7 @@ public class FormatTextWatcher implements TextWatcher {
         editable = false;
 
         int formatLength = formatter.getFormat().length();
-        if (isAlreadyReachedMaximumLength(s, formatLength)) {
+        if (!formatter.canAcceptMoreCharacters(previousText)) {
             maintainSameText(formatLength, editText, previousText);
         } else {
             Result formattedInput = formatter.format(s.toString(), editText.getSelectionStart());
@@ -67,8 +67,8 @@ public class FormatTextWatcher implements TextWatcher {
 
     public interface Formatter {
         Result format(String input, int currentCursorPosition);
-
         String getFormat();
+        boolean canAcceptMoreCharacters(String previousText);
     }
 
     private boolean isAlreadyReachedMaximumLength(Editable s, int formatLength) {
