@@ -84,4 +84,16 @@ public class DashFormatterTest {
 
         assertEquals(canAcceptMoreInputs, formatter.canAcceptMoreCharacters(input));
     }
+
+    @Test
+    @Parameters({
+            "$$ -- $$, $$    $$"
+    })
+    public void shouldReturnEmptyString_whenInputContainsOnlyFormat(String format, String input) {
+        DashFormatter formatter = new DashFormatter(format);
+
+        Result result = formatter.format(input, 0);
+
+        assertEquals("", result.getFormattedUserInput());
+    }
 }

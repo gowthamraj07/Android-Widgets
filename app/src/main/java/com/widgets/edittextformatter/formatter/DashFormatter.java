@@ -14,6 +14,10 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
     public Result format(final String input, final int currentCursorPosition) {
 
         String unformattedInput = removeFormatFrom(input);
+        if (unformattedInput.isEmpty()) {
+            return new Result("", 0);
+        }
+
         int cursorPositionWhenUnformattedInput = calculateCursorPositionForUnformattedInput(input.trim(), currentCursorPosition);
 
         String resultString = format;
