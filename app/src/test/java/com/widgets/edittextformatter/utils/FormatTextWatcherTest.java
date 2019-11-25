@@ -102,7 +102,6 @@ public class FormatTextWatcherTest {
         // Assign
         String userInput = "1234";
         String formattedUserInput = "12 34";
-        String unformattedUserInput = userInput;
 
         int currentCursorPosition = 3;
         int formattedCursorPosition = 4;
@@ -127,7 +126,6 @@ public class FormatTextWatcherTest {
         // Assign
         String userInput = "1234";
         String formattedUserInput = "12 34";
-        String unformattedUserInput = userInput;
 
         int currentCursorPosition = 3;
         int formattedCursorPosition = 4;
@@ -136,8 +134,8 @@ public class FormatTextWatcherTest {
         when(editText.getSelectionStart()).thenReturn(currentCursorPosition);
         when(formatter.format(userInput, currentCursorPosition)).thenReturn(result);
         when(formatter.canAcceptMoreCharacters(null)).thenReturn(true);
-        when(validator.validate(formattedUserInput, unformattedUserInput)).thenReturn(true);
-        when(formatter.removeFormat(userInput)).thenReturn(unformattedUserInput);
+        when(validator.validate(formattedUserInput, userInput)).thenReturn(true);
+        when(formatter.removeFormat(userInput)).thenReturn(userInput);
         FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
 
         // Act
