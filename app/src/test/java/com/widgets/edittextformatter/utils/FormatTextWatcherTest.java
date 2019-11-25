@@ -96,6 +96,32 @@ public class FormatTextWatcherTest {
         verify(listener).showHint();
     }
 
+    @Test
+    public void shouldShowError_whenValidationFails() {
+        // Assign
+        String userInput = "1234";
+        String formattedUserInput = "12 34";
+        String unformattedUserInput = userInput;
+
+        int currentCursorPosition = 3;
+        int formattedCursorPosition = 4;
+        Result result = new Result(formattedUserInput, formattedCursorPosition);
+
+        when(editText.getSelectionStart()).thenReturn(currentCursorPosition);
+        when(formatter.format(userInput, currentCursorPosition)).thenReturn(result);
+        when(formatter.canAcceptMoreCharacters(null)).thenReturn(true);
+        when(validator.validate(formattedUserInput, unformattedUserInput)).thenReturn(false);
+        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
+
+        // Act
+        Editable editable = mock(Editable.class);
+        when(editable.toString()).thenReturn(userInput);
+        textWatcher.afterTextChanged(editable);
+
+        // Assert
+        verify(listener).showError();
+    }
+
     private class SpyFormatTextWatcher extends FormatTextWatcher {
         int spyMaxLength;
 

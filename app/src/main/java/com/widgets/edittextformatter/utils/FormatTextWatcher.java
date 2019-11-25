@@ -67,9 +67,14 @@ public class FormatTextWatcher implements TextWatcher {
         if (!formatter.canAcceptMoreCharacters(previousText) && !isDelete) {
             maintainSameText(formatLength, editText, previousText);
         } else {
-            Result formattedInput = formatter.format(s.toString(), editText.getSelectionStart());
+            String userInput = s.toString();
+            Result formattedInput = formatter.format(userInput, editText.getSelectionStart());
             editText.setText(formattedInput.getFormattedUserInput());
             editText.setSelection(formattedInput.getFormattedCursorPosition());
+
+            if(!validator.validate(formattedInput.getFormattedUserInput(), userInput)) {
+                listener.showError();
+            }
         }
 
         editable = true;
@@ -93,18 +98,29 @@ public class FormatTextWatcher implements TextWatcher {
     }
 
     public interface Validator {
+        boolean validate(String formattedUserInput, String unformattedUserInput);
     }
 
     public interface ValidationListener {
         void showHint();
+        void showError();
     }
 
     private class EmptyValidator implements Validator {
+        @Override
+        public boolean validate(String formattedUserInput, String unformattedUserInput) {
+            return true;
+        }
     }
 
     private class EmptyListener implements ValidationListener {
         @Override
         public void showHint() {
+
+        }
+
+        @Override
+        public void showError() {
 
         }
     }
