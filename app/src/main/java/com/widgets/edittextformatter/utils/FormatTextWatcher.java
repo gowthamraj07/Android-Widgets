@@ -72,7 +72,9 @@ public class FormatTextWatcher implements TextWatcher {
             editText.setText(formattedInput.getFormattedUserInput());
             editText.setSelection(formattedInput.getFormattedCursorPosition());
 
-            if(!validator.validate(formattedInput.getFormattedUserInput(), userInput)) {
+            if (validator.validate(formattedInput.getFormattedUserInput(), userInput)) {
+                listener.showHint();
+            } else {
                 listener.showError();
             }
         }

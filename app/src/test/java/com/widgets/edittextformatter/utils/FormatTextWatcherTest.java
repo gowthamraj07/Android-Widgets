@@ -10,6 +10,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -120,6 +121,33 @@ public class FormatTextWatcherTest {
 
         // Assert
         verify(listener).showError();
+    }
+
+    @Test
+    public void shouldShowHint_whenValidationSuccess() {
+        // Assign
+        String userInput = "1234";
+        String formattedUserInput = "12 34";
+        String unformattedUserInput = userInput;
+
+        int currentCursorPosition = 3;
+        int formattedCursorPosition = 4;
+        Result result = new Result(formattedUserInput, formattedCursorPosition);
+
+        when(editText.getSelectionStart()).thenReturn(currentCursorPosition);
+        when(formatter.format(userInput, currentCursorPosition)).thenReturn(result);
+        when(formatter.canAcceptMoreCharacters(null)).thenReturn(true);
+        when(validator.validate(formattedUserInput, unformattedUserInput)).thenReturn(true);
+        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
+
+        // Act
+        Editable editable = mock(Editable.class);
+        when(editable.toString()).thenReturn(userInput);
+        textWatcher.afterTextChanged(editable);
+
+        // Assert
+        verify(listener, times(0)).showError();
+        verify(listener).showHint();
     }
 
     private class SpyFormatTextWatcher extends FormatTextWatcher {
