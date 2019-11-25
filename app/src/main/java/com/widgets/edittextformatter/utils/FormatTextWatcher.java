@@ -7,8 +7,6 @@ import android.widget.EditText;
 
 public class FormatTextWatcher implements TextWatcher {
 
-    private static final String TAG = FormatTextWatcher.class.getSimpleName();
-
     private EditText editText;
     private Formatter formatter;
     private boolean editable = true;
@@ -37,19 +35,16 @@ public class FormatTextWatcher implements TextWatcher {
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        //Log.d(TAG, "beforeTextChanged: s=" + s + ", start=" + start + ", count=" + count + ", after=" + after);
         previousText = s.toString();
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        //Log.d(TAG, "onTextChanged: s=" + s + ", start=" + start + ", before=" + before + ", count=" + count);
         isDelete = before != 0;
     }
 
     @Override
     public void afterTextChanged(Editable s) {
-        //Log.d(TAG, "afterTextChanged: s=" + s);
 
         if (!editable) return;
 
@@ -71,10 +66,6 @@ public class FormatTextWatcher implements TextWatcher {
         Result format(String input, int currentCursorPosition);
         String getFormat();
         boolean canAcceptMoreCharacters(String previousText);
-    }
-
-    private boolean isAlreadyReachedMaximumLength(Editable s, int formatLength) {
-        return s.length() > formatLength;
     }
 
     private void maintainSameText(int formatLength, EditText editText, String previousText) {
