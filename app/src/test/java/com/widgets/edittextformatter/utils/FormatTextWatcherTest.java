@@ -6,7 +6,9 @@ import android.widget.EditText;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -14,7 +16,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(JUnitParamsRunner.class)
 public class FormatTextWatcherTest {
 
     private EditText editText;
@@ -146,6 +148,21 @@ public class FormatTextWatcherTest {
         // Assert
         verify(listener, times(0)).showError();
         verify(listener).showSuccess();
+    }
+
+    @Test
+    @Parameters ({
+        "$$--$$ | $$  $$, 2",
+        "$--$ | $  $, 1",
+    })
+    public void shouldPlaceTheCursorAtFirstPossiblePosition(String format, String initialText, int expectedCursorPosition) {
+        when(formatter.getFormat()).thenReturn(format);
+        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter);
+
+        textWatcher.setInitialText();
+
+        verify(editText).setText(initialText);
+        verify(editText).setSelection(expectedCursorPosition);
     }
 
     private class SpyFormatTextWatcher extends FormatTextWatcher {
