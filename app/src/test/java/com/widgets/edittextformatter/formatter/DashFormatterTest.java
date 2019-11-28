@@ -97,4 +97,16 @@ public class DashFormatterTest {
 
         assertEquals("", result.getFormattedUserInput());
     }
+
+    @Test
+    @Parameters({
+            "$$--$$, $$  $$, 0 | 2"
+    })
+    public void shouldReturnCursorPositionOnlyInPossiblePositions(String format, String input, int initialCursorPosition, int expectedCursorPosition) {
+        DashFormatter formatter = new DashFormatter(format);
+
+        Result result = formatter.format(input, initialCursorPosition);
+
+        assertEquals(expectedCursorPosition, result.getFormattedCursorPosition());
+    }
 }

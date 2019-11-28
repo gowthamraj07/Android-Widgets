@@ -15,7 +15,7 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
 
         String unformattedInput = removeFormatFrom(input);
         if (unformattedInput.isEmpty()) {
-            return new Result("", 0);
+            return new Result("", getFirstPossibleCursorPosition());
         }
 
         int cursorPositionWhenUnformattedInput = calculateCursorPositionForUnformattedInput(input.trim(), currentCursorPosition);
@@ -38,6 +38,10 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
         }
 
         return new Result(resultString, formattedCursorPosition);
+    }
+
+    private int getFirstPossibleCursorPosition() {
+        return format.indexOf('-');
     }
 
     @Override
