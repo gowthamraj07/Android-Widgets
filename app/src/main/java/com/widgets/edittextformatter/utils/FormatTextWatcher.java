@@ -84,10 +84,7 @@ public class FormatTextWatcher implements TextWatcher {
 
     public void setInitialText() {
         String format = formatter.getFormat();
-        int initialCursorPosition = format.indexOf('-');
-
         editText.setText(format.replaceAll("-"," "));
-        editText.setSelection(initialCursorPosition);
     }
 
     public interface Formatter {

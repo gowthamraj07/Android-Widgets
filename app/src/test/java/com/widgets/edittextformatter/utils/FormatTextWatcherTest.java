@@ -162,7 +162,6 @@ public class FormatTextWatcherTest {
         textWatcher.setInitialText();
 
         verify(editText).setText(initialText);
-        verify(editText).setSelection(expectedCursorPosition);
     }
 
     private class SpyFormatTextWatcher extends FormatTextWatcher {
