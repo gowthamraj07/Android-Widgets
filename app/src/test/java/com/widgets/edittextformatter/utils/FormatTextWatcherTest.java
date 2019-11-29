@@ -166,7 +166,8 @@ public class FormatTextWatcherTest {
 
     @Test
     @Parameters ({
-            "$$ -- $$, | $$    $$"
+            "$$ -- $$, | $$    $$",
+            "$$ -- $$, $$ 1  $$| $$ 1  $$"
     })
     public void shouldSetFormatWithoutDashesAsInitialTextWhenNoInputIsGiven(String format, String input, String expectedResult) {
         when(formatter.getFormat()).thenReturn(format);

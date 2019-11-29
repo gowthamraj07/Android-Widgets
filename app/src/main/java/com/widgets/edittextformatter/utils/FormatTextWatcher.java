@@ -91,6 +91,8 @@ public class FormatTextWatcher implements TextWatcher {
         String text = editText.getText().toString();
         if (text.isEmpty()) {
             setInitialText();
+        } else {
+            editText.setText(text);
         }
     }
 
