@@ -84,13 +84,23 @@ public class FormatTextWatcher implements TextWatcher {
 
     public void setInitialText() {
         String format = formatter.getFormat();
-        editText.setText(format.replaceAll("-"," "));
+        editText.setText(format.replaceAll("-", " "));
+    }
+
+    public void setInitialTextWhenEmpty() {
+        String text = editText.getText().toString();
+        if (text.isEmpty()) {
+            setInitialText();
+        }
     }
 
     public interface Formatter {
         Result format(String input, int currentCursorPosition);
+
         String getFormat();
+
         boolean canAcceptMoreCharacters(String previousText);
+
         String removeFormat(String userInput);
     }
 
@@ -111,7 +121,9 @@ public class FormatTextWatcher implements TextWatcher {
 
     public interface ValidationListener {
         void showSuccess();
+
         void showError();
+
         void showEmpty();
     }
 

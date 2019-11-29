@@ -164,6 +164,22 @@ public class FormatTextWatcherTest {
         verify(editText).setText(initialText);
     }
 
+    @Test
+    @Parameters ({
+            "$$ -- $$, | $$    $$"
+    })
+    public void shouldSetFormatWithoutDashesAsInitialTextWhenNoInputIsGiven(String format, String input, String expectedResult) {
+        when(formatter.getFormat()).thenReturn(format);
+        Editable editable = mock(Editable.class);
+        when(editable.toString()).thenReturn(input);
+        when(editText.getText()).thenReturn(editable);
+        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter);
+
+        textWatcher.setInitialTextWhenEmpty();
+
+        verify(editText).setText(expectedResult);
+    }
+
     private class SpyFormatTextWatcher extends FormatTextWatcher {
         int spyMaxLength;
 
