@@ -2,6 +2,7 @@ package com.widgets.edittextformatter.formatter;
 
 import com.widgets.edittextformatter.utils.Result;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -87,6 +88,7 @@ public class DashFormatterTest {
         assertEquals(canAcceptMoreInputs, formatter.canAcceptMoreCharacters(input));
     }
 
+    @Ignore ("Need more analysis")
     @Test
     @Parameters({
             "$$ -- $$, $$    $$"
