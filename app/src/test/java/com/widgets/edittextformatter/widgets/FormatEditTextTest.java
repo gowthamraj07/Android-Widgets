@@ -1,18 +1,23 @@
 package com.widgets.edittextformatter.widgets;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(JUnitParamsRunner.class)
 public class FormatEditTextTest {
 
     @Test
-    public void shouldReturnFirstPossibleCursorPosition() {
-        int startSelection = 0;
-        String format = "$$ -- $$";
-
+    @Parameters({
+            "$$ -- $$, 0 | 3"
+    })
+    public void shouldReturnFirstPossibleCursorPosition(String format, int startSelection, int expectedCursorPosition) {
         int newSelectionStart = FormatEditText.getStartSelection(startSelection, format);
 
-        assertEquals(3, newSelectionStart);
+        assertEquals(expectedCursorPosition, newSelectionStart);
     }
 }
