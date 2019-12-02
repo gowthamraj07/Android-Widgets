@@ -11,6 +11,7 @@ public class FormatEditText extends AppCompatEditText {
 
 
     private FormatTextWatcher.Formatter formatter;
+    private boolean isOnSelectionChangeEnable;
 
     public FormatEditText(Context context) {
         super(context);
@@ -59,5 +60,13 @@ public class FormatEditText extends AppCompatEditText {
 
     public void initWith(FormatTextWatcher.Formatter formatter) {
         this.formatter = formatter;
+    }
+
+    public void disableOnSelectionChange() {
+        isOnSelectionChangeEnable = false;
+    }
+
+    public void enableOnSelectionChange() {
+        isOnSelectionChangeEnable = true;
     }
 }

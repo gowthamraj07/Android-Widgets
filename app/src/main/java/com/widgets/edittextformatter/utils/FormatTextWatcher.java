@@ -71,8 +71,11 @@ public class FormatTextWatcher implements TextWatcher {
         } else {
             String userInput = s.toString();
             Result formattedInput = formatter.format(userInput, editText.getSelectionStart());
+
+            editText.disableOnSelectionChange();
             editText.setText(formattedInput.getFormattedUserInput());
             editText.setSelection(formattedInput.getFormattedCursorPosition());
+            editText.enableOnSelectionChange();
 
             if (validator.validate(formattedInput.getFormattedUserInput(), formatter.removeFormat(userInput))) {
                 listener.showSuccess();

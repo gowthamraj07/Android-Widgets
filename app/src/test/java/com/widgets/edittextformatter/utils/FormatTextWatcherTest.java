@@ -182,6 +182,33 @@ public class FormatTextWatcherTest {
         verify(editText).setText(expectedResult);
     }
 
+    @Test
+    public void shouldStopCallingOnSelectionWhenUpdatingTheTextViaCode_AndResetItAgainForUserInput() {
+        // Assign
+        String userInput = "1234";
+        String formattedUserInput = "12 34";
+        int currentCursorPosition = 3;
+        int formattedCursorPosition = 4;
+        Result result = new Result(formattedUserInput, formattedCursorPosition);
+
+        when(editText.getSelectionStart()).thenReturn(currentCursorPosition);
+        when(formatter.format(userInput, currentCursorPosition)).thenReturn(result);
+        when(formatter.canAcceptMoreCharacters(null)).thenReturn(true);
+        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter);
+
+        // Act
+        Editable editable = mock(Editable.class);
+        when(editable.toString()).thenReturn(userInput);
+        textWatcher.afterTextChanged(editable);
+
+        // Assert
+        verify(formatter).format(userInput, currentCursorPosition);
+        verify(editText).disableOnSelectionChange();
+        verify(editText).setText(formattedUserInput);
+        verify(editText).setSelection(formattedCursorPosition);
+        verify(editText).enableOnSelectionChange();
+    }
+
     private class SpyFormatTextWatcher extends FormatTextWatcher {
         int spyMaxLength;
 
