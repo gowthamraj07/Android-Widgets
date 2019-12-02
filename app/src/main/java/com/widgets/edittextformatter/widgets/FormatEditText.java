@@ -19,4 +19,9 @@ public class FormatEditText extends AppCompatEditText {
     public FormatEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
+
+    public static int getStartSelection(int startSelection, String format) {
+        int firstPossibleIndex = format.indexOf('-');
+        return firstPossibleIndex;
+    }
 }
