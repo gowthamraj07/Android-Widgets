@@ -1,7 +1,8 @@
 package com.widgets.edittextformatter.utils;
 
 import android.text.Editable;
-import android.widget.EditText;
+
+import com.widgets.edittextformatter.widgets.FormatEditText;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +20,7 @@ import static org.mockito.Mockito.when;
 @RunWith(JUnitParamsRunner.class)
 public class FormatTextWatcherTest {
 
-    private EditText editText;
+    private FormatEditText editText;
     private FormatTextWatcher.Formatter formatter;
     private String format;
     private FormatTextWatcher.Validator validator;
@@ -27,7 +28,7 @@ public class FormatTextWatcherTest {
 
     @Before
     public void setUp() {
-        editText = mock(EditText.class);
+        editText = mock(FormatEditText.class);
         formatter = mock(FormatTextWatcher.Formatter.class);
         validator = mock(FormatTextWatcher.Validator.class);
         listener = mock(FormatTextWatcher.ValidationListener.class);
@@ -184,7 +185,7 @@ public class FormatTextWatcherTest {
     private class SpyFormatTextWatcher extends FormatTextWatcher {
         int spyMaxLength;
 
-        SpyFormatTextWatcher(EditText editText, Formatter formatter) {
+        SpyFormatTextWatcher(FormatEditText editText, Formatter formatter) {
             super(editText, formatter);
         }
 

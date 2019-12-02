@@ -5,9 +5,11 @@ import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import com.widgets.edittextformatter.widgets.FormatEditText;
+
 public class FormatTextWatcher implements TextWatcher {
 
-    private EditText editText;
+    private FormatEditText editText;
     private Formatter formatter;
     private final Validator validator;
     private final ValidationListener listener;
@@ -15,14 +17,14 @@ public class FormatTextWatcher implements TextWatcher {
     private String previousText;
     private boolean isDelete = false;
 
-    public FormatTextWatcher(EditText editText, Formatter formatter) {
+    public FormatTextWatcher(FormatEditText editText, Formatter formatter) {
         this.editText = editText;
         this.formatter = formatter;
         this.validator = new EmptyValidator();
         this.listener = new EmptyListener();
     }
 
-    public FormatTextWatcher(EditText editText, Formatter formatter, Validator validator, ValidationListener listener) {
+    public FormatTextWatcher(FormatEditText editText, Formatter formatter, Validator validator, ValidationListener listener) {
         this.editText = editText;
         this.formatter = formatter;
         this.validator = validator;
