@@ -28,7 +28,7 @@ public class FormatEditText extends AppCompatEditText {
     @Override
     protected void onSelectionChanged(int selStart, int selEnd) {
 
-        if (selStart == selEnd && formatter != null) {
+        if (selStart == selEnd && formatter != null && isOnSelectionChangeEnable) {
             selStart = getStartSelection(selStart, formatter.getFormat(), getText().toString());
             selStart = getLastSelection(selStart, formatter.getFormat(), getText().toString());
 
