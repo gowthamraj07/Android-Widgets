@@ -14,10 +14,19 @@ public class FormatEditTextTest {
     @Test
     @Parameters({
             "$$ -- $$, $$ -- $$, 0 | 3",
-            "$$ -- $$, $$ -- $$, 4 | 4",
             "$$ -- $$, , 4 | 0"
     })
     public void shouldReturnFirstPossibleCursorPosition(String format, String input, int startSelection, int expectedCursorPosition) {
+        int newSelectionStart = FormatEditText.getStartSelection(startSelection, format, input);
+
+        assertEquals(expectedCursorPosition, newSelectionStart);
+    }
+
+    @Test
+    @Parameters({
+            "$$ -- $$, $$ -- $$, 4 | -1"
+    })
+    public void shouldReturnMinus1_whenCursorIsInValidPosition(String format, String input, int startSelection, int expectedCursorPosition) {
         int newSelectionStart = FormatEditText.getStartSelection(startSelection, format, input);
 
         assertEquals(expectedCursorPosition, newSelectionStart);

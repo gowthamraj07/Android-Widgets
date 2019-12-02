@@ -40,12 +40,18 @@ public class FormatEditText extends AppCompatEditText {
 
     public static int getStartSelection(int startSelection, String format, String input) {
         int firstPossibleIndex = format.indexOf('-');
+        int lastPossibleCursorPosition = format.lastIndexOf('-') + 1;
 
         if (input == null || input.isEmpty()) {
             return 0;
         }
 
-        return startSelection < firstPossibleIndex ? firstPossibleIndex : startSelection;
+        int result = startSelection < firstPossibleIndex ? firstPossibleIndex : startSelection;
+        if (result > firstPossibleIndex && result < lastPossibleCursorPosition) {
+            return -1;
+        }
+
+        return result;
     }
 
     public static int getLastSelection(int startSelection, String format, String input) {
@@ -60,6 +66,7 @@ public class FormatEditText extends AppCompatEditText {
 
     public void initWith(FormatTextWatcher.Formatter formatter) {
         this.formatter = formatter;
+        enableOnSelectionChange();
     }
 
     public void disableOnSelectionChange() {
