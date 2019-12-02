@@ -49,6 +49,11 @@ public class FormatEditText extends AppCompatEditText {
 
     public static int getLastSelection(int startSelection, String format, String input) {
         int lastPossibleCursorPosition = format.lastIndexOf('-') + 1;
+
+        if (input == null || input.isEmpty()) {
+            return 0;
+        }
+
         return startSelection > lastPossibleCursorPosition ? lastPossibleCursorPosition : startSelection;
     }
 
