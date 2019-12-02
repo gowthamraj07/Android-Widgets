@@ -22,6 +22,6 @@ public class FormatEditText extends AppCompatEditText {
 
     public static int getStartSelection(int startSelection, String format) {
         int firstPossibleIndex = format.indexOf('-');
-        return firstPossibleIndex;
+        return startSelection < firstPossibleIndex ? firstPossibleIndex : startSelection;
     }
 }
