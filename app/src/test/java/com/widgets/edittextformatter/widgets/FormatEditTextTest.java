@@ -21,4 +21,14 @@ public class FormatEditTextTest {
 
         assertEquals(expectedCursorPosition, newSelectionStart);
     }
+
+    @Test
+    @Parameters({
+            "$$ -- $$, 7 | 5"
+    })
+    public void shouldReturnLastPossibleCursorPosition(String format, int startSelection, int expectedCursorPosition) {
+        int newSelectionStart = FormatEditText.getLastSelection(startSelection, format);
+
+        assertEquals(expectedCursorPosition, newSelectionStart);
+    }
 }
