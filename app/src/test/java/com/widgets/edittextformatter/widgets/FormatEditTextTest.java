@@ -13,11 +13,11 @@ public class FormatEditTextTest {
 
     @Test
     @Parameters({
-            "$$ -- $$, 0 | 3",
-            "$$ -- $$, 4 | 4",
+            "$$ -- $$, $$ -- $$, 0 | 3",
+            "$$ -- $$, $$ -- $$, 4 | 4",
     })
-    public void shouldReturnFirstPossibleCursorPosition(String format, int startSelection, int expectedCursorPosition) {
-        int newSelectionStart = FormatEditText.getStartSelection(startSelection, format);
+    public void shouldReturnFirstPossibleCursorPosition(String format, String input, int startSelection, int expectedCursorPosition) {
+        int newSelectionStart = FormatEditText.getStartSelection(startSelection, format, input);
 
         assertEquals(expectedCursorPosition, newSelectionStart);
     }

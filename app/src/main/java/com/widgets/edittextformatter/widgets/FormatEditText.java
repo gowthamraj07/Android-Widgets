@@ -5,8 +5,12 @@ import android.util.AttributeSet;
 
 import androidx.appcompat.widget.AppCompatEditText;
 
+import com.widgets.edittextformatter.utils.FormatTextWatcher;
+
 public class FormatEditText extends AppCompatEditText {
 
+
+    private FormatTextWatcher.Formatter formatter;
 
     public FormatEditText(Context context) {
         super(context);
@@ -20,7 +24,20 @@ public class FormatEditText extends AppCompatEditText {
         super(context, attrs, defStyleAttr);
     }
 
-    public static int getStartSelection(int startSelection, String format) {
+    @Override
+    protected void onSelectionChanged(int selStart, int selEnd) {
+
+        if (selStart == selEnd && formatter != null) {
+            selStart = getStartSelection(selStart, formatter.getFormat(), getText().toString());
+            selStart = getLastSelection(selStart, formatter.getFormat());
+
+            selEnd = selStart;
+
+            setSelection(selStart, selEnd);
+        }
+    }
+
+    public static int getStartSelection(int startSelection, String format, String input) {
         int firstPossibleIndex = format.indexOf('-');
         return startSelection < firstPossibleIndex ? firstPossibleIndex : startSelection;
     }
@@ -28,5 +45,9 @@ public class FormatEditText extends AppCompatEditText {
     public static int getLastSelection(int startSelection, String format) {
         int lastPossibleCursorPosition = format.lastIndexOf('-') + 1;
         return startSelection > lastPossibleCursorPosition ? lastPossibleCursorPosition : startSelection;
+    }
+
+    public void initWith(FormatTextWatcher.Formatter formatter) {
+        this.formatter = formatter;
     }
 }
