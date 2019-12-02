@@ -26,6 +26,7 @@ public class FormatEditText extends AppCompatEditText {
     }
 
     public static int getLastSelection(int startSelection, String format) {
-        return format.lastIndexOf('-') + 1;
+        int lastPossibleCursorPosition = format.lastIndexOf('-') + 1;
+        return startSelection > lastPossibleCursorPosition ? lastPossibleCursorPosition : startSelection;
     }
 }
