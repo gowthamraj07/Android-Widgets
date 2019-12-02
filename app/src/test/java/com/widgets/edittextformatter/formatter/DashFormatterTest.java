@@ -9,6 +9,7 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(JUnitParamsRunner.class)
 public class DashFormatterTest {
@@ -100,7 +101,8 @@ public class DashFormatterTest {
 
     @Test
     @Parameters({
-            "$$--$$, $$  $$, 0 | 2"
+            "$$--$$, $$  $$, 0 | 2",
+            "$$ -- $$, $$   $$, 3 | 3"
     })
     public void shouldReturnCursorPositionOnlyInPossiblePositions(String format, String input, int initialCursorPosition, int expectedCursorPosition) {
         DashFormatter formatter = new DashFormatter(format);
@@ -108,5 +110,6 @@ public class DashFormatterTest {
         Result result = formatter.format(input, initialCursorPosition);
 
         assertEquals(expectedCursorPosition, result.getFormattedCursorPosition());
+        assertTrue(result.getFormattedCursorPosition() < result.getFormattedUserInput().length());
     }
 }
