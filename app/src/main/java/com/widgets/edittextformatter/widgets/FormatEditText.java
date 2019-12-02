@@ -34,6 +34,13 @@ public class FormatEditText extends AppCompatEditText {
 
             selEnd = selStart;
 
+            updateWhenCursorIsInInvalidPosition(selStart, selEnd);
+        }
+    }
+
+    private void updateWhenCursorIsInInvalidPosition(int selStart, int selEnd) {
+        boolean isCursorIsInInvalidPosition = selStart != -1;
+        if (isCursorIsInInvalidPosition) {
             setSelection(selStart, selEnd);
         }
     }
