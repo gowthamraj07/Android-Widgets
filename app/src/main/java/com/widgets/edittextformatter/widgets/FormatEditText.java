@@ -29,7 +29,7 @@ public class FormatEditText extends AppCompatEditText {
 
         if (selStart == selEnd && formatter != null) {
             selStart = getStartSelection(selStart, formatter.getFormat(), getText().toString());
-            selStart = getLastSelection(selStart, formatter.getFormat());
+            selStart = getLastSelection(selStart, formatter.getFormat(), getText().toString());
 
             selEnd = selStart;
 
@@ -47,7 +47,7 @@ public class FormatEditText extends AppCompatEditText {
         return startSelection < firstPossibleIndex ? firstPossibleIndex : startSelection;
     }
 
-    public static int getLastSelection(int startSelection, String format) {
+    public static int getLastSelection(int startSelection, String format, String input) {
         int lastPossibleCursorPosition = format.lastIndexOf('-') + 1;
         return startSelection > lastPossibleCursorPosition ? lastPossibleCursorPosition : startSelection;
     }

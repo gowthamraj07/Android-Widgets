@@ -25,11 +25,11 @@ public class FormatEditTextTest {
 
     @Test
     @Parameters({
-            "$$ -- $$, 7 | 5",
-            "$$ -- $$, 4 | 4"
+            "$$ -- $$, $$ -- $$, 7 | 5",
+            "$$ -- $$, $$ -- $$, 4 | 4"
     })
-    public void shouldReturnLastPossibleCursorPosition(String format, int startSelection, int expectedCursorPosition) {
-        int newSelectionStart = FormatEditText.getLastSelection(startSelection, format);
+    public void shouldReturnLastPossibleCursorPosition(String format, String input, int startSelection, int expectedCursorPosition) {
+        int newSelectionStart = FormatEditText.getLastSelection(startSelection, format, input);
 
         assertEquals(expectedCursorPosition, newSelectionStart);
     }
