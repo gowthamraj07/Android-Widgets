@@ -184,11 +184,11 @@ public class FormatTextWatcherTest {
 
     @Test
     @Parameters ({
-            "$$ -- $$, ,| $$    $$, ",
-            "$$ -- $$, $$ 1  $$, 1| $$ 1  $$, 1",
-            "$$ -- $$, $$ 111 $$, 111| $$ 11 $$, 11"
+            "$$ -- $$, | $$    $$, ",
+            "$$ -- $$, $$ 1  $$| $$ 1  $$, 1",
+            "$$ -- $$, $$ 111 $$| $$ 11 $$, 11"
     })
-    public void shouldPassFormattedInputToValidationListenerMethods(String format, String formattedInput, String unformattedInput, String expectedFormattedInput, String expectedUnformattedInput) {
+    public void shouldPassFormattedInputToValidationListenerMethods(String format, String formattedInput, String expectedFormattedInput, String expectedUnformattedInput) {
         formatter = new DashFormatter(format);
         Editable editable = mock(Editable.class);
         when(editable.toString()).thenReturn(formattedInput);
