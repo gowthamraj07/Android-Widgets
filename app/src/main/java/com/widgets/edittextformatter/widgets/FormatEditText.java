@@ -2,9 +2,11 @@ package com.widgets.edittextformatter.widgets;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 
 import androidx.appcompat.widget.AppCompatEditText;
 
+import com.widgets.edittextformatter.formatter.DashFormatter;
 import com.widgets.edittextformatter.utils.FormatTextWatcher;
 
 public class FormatEditText extends AppCompatEditText {
@@ -12,6 +14,8 @@ public class FormatEditText extends AppCompatEditText {
 
     private FormatTextWatcher.Formatter formatter;
     private boolean isOnSelectionChangeEnable;
+    private FormatTextWatcher.Validator validator;
+    private FormatTextWatcher.ValidationListener validationListener;
 
     public FormatEditText(Context context) {
         super(context);
@@ -88,5 +92,32 @@ public class FormatEditText extends AppCompatEditText {
 
     public void enableOnSelectionChange() {
         isOnSelectionChangeEnable = true;
+    }
+
+    public void setFormat(String format) {
+        FormatTextWatcher.Formatter formatter = new DashFormatter(format);
+        final FormatTextWatcher textWatcher = new FormatTextWatcher(this, formatter, validator, validationListener);
+        this.initWith(formatter);
+        textWatcher.init();
+
+        this.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    textWatcher.setInitialText();
+                    FormatEditText.this.addTextChangedListener(textWatcher);
+                } else {
+                    FormatEditText.this.removeTextChangedListener(textWatcher);
+                }
+            }
+        });
+    }
+
+    public void setValidator(FormatTextWatcher.Validator validator) {
+        this.validator = validator;
+    }
+
+    public void setValidationListener(FormatTextWatcher.ValidationListener validationListener) {
+        this.validationListener = validationListener;
     }
 }

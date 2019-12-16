@@ -1,12 +1,10 @@
 package com.widgets.edittextformatter;
 
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.widgets.edittextformatter.formatter.DashFormatter;
 import com.widgets.edittextformatter.utils.FormatTextWatcher;
 import com.widgets.edittextformatter.widgets.FormatEditText;
 
@@ -21,37 +19,24 @@ public class MainActivity extends AppCompatActivity implements FormatTextWatcher
 
         textInputLayout1 = findViewById(R.id.text_input_layout_1);
         final FormatEditText editText = findViewById(R.id.ed_four_digit_code);
-        FormatTextWatcher.Formatter formatter = new DashFormatter("$$--$$");
-        final FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, new EvenNumberValidator(), this);
-        editText.initWith(formatter);
-        textWatcher.init();
-
-        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    textWatcher.setInitialText();
-                    editText.addTextChangedListener(textWatcher);
-                } else {
-                    editText.removeTextChangedListener(textWatcher);
-                }
-            }
-        });
+        editText.setValidator(new EvenNumberValidator());
+        editText.setValidationListener(new ValidationListener());
+        editText.setFormat("$$ -- $$");
     }
 
     @Override
     public void showSuccess() {
-        textInputLayout1.setError("");
+
     }
 
     @Override
     public void showError() {
-        textInputLayout1.setError("Not an even number");
+
     }
 
     @Override
     public void showEmpty() {
-        textInputLayout1.setError("");
+
     }
 
     private class EvenNumberValidator implements FormatTextWatcher.Validator {
@@ -62,6 +47,23 @@ public class MainActivity extends AppCompatActivity implements FormatTextWatcher
             }
 
             return (Integer.parseInt(unformattedUserInput) % 2) == 0;
+        }
+    }
+
+    private class ValidationListener implements FormatTextWatcher.ValidationListener {
+        @Override
+        public void showSuccess() {
+            textInputLayout1.setError("");
+        }
+
+        @Override
+        public void showError() {
+            textInputLayout1.setError("Not an even number");
+        }
+
+        @Override
+        public void showEmpty() {
+            textInputLayout1.setError("");
         }
     }
 }
