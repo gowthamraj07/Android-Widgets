@@ -2,6 +2,7 @@ package com.widgets.edittextformatter.utils;
 
 import android.text.Editable;
 
+import com.widgets.edittextformatter.formatter.DashFormatter;
 import com.widgets.edittextformatter.widgets.FormatEditText;
 
 import org.junit.Before;
@@ -12,8 +13,6 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -129,15 +128,17 @@ public class FormatTextWatcherTest {
         // Assign
         String userInput = "1234";
         String formattedUserInput = "12 34";
+        String format = "-- --";
 
         int currentCursorPosition = 3;
         int formattedCursorPosition = 4;
         Result result = new Result(formattedUserInput, formattedCursorPosition);
 
-        when(editText.getSelectionStart()).thenReturn(currentCursorPosition);
+        when(formatter.getFormat()).thenReturn(format);
         when(formatter.format(userInput, currentCursorPosition)).thenReturn(result);
+        when(formatter.removeFormat(formattedUserInput)).thenReturn(userInput);
+        when(editText.getSelectionStart()).thenReturn(currentCursorPosition);
         when(validator.validate(formattedUserInput, userInput)).thenReturn(true);
-        when(formatter.removeFormat(userInput)).thenReturn(userInput);
         FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
 
         // Act
@@ -183,13 +184,12 @@ public class FormatTextWatcherTest {
 
     @Test
     @Parameters ({
-            "$$ -- $$, ,| $$    $$",
-            "$$ -- $$, $$ 1  $$, 1| $$ 1  $$"
+            "$$ -- $$, ,| $$    $$, ",
+            "$$ -- $$, $$ 1  $$, 1| $$ 1  $$, 1",
+            "$$ -- $$, $$ 111 $$, 111| $$ 11 $$, 11"
     })
-    public void shouldPassFormattedInputToValidationListenerMethods(String format, String formattedInput, String unformattedInput, String expectedResult) {
-        when(formatter.getFormat()).thenReturn(format);
-        when(formatter.format(eq(formattedInput), anyInt())).thenReturn(new Result(formattedInput, 0));
-        when(formatter.removeFormat(formattedInput)).thenReturn(unformattedInput);
+    public void shouldPassFormattedInputToValidationListenerMethods(String format, String formattedInput, String unformattedInput, String expectedFormattedInput, String expectedUnformattedInput) {
+        formatter = new DashFormatter(format);
         Editable editable = mock(Editable.class);
         when(editable.toString()).thenReturn(formattedInput);
         when(editText.getText()).thenReturn(editable);
@@ -197,7 +197,7 @@ public class FormatTextWatcherTest {
 
         textWatcher.afterTextChanged(editable);
 
-        verify(validator).validate(formattedInput, unformattedInput);
+        verify(validator).validate(expectedFormattedInput, expectedUnformattedInput);
     }
 
     @Test
