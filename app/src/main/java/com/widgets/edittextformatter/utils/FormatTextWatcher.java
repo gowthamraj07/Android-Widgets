@@ -14,13 +14,6 @@ public class FormatTextWatcher implements TextWatcher {
     private final ValidationListener listener;
     private boolean editable = true;
 
-    public FormatTextWatcher(FormatEditText editText, Formatter formatter) {
-        this.editText = editText;
-        this.formatter = formatter;
-        this.validator = new EmptyValidator();
-        this.listener = new EmptyListener();
-    }
-
     public FormatTextWatcher(FormatEditText editText, Formatter formatter, Validator validator, ValidationListener listener) {
         this.editText = editText;
         this.formatter = formatter;
@@ -75,7 +68,6 @@ public class FormatTextWatcher implements TextWatcher {
             listener.showError();
         }
 
-
         editable = true;
     }
 
@@ -84,7 +76,7 @@ public class FormatTextWatcher implements TextWatcher {
         editText.setText(format.replaceAll("-", " "));
     }
 
-    public void setInitialTextWhenEmpty() {
+    void setInitialTextWhenEmpty() {
         String text = editText.getText().toString();
         if (text.isEmpty()) {
             setInitialText();
@@ -94,13 +86,10 @@ public class FormatTextWatcher implements TextWatcher {
     }
 
     public interface Formatter {
-        Result format(String input, int currentCursorPosition);
-
-        String getFormat();
-
         boolean canAcceptMoreCharacters(String previousText);
-
+        String getFormat();
         String removeFormat(String userInput);
+        Result format(String input, int currentCursorPosition);
     }
 
     public interface Validator {
@@ -109,33 +98,8 @@ public class FormatTextWatcher implements TextWatcher {
 
     public interface ValidationListener {
         void showSuccess();
-
         void showError();
-
         void showEmpty();
     }
 
-    private class EmptyValidator implements Validator {
-        @Override
-        public boolean validate(String formattedUserInput, String unformattedUserInput) {
-            return true;
-        }
-    }
-
-    private class EmptyListener implements ValidationListener {
-        @Override
-        public void showSuccess() {
-
-        }
-
-        @Override
-        public void showError() {
-
-        }
-
-        @Override
-        public void showEmpty() {
-
-        }
-    }
 }
