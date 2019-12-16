@@ -78,16 +78,6 @@ public class DashFormatterTest {
         assertEquals(nextCursorPosition, result.getFormattedCursorPosition());
     }
 
-    @Test
-    @Parameters({
-            "$$ 1  $$ | true"
-    })
-    public void shouldCheckWhetherFormatterCanAcceptMoreInputs(String input, boolean canAcceptMoreInputs) {
-        DashFormatter formatter = new DashFormatter("$$ -- $$");
-
-        assertEquals(canAcceptMoreInputs, formatter.canAcceptMoreCharacters(input));
-    }
-
     @Ignore ("Need more analysis")
     @Test
     @Parameters({

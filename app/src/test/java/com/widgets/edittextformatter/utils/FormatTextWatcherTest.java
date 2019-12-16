@@ -79,7 +79,6 @@ public class FormatTextWatcherTest {
 
         when(editText.getSelectionStart()).thenReturn(currentCursorPosition);
         when(formatter.format(userInput, currentCursorPosition)).thenReturn(result);
-        when(formatter.canAcceptMoreCharacters(null)).thenReturn(true);
         FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
 
         // Act
@@ -114,7 +113,6 @@ public class FormatTextWatcherTest {
 
         when(editText.getSelectionStart()).thenReturn(currentCursorPosition);
         when(formatter.format(userInput, currentCursorPosition)).thenReturn(result);
-        when(formatter.canAcceptMoreCharacters(null)).thenReturn(true);
         FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
 
         // Act
@@ -138,7 +136,6 @@ public class FormatTextWatcherTest {
 
         when(editText.getSelectionStart()).thenReturn(currentCursorPosition);
         when(formatter.format(userInput, currentCursorPosition)).thenReturn(result);
-        when(formatter.canAcceptMoreCharacters(null)).thenReturn(true);
         when(validator.validate(formattedUserInput, userInput)).thenReturn(true);
         when(formatter.removeFormat(userInput)).thenReturn(userInput);
         FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
@@ -191,7 +188,6 @@ public class FormatTextWatcherTest {
     })
     public void shouldPassFormattedInputToValidationListenerMethods(String format, String formattedInput, String unformattedInput, String expectedResult) {
         when(formatter.getFormat()).thenReturn(format);
-        when(formatter.canAcceptMoreCharacters(null)).thenReturn(true);
         when(formatter.format(eq(formattedInput), anyInt())).thenReturn(new Result(formattedInput, 0));
         when(formatter.removeFormat(formattedInput)).thenReturn(unformattedInput);
         Editable editable = mock(Editable.class);
@@ -215,7 +211,6 @@ public class FormatTextWatcherTest {
 
         when(editText.getSelectionStart()).thenReturn(currentCursorPosition);
         when(formatter.format(userInput, currentCursorPosition)).thenReturn(result);
-        when(formatter.canAcceptMoreCharacters(null)).thenReturn(true);
         FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
 
         // Act

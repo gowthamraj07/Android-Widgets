@@ -86,7 +86,6 @@ public class FormatTextWatcher implements TextWatcher {
     }
 
     public interface Formatter {
-        boolean canAcceptMoreCharacters(String previousText);
         String getFormat();
         String removeFormat(String userInput);
         Result format(String input, int currentCursorPosition);

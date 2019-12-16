@@ -46,11 +46,6 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
     }
 
     @Override
-    public boolean canAcceptMoreCharacters(String previousText) {
-        return removeFormatFrom(previousText).length() < getPossibleInputCount();
-    }
-
-    @Override
     public String removeFormat(String userInput) {
         return removeFormatFrom(userInput);
     }
