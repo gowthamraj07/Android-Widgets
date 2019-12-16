@@ -12,6 +12,8 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -180,6 +182,26 @@ public class FormatTextWatcherTest {
         textWatcher.setInitialTextWhenEmpty();
 
         verify(editText).setText(expectedResult);
+    }
+
+    @Test
+    @Parameters ({
+            "$$ -- $$, ,| $$    $$",
+            "$$ -- $$, $$ 1  $$, 1| $$ 1  $$"
+    })
+    public void shouldPassFormattedInputToValidationListenerMethods(String format, String formattedInput, String unformattedInput, String expectedResult) {
+        when(formatter.getFormat()).thenReturn(format);
+        when(formatter.canAcceptMoreCharacters(null)).thenReturn(true);
+        when(formatter.format(eq(formattedInput), anyInt())).thenReturn(new Result(formattedInput, 0));
+        when(formatter.removeFormat(formattedInput)).thenReturn(unformattedInput);
+        Editable editable = mock(Editable.class);
+        when(editable.toString()).thenReturn(formattedInput);
+        when(editText.getText()).thenReturn(editable);
+        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
+
+        textWatcher.afterTextChanged(editable);
+
+        verify(validator).validate(formattedInput, unformattedInput);
     }
 
     @Test
