@@ -41,7 +41,7 @@ public class FormatTextWatcherTest {
 
     @Test
     public void shouldDisplayNothingAndCursorShouldBeAt0_whenInitialized() {
-        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter);
+        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
 
         textWatcher.init();
 
@@ -51,7 +51,7 @@ public class FormatTextWatcherTest {
 
     @Test
     public void shouldDisplayFormatAsHint_whenInitialized() {
-        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter);
+        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
 
         textWatcher.init();
 
@@ -60,7 +60,7 @@ public class FormatTextWatcherTest {
 
     @Test
     public void shouldGetTheFormatAndSetMaxLengthForEditText_WithTheLengthOfTheFormatPlus1() {
-        SpyFormatTextWatcher textWatcher = new SpyFormatTextWatcher(editText, formatter);
+        SpyFormatTextWatcher textWatcher = new SpyFormatTextWatcher();
 
         textWatcher.init();
 
@@ -80,7 +80,7 @@ public class FormatTextWatcherTest {
         when(editText.getSelectionStart()).thenReturn(currentCursorPosition);
         when(formatter.format(userInput, currentCursorPosition)).thenReturn(result);
         when(formatter.canAcceptMoreCharacters(null)).thenReturn(true);
-        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter);
+        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
 
         // Act
         Editable editable = mock(Editable.class);
@@ -160,7 +160,7 @@ public class FormatTextWatcherTest {
     })
     public void shouldPlaceTheCursorAtFirstPossiblePosition(String format, String initialText, int expectedCursorPosition) {
         when(formatter.getFormat()).thenReturn(format);
-        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter);
+        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
 
         textWatcher.setInitialText();
 
@@ -177,7 +177,7 @@ public class FormatTextWatcherTest {
         Editable editable = mock(Editable.class);
         when(editable.toString()).thenReturn(input);
         when(editText.getText()).thenReturn(editable);
-        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter);
+        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
 
         textWatcher.setInitialTextWhenEmpty();
 
@@ -216,7 +216,7 @@ public class FormatTextWatcherTest {
         when(editText.getSelectionStart()).thenReturn(currentCursorPosition);
         when(formatter.format(userInput, currentCursorPosition)).thenReturn(result);
         when(formatter.canAcceptMoreCharacters(null)).thenReturn(true);
-        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter);
+        FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
 
         // Act
         Editable editable = mock(Editable.class);
@@ -234,8 +234,8 @@ public class FormatTextWatcherTest {
     private class SpyFormatTextWatcher extends FormatTextWatcher {
         int spyMaxLength;
 
-        SpyFormatTextWatcher(FormatEditText editText, Formatter formatter) {
-            super(editText, formatter);
+        SpyFormatTextWatcher() {
+            super(editText, formatter, validator, listener);
         }
 
         @Override
