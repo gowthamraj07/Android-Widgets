@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         textInputLayout1 = findViewById(R.id.text_input_layout_1);
-        final FormatEditText editText = findViewById(R.id.ed_four_digit_code);
+        final FormatEditText editText = findViewById(R.id.ed_text);
         editText.setValidator(new EvenNumberValidator());
         editText.setValidationListener(new ValidationListener());
         editText.setFormat("$$ -- $$");
