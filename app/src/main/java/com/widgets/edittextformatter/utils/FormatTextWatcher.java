@@ -3,7 +3,6 @@ package com.widgets.edittextformatter.utils;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.widget.EditText;
 
 import com.widgets.edittextformatter.widgets.FormatEditText;
 
@@ -14,8 +13,6 @@ public class FormatTextWatcher implements TextWatcher {
     private final Validator validator;
     private final ValidationListener listener;
     private boolean editable = true;
-    private String previousText;
-    private boolean isDelete = false;
 
     public FormatTextWatcher(FormatEditText editText, Formatter formatter) {
         this.editText = editText;
@@ -50,39 +47,34 @@ public class FormatTextWatcher implements TextWatcher {
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        previousText = s.toString();
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        isDelete = before != 0;
     }
 
     @Override
     public void afterTextChanged(Editable s) {
-
-        if (!editable) return;
+        if (!editable) {
+            return;
+        }
 
         editable = false;
 
-        int formatLength = formatter.getFormat().length();
-        if (!formatter.canAcceptMoreCharacters(previousText) && !isDelete) {
-            maintainSameText(formatLength, editText, previousText);
+        String userInput = s.toString();
+        Result formattedInput = formatter.format(userInput, editText.getSelectionStart());
+
+        editText.disableOnSelectionChange();
+        editText.setText(formattedInput.getFormattedUserInput());
+        editText.setSelection(formattedInput.getFormattedCursorPosition());
+        editText.enableOnSelectionChange();
+
+        if (validator.validate(formattedInput.getFormattedUserInput(), formatter.removeFormat(userInput))) {
+            listener.showSuccess();
         } else {
-            String userInput = s.toString();
-            Result formattedInput = formatter.format(userInput, editText.getSelectionStart());
-
-            editText.disableOnSelectionChange();
-            editText.setText(formattedInput.getFormattedUserInput());
-            editText.setSelection(formattedInput.getFormattedCursorPosition());
-            editText.enableOnSelectionChange();
-
-            if (validator.validate(formattedInput.getFormattedUserInput(), formatter.removeFormat(userInput))) {
-                listener.showSuccess();
-            } else {
-                listener.showError();
-            }
+            listener.showError();
         }
+
 
         editable = true;
     }
@@ -109,17 +101,6 @@ public class FormatTextWatcher implements TextWatcher {
         boolean canAcceptMoreCharacters(String previousText);
 
         String removeFormat(String userInput);
-    }
-
-    private void maintainSameText(int formatLength, EditText editText, String previousText) {
-        int cursorPosition = editText.getSelectionStart() - 1;
-        editText.setText(previousText);
-
-        if (cursorPosition > formatLength) {
-            editText.setSelection(formatLength);
-        } else {
-            editText.setSelection(cursorPosition);
-        }
     }
 
     public interface Validator {
