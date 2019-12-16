@@ -8,7 +8,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.widgets.edittextformatter.utils.FormatTextWatcher;
 import com.widgets.edittextformatter.widgets.FormatEditText;
 
-public class MainActivity extends AppCompatActivity implements FormatTextWatcher.ValidationListener {
+public class MainActivity extends AppCompatActivity {
 
     private TextInputLayout textInputLayout1;
 
@@ -22,21 +22,6 @@ public class MainActivity extends AppCompatActivity implements FormatTextWatcher
         editText.setValidator(new EvenNumberValidator());
         editText.setValidationListener(new ValidationListener());
         editText.setFormat("$$ -- $$");
-    }
-
-    @Override
-    public void showSuccess() {
-
-    }
-
-    @Override
-    public void showError() {
-
-    }
-
-    @Override
-    public void showEmpty() {
-
     }
 
     private class EvenNumberValidator implements FormatTextWatcher.Validator {
