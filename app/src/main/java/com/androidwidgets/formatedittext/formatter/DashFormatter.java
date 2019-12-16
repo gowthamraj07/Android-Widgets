@@ -1,7 +1,7 @@
-package com.widgets.edittextformatter.formatter;
+package com.androidwidgets.formatedittext.formatter;
 
-import com.widgets.edittextformatter.utils.FormatTextWatcher;
-import com.widgets.edittextformatter.utils.Result;
+import com.androidwidgets.formatedittext.utils.FormatTextWatcher;
+import com.androidwidgets.formatedittext.utils.Result;
 
 public class DashFormatter implements FormatTextWatcher.Formatter {
     private final String format;

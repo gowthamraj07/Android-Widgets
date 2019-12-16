@@ -1,4 +1,4 @@
-package com.widgets.edittextformatter.widgets;
+package com.androidwidgets.formatedittext.widgets;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

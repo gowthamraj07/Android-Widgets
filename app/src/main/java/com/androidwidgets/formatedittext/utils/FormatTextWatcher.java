@@ -1,10 +1,10 @@
-package com.widgets.edittextformatter.utils;
+package com.androidwidgets.formatedittext.utils;
 
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 
-import com.widgets.edittextformatter.widgets.FormatEditText;
+import com.androidwidgets.formatedittext.widgets.FormatEditText;
 
 public class FormatTextWatcher implements TextWatcher {
 

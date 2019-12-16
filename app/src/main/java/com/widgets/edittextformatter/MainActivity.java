@@ -4,9 +4,9 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.androidwidgets.formatedittext.utils.FormatTextWatcher;
+import com.androidwidgets.formatedittext.widgets.FormatEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.widgets.edittextformatter.utils.FormatTextWatcher;
-import com.widgets.edittextformatter.widgets.FormatEditText;
 
 public class MainActivity extends AppCompatActivity {
 

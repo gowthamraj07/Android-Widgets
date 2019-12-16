@@ -1,6 +1,6 @@
-package com.widgets.edittextformatter.formatter;
+package com.androidwidgets.formatedittext.formatter;
 
-import com.widgets.edittextformatter.utils.Result;
+import com.androidwidgets.formatedittext.utils.Result;
 
 import org.junit.Ignore;
 import org.junit.Test;

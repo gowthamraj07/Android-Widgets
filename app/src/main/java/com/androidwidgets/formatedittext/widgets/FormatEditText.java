@@ -1,4 +1,4 @@
-package com.widgets.edittextformatter.widgets;
+package com.androidwidgets.formatedittext.widgets;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -6,8 +6,8 @@ import android.view.View;
 
 import androidx.appcompat.widget.AppCompatEditText;
 
-import com.widgets.edittextformatter.formatter.DashFormatter;
-import com.widgets.edittextformatter.utils.FormatTextWatcher;
+import com.androidwidgets.formatedittext.formatter.DashFormatter;
+import com.androidwidgets.formatedittext.utils.FormatTextWatcher;
 
 public class FormatEditText extends AppCompatEditText {
 
