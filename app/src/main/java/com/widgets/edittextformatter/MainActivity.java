@@ -1,11 +1,12 @@
 package com.widgets.edittextformatter;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.androidwidgets.formatedittext.utils.FormatEditTextFactory;
 import com.androidwidgets.formatedittext.utils.FormatTextWatcher;
-import com.androidwidgets.formatedittext.widgets.FormatEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,10 +19,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         textInputLayout1 = findViewById(R.id.text_input_layout_1);
-        final FormatEditText editText = findViewById(R.id.ed_text);
-        editText.setValidator(new EvenNumberValidator());
-        editText.setValidationListener(new ValidationListener());
-        editText.setFormat("$$ -- $$");
+
+        View rootView = findViewById(android.R.id.content).getRootView();
+        new FormatEditTextFactory(rootView, R.id.ed_text)
+                .setValidation(new EvenNumberValidator(), new ValidationListener())
+                .setFormat("+91 ----- -----")
+                .build();
+
     }
 
     private class EvenNumberValidator implements FormatTextWatcher.Validator {
@@ -31,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
 
-            return (Integer.parseInt(unformattedUserInput) % 2) == 0;
+            return (Long.parseLong(unformattedUserInput) % 2) == 0;
         }
     }
 
