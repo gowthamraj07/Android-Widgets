@@ -1,7 +1,10 @@
 package com.androidwidgets.formatedittext.widgets;
 
+import android.text.InputFilter;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -43,5 +46,15 @@ public class FormatEditTextTest {
         int newSelectionStart = FormatEditText.getLastSelection(startSelection, format, input);
 
         assertEquals(expectedCursorPosition, newSelectionStart);
+    }
+
+    @Test
+    public void shouldAddGivenInputFilterToTheFilterList() {
+        InputFilter[] existingFilters = new InputFilter[0];
+        InputFilter newFilter = Mockito.mock(InputFilter.class);
+
+        InputFilter[] resultFilters = FormatEditText.addInputFilterTo(existingFilters, newFilter);
+
+        assertEquals(existingFilters.length + 1, resultFilters.length);
     }
 }

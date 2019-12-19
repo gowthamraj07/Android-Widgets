@@ -1,6 +1,7 @@
 package com.androidwidgets.formatedittext.widgets;
 
 import android.content.Context;
+import android.text.InputFilter;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -8,6 +9,10 @@ import androidx.appcompat.widget.AppCompatEditText;
 
 import com.androidwidgets.formatedittext.formatter.DashFormatter;
 import com.androidwidgets.formatedittext.utils.FormatTextWatcher;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class FormatEditText extends AppCompatEditText {
 
@@ -117,5 +122,15 @@ public class FormatEditText extends AppCompatEditText {
     private void initWith(FormatTextWatcher.Formatter formatter) {
         this.formatter = formatter;
         enableOnSelectionChange();
+    }
+
+    public void addFilter(InputFilter.LengthFilter inputFilter) {
+        setFilters(addInputFilterTo(getFilters(), inputFilter));
+    }
+
+    static InputFilter[] addInputFilterTo(InputFilter[] existingFilters, InputFilter newFilter) {
+        Set<InputFilter> filters = new HashSet<>(Arrays.asList(existingFilters));
+        filters.add(newFilter);
+        return filters.toArray(new InputFilter[filters.size()]);
     }
 }
