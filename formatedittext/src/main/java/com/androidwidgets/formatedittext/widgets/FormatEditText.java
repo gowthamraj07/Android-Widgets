@@ -68,6 +68,10 @@ public class FormatEditText extends AppCompatEditText {
         this.validationListener = validationListener;
     }
 
+    public void addFilter(InputFilter.LengthFilter inputFilter) {
+        setFilters(addInputFilterTo(getFilters(), inputFilter));
+    }
+
     @Override
     protected void onSelectionChanged(int selStart, int selEnd) {
         if (selStart == selEnd && formatter != null && isOnSelectionChangeEnable) {
@@ -80,20 +84,22 @@ public class FormatEditText extends AppCompatEditText {
         }
     }
 
-    static int getStartSelection(int startSelection, String format, String input) {
-        int firstPossibleIndex = format.indexOf('-');
-        int lastPossibleCursorPosition = format.lastIndexOf('-') + 1;
-
-        if (input == null || input.isEmpty()) {
-            return 0;
+    private void updateWhenCursorIsInInvalidPosition(int selStart, int selEnd) {
+        boolean isCursorIsInInvalidPosition = selStart != -1;
+        if (isCursorIsInInvalidPosition) {
+            setSelection(selStart, selEnd);
         }
+    }
 
-        int result = startSelection < firstPossibleIndex ? firstPossibleIndex : startSelection;
-        if (result > firstPossibleIndex && result < lastPossibleCursorPosition) {
-            return -1;
-        }
+    private void initWith(FormatTextWatcher.Formatter formatter) {
+        this.formatter = formatter;
+        enableOnSelectionChange();
+    }
 
-        return result;
+    static InputFilter[] addInputFilterTo(InputFilter[] existingFilters, InputFilter newFilter) {
+        Set<InputFilter> filters = new HashSet<>(Arrays.asList(existingFilters));
+        filters.add(newFilter);
+        return filters.toArray(new InputFilter[filters.size()]);
     }
 
     static int getLastSelection(int startSelection, String format, String input) {
@@ -112,25 +118,19 @@ public class FormatEditText extends AppCompatEditText {
         return result;
     }
 
-    private void updateWhenCursorIsInInvalidPosition(int selStart, int selEnd) {
-        boolean isCursorIsInInvalidPosition = selStart != -1;
-        if (isCursorIsInInvalidPosition) {
-            setSelection(selStart, selEnd);
+    static int getStartSelection(int startSelection, String format, String input) {
+        int firstPossibleIndex = format.indexOf('-');
+        int lastPossibleCursorPosition = format.lastIndexOf('-') + 1;
+
+        if (input == null || input.isEmpty()) {
+            return 0;
         }
-    }
 
-    private void initWith(FormatTextWatcher.Formatter formatter) {
-        this.formatter = formatter;
-        enableOnSelectionChange();
-    }
+        int result = startSelection < firstPossibleIndex ? firstPossibleIndex : startSelection;
+        if (result > firstPossibleIndex && result < lastPossibleCursorPosition) {
+            return -1;
+        }
 
-    public void addFilter(InputFilter.LengthFilter inputFilter) {
-        setFilters(addInputFilterTo(getFilters(), inputFilter));
-    }
-
-    static InputFilter[] addInputFilterTo(InputFilter[] existingFilters, InputFilter newFilter) {
-        Set<InputFilter> filters = new HashSet<>(Arrays.asList(existingFilters));
-        filters.add(newFilter);
-        return filters.toArray(new InputFilter[filters.size()]);
+        return result;
     }
 }
