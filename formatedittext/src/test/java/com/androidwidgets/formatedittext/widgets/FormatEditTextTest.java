@@ -49,12 +49,23 @@ public class FormatEditTextTest {
     }
 
     @Test
-    public void shouldAddGivenInputFilterToTheFilterList() {
+    public void shouldAddGivenInputFilterToExistingFilters() {
         InputFilter[] existingFilters = new InputFilter[0];
         InputFilter newFilter = Mockito.mock(InputFilter.class);
 
         InputFilter[] resultFilters = FormatEditText.addInputFilterTo(existingFilters, newFilter);
 
         assertEquals(existingFilters.length + 1, resultFilters.length);
+    }
+
+    @Test
+    public void shouldRemoveGivenInputFilterFromExistingFilters() {
+        InputFilter[] existingFilters = new InputFilter[1];
+        InputFilter newFilter = Mockito.mock(InputFilter.class);
+        existingFilters[0] = newFilter;
+
+        InputFilter[] resultFilters = FormatEditText.removeInputFilterTo(existingFilters, newFilter);
+
+        assertEquals(existingFilters.length - 1, resultFilters.length);
     }
 }

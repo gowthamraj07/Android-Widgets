@@ -102,6 +102,12 @@ public class FormatEditText extends AppCompatEditText {
         return filters.toArray(new InputFilter[filters.size()]);
     }
 
+    static InputFilter[] removeInputFilterTo(InputFilter[] existingFilters, InputFilter newFilter) {
+        Set<InputFilter> filters = new HashSet<>(Arrays.asList(existingFilters));
+        filters.remove(newFilter);
+        return filters.toArray(new InputFilter[filters.size()]);
+    }
+
     static int getLastSelection(int startSelection, String format, String input) {
         int firstPossibleIndex = format.indexOf('-');
         int lastPossibleCursorPosition = format.lastIndexOf('-') + 1;
