@@ -104,4 +104,16 @@ public class DashFormatterTest {
         assertEquals(expectedCursorPosition, result.getFormattedCursorPosition());
         assertTrue(result.getFormattedCursorPosition() < result.getFormattedUserInput().length());
     }
+
+    @Test
+    @Parameters({
+            "$$ -- $$, $$ 1 $$ | 1",
+    })
+    public void shouldRemoveFormat(String format, String text, String unformattedText) {
+        DashFormatter formatter = new DashFormatter(format);
+
+        String result = formatter.removeFormat(text);
+
+        assertEquals(unformattedText, result);
+    }
 }

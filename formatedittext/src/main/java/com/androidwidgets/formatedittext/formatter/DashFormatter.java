@@ -65,7 +65,7 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
         return format.indexOf('-');
     }
 
-    private String removeFormatFrom(final String input) {
+    String removeFormatFrom(final String input) {
         String inputCopy = input;
         String formatCopy = format;
         for (int index = 0; index < formatCopy.length(); index++) {
