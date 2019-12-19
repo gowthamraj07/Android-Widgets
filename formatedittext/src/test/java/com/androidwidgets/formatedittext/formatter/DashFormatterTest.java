@@ -107,7 +107,8 @@ public class DashFormatterTest {
 
     @Test
     @Parameters({
-            "$$ -- $$, $$ 1 $$ | 1",
+            "$$ -- $$, $$ 1  $$ | 1",
+            "+91 ----- -----, +91  91 | 91"
     })
     public void shouldRemoveFormat(String format, String text, String unformattedText) {
         DashFormatter formatter = new DashFormatter(format);

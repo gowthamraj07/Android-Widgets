@@ -15,7 +15,7 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
 
         String unformattedInput = removeFormatFrom(input);
         if (unformattedInput.isEmpty()) {
-            return new Result(format.replaceAll("-"," "), getFirstPossibleCursorPosition());
+            return new Result(format.replaceAll("-", " "), getFirstPossibleCursorPosition());
         }
 
         int cursorPositionWhenUnformattedInput = calculateCursorPositionForUnformattedInput(input.trim(), currentCursorPosition);
@@ -69,10 +69,31 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
         String inputCopy = input;
         String formatCopy = format;
         for (int index = 0; index < formatCopy.length(); index++) {
-            inputCopy = inputCopy.replaceAll("\\"+formatCopy.charAt(index), "");
+            char characterAtIndex = formatCopy.charAt(index);
+            inputCopy = removeCharacterFromInput(inputCopy, index, characterAtIndex);
         }
 
-        return inputCopy.trim();
+        return inputCopy.replaceAll(" ", "").trim();
+    }
+
+    private String removeCharacterFromInput(String inputCopy, int index, char characterAtIndex) {
+        if (isDigit(characterAtIndex)) {
+            return replaceCharaterPositionWithSpace(inputCopy, index);
+        } else {
+            return replaceAllMatchedCharactersWithSpace(inputCopy, characterAtIndex);
+        }
+    }
+
+    private String replaceAllMatchedCharactersWithSpace(String inputCopy, char characterAtIndex) {
+        return inputCopy.replaceAll("\\" + characterAtIndex, " ");
+    }
+
+    private String replaceCharaterPositionWithSpace(String inputCopy, int index) {
+        return inputCopy.substring(0, index) + " " + inputCopy.substring(index + 1);
+    }
+
+    private boolean isDigit(char characterAtIndex) {
+        return characterAtIndex > 47 && characterAtIndex < 58;
     }
 
 }
