@@ -72,6 +72,10 @@ public class FormatEditText extends AppCompatEditText {
         setFilters(addInputFilterTo(getFilters(), inputFilter));
     }
 
+    public void removeFilter(InputFilter.LengthFilter inputFilter) {
+        setFilters(removeInputFilterTo(getFilters(), inputFilter));
+    }
+
     @Override
     protected void onSelectionChanged(int selStart, int selEnd) {
         if (selStart == selEnd && formatter != null && isOnSelectionChangeEnable) {
