@@ -68,10 +68,12 @@ public class FormatEditText extends AppCompatEditText {
         this.validationListener = validationListener;
     }
 
+    @SuppressWarnings("unused")
     public void addFilter(InputFilter.LengthFilter inputFilter) {
         setFilters(addInputFilterTo(getFilters(), inputFilter));
     }
 
+    @SuppressWarnings("unused")
     public void removeFilter(InputFilter.LengthFilter inputFilter) {
         setFilters(removeInputFilterTo(getFilters(), inputFilter));
     }
