@@ -18,6 +18,7 @@ public class FormatEditTextFactoryTest {
 
     private static final int ANY_FORMAT_EDIT_TEXT_ID = 1234;
     private static final String ANY_FORMAT = "any format";
+    private static final String EMPTY_FORMAT = "";
 
     @Test
     public void shouldFindTheFormatEditTextAndAssignTheValuesInOrder() {
@@ -55,5 +56,18 @@ public class FormatEditTextFactoryTest {
 
         verify(formatEditText).setValidator(any(FormatEditTextFactory.EmptyValidator.class));
         verify(formatEditText).setValidationListener(any(FormatEditTextFactory.EmptyValidationListener.class));
+    }
+
+    @Test
+    public void shouldSetEmptyFormatterWhenNoFormatIsGiven() {
+        int formatEditTextId = ANY_FORMAT_EDIT_TEXT_ID;
+        View rootView = mock(View.class);
+        FormatEditText formatEditText = mock(FormatEditText.class);
+        when(rootView.findViewById(formatEditTextId)).thenReturn(formatEditText);
+
+        FormatEditTextFactory.create(rootView, formatEditTextId)
+                .build();
+
+        verify(formatEditText).setFormat(EMPTY_FORMAT);
     }
 }

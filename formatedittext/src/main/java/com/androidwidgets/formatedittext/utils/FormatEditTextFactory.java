@@ -5,7 +5,7 @@ import android.view.View;
 import com.androidwidgets.formatedittext.widgets.FormatEditText;
 
 public class FormatEditTextFactory {
-    private String format;
+    private String format = "";
     private FormatTextWatcher.Validator validator = new EmptyValidator();
     private FormatTextWatcher.ValidationListener validationListener = new EmptyValidationListener();
     private final FormatEditText formatEditText;
