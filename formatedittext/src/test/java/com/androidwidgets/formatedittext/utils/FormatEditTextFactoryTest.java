@@ -54,5 +54,6 @@ public class FormatEditTextFactoryTest {
                 .build();
 
         verify(formatEditText).setValidator(any(FormatEditTextFactory.EmptyValidator.class));
+        verify(formatEditText).setValidationListener(any(FormatEditTextFactory.EmptyValidationListener.class));
     }
 }

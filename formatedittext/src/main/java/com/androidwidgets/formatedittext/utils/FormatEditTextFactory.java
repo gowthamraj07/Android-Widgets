@@ -7,7 +7,7 @@ import com.androidwidgets.formatedittext.widgets.FormatEditText;
 public class FormatEditTextFactory {
     private String format;
     private FormatTextWatcher.Validator validator = new EmptyValidator();
-    private FormatTextWatcher.ValidationListener validationListener;
+    private FormatTextWatcher.ValidationListener validationListener = new EmptyValidationListener();
     private final FormatEditText formatEditText;
 
     private FormatEditTextFactory(View rootView, int formatEditTextId) {
@@ -40,6 +40,23 @@ public class FormatEditTextFactory {
         @Override
         public boolean validate(String formattedUserInput, String unformattedUserInput) {
             return true;
+        }
+    }
+
+    public class EmptyValidationListener implements FormatTextWatcher.ValidationListener {
+        @Override
+        public void showSuccess() {
+
+        }
+
+        @Override
+        public void showError() {
+
+        }
+
+        @Override
+        public void showEmpty() {
+
         }
     }
 }
