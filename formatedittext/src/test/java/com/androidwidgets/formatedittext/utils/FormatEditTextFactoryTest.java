@@ -27,7 +27,7 @@ public class FormatEditTextFactoryTest {
         FormatTextWatcher.Validator validator = mock(FormatTextWatcher.Validator.class);
         FormatTextWatcher.ValidationListener validationListener = mock(FormatTextWatcher.ValidationListener.class);
 
-        FormatEditText editText = new FormatEditTextFactory(rootView, formatEditTextId)
+        FormatEditText editText = FormatEditTextFactory.create(rootView, formatEditTextId)
                 .setFormat(format)
                 .setValidation(validator, validationListener)
                 .build();

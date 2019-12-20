@@ -14,6 +14,10 @@ public class FormatEditTextFactory {
         formatEditText = rootView.findViewById(formatEditTextId);
     }
 
+    public static FormatEditTextFactory create(View rootView, int formatEditTextId) {
+        return new FormatEditTextFactory(rootView, formatEditTextId);
+    }
+
     public FormatEditTextFactory setFormat(String format) {
         this.format = format;
         return this;
