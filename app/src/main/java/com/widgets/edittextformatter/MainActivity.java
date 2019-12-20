@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         textInputLayout1 = findViewById(R.id.text_input_layout_1);
 
         View rootView = findViewById(android.R.id.content).getRootView();
-        new FormatEditTextFactory(rootView, R.id.ed_text)
+        FormatEditTextFactory.create(rootView, R.id.ed_text)
                 .setValidation(new EvenNumberValidator(), new ValidationListener())
                 .setFormat("+91 ----- -----")
                 .build();
