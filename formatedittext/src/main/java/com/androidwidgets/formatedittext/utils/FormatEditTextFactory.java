@@ -6,11 +6,11 @@ import com.androidwidgets.formatedittext.widgets.FormatEditText;
 
 public class FormatEditTextFactory {
     private String format;
-    private FormatTextWatcher.Validator validator;
+    private FormatTextWatcher.Validator validator = new EmptyValidator();
     private FormatTextWatcher.ValidationListener validationListener;
     private final FormatEditText formatEditText;
 
-    public FormatEditTextFactory(View rootView, int formatEditTextId) {
+    private FormatEditTextFactory(View rootView, int formatEditTextId) {
         formatEditText = rootView.findViewById(formatEditTextId);
     }
 
@@ -34,5 +34,12 @@ public class FormatEditTextFactory {
         formatEditText.setValidationListener(validationListener);
         formatEditText.setFormat(format);
         return formatEditText;
+    }
+
+    class EmptyValidator implements FormatTextWatcher.Validator {
+        @Override
+        public boolean validate(String formattedUserInput, String unformattedUserInput) {
+            return true;
+        }
     }
 }
