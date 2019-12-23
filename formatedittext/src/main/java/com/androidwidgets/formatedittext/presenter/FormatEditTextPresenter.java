@@ -37,14 +37,18 @@ public class FormatEditTextPresenter {
             return;
         }
 
-        int result = startSelection < firstPossibleIndex ? firstPossibleIndex : startSelection;
-        result = result > lastPossibleCursorPosition ? lastPossibleCursorPosition : result;
-        if (result > firstPossibleIndex && result < lastPossibleCursorPosition) {
+        int result = startSelection;
+        if (result >= firstPossibleIndex && result <= lastPossibleCursorPosition) {
             view.setCursorPosition(-1);
             return;
         }
 
-        view.setCursorPosition(result);
+        if (result < firstPossibleIndex) {
+            view.setCursorPosition(firstPossibleIndex);
+            return;
+        }
+
+        view.setCursorPosition(lastPossibleCursorPosition);
     }
 
     public void setIsOnSelectionChangeEnable(boolean isOnSelectionChangeEnable) {
