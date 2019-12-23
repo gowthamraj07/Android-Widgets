@@ -36,21 +36,14 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
         init();
     }
 
-    private void init() {
-        formatEditTextPresenter = new FormatEditTextPresenter(this);
-    }
-
-    public void disableOnSelectionChange() {
-        formatEditTextPresenter.setIsOnSelectionChangeEnable(false);
-    }
-
-    public void enableOnSelectionChange() {
-        formatEditTextPresenter.setIsOnSelectionChangeEnable(true);
-    }
-
     public void setFormat(final String format) {
         this.format = format;
         this.setOnFocusChangeListener(new OnFocusChangeListener());
+    }
+
+    public void setValidator(FormatTextWatcher.Validator validator, FormatTextWatcher.ValidationListener listener) {
+        this.validationListener = listener;
+        this.validator = validator;
     }
 
     @SuppressWarnings("unused")
@@ -63,24 +56,12 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
         formatEditTextPresenter.removeInputFilterTo(getFilters(), inputFilter);
     }
 
-    @Override
-    protected void onSelectionChanged(int selStart, int selEnd) {
-        if (!isEditTextEditable(selStart, selEnd)) {
-            return;
-        }
-
-        formatEditTextPresenter.setCursorPosition(selStart, formatter.getFormat(), getText().toString());
+    public void disableOnSelectionChange() {
+        formatEditTextPresenter.setIsOnSelectionChangeEnable(false);
     }
 
-    private boolean isEditTextEditable(int selStart, int selEnd) {
-        return selStart == selEnd
-                && formatter != null
-                && formatEditTextPresenter.isOnSelectionChangeEnable();
-    }
-
-    private void initWith(FormatTextWatcher.Formatter formatter) {
-        this.formatter = formatter;
-        enableOnSelectionChange();
+    public void enableOnSelectionChange() {
+        formatEditTextPresenter.setIsOnSelectionChangeEnable(true);
     }
 
     @Override
@@ -93,9 +74,9 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
 
     @Override
     public void addWatcherOnFocus() {
-        FormatTextWatcher.Formatter formatter = new DashFormatter(format);
+        formatter = new DashFormatter(format);
         textWatcher = new FormatTextWatcher(FormatEditText.this, formatter, validator, validationListener);
-        initWith(formatter);
+        enableOnSelectionChange();
         textWatcher.init();
         textWatcher.setInitialText();
         addTextChangedListener(textWatcher);
@@ -106,9 +87,23 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
         removeTextChangedListener(textWatcher);
     }
 
-    public void setValidator(FormatTextWatcher.Validator validator, FormatTextWatcher.ValidationListener listener) {
-        this.validationListener = listener;
-        this.validator = validator;
+    @Override
+    protected void onSelectionChanged(int selStart, int selEnd) {
+        if (!isEditTextEditable(selStart, selEnd)) {
+            return;
+        }
+
+        formatEditTextPresenter.setCursorPosition(selStart, formatter.getFormat(), getText().toString());
+    }
+
+    private void init() {
+        formatEditTextPresenter = new FormatEditTextPresenter(this);
+    }
+
+    private boolean isEditTextEditable(int selStart, int selEnd) {
+        return selStart == selEnd
+                && formatter != null
+                && formatEditTextPresenter.isOnSelectionChangeEnable();
     }
 
     private class OnFocusChangeListener implements View.OnFocusChangeListener {
