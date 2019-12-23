@@ -39,6 +39,17 @@ public class FormatEditTextPresenterTest {
     }
 
     @Test
+    @Parameters({
+            "$$ -- $$, $$ -- $$, 7 | 5",
+            "$$ -- $$, , 4 | 0"
+    })
+    public void shouldReturnLastPossibleCursorPosition(String format, String input, int startSelection, int expectedCursorPosition) {
+        int newSelectionStart = presenter.getLastSelection(startSelection, format, input);
+
+        assertEquals(expectedCursorPosition, newSelectionStart);
+    }
+
+    @Test
     public void shouldAddGivenInputFilterToExistingFilters() {
         InputFilter[] existingFilters = new InputFilter[0];
         InputFilter newFilter = Mockito.mock(InputFilter.class);
