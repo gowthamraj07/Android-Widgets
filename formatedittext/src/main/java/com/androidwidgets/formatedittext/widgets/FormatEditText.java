@@ -75,13 +75,6 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
                 && formatEditTextPresenter.isOnSelectionChangeEnable();
     }
 
-    private void updateWhenCursorIsInInvalidPosition(int selStart, int selEnd) {
-        boolean isCursorIsInInvalidPosition = selStart != -1;
-        if (isCursorIsInInvalidPosition) {
-            setSelection(selStart, selEnd);
-        }
-    }
-
     private void initWith(FormatTextWatcher.Formatter formatter) {
         this.formatter = formatter;
         enableOnSelectionChange();
@@ -89,7 +82,10 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
 
     @Override
     public void setCursorPosition(int cursorPosition) {
-        updateWhenCursorIsInInvalidPosition(cursorPosition, cursorPosition);
+        boolean isCursorIsInInvalidPosition = cursorPosition != -1;
+        if (isCursorIsInInvalidPosition) {
+            setSelection(cursorPosition, cursorPosition);
+        }
     }
 
     public void setValidator(FormatTextWatcher.Validator validator, FormatTextWatcher.ValidationListener listener) {
