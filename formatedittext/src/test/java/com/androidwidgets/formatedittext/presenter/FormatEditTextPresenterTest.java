@@ -2,6 +2,8 @@ package com.androidwidgets.formatedittext.presenter;
 
 import android.text.InputFilter;
 
+import com.androidwidgets.formatedittext.view.FormatEditTextView;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,10 +18,12 @@ import static org.junit.Assert.assertEquals;
 public class FormatEditTextPresenterTest {
 
     private FormatEditTextPresenter presenter;
+    private FormatEditTextView view;
 
     @Before
     public void setUp() {
-        presenter = new FormatEditTextPresenter();
+        view = Mockito.mock(FormatEditTextView.class);
+        presenter = new FormatEditTextPresenter(view);
     }
 
     @Test
@@ -28,9 +32,9 @@ public class FormatEditTextPresenterTest {
             "$$ -- $$, , 4 | 0"
     })
     public void shouldReturnFirstPossibleCursorPosition(String format, String input, int startSelection, int expectedCursorPosition) {
-        int newSelectionStart = presenter.getStartSelection(startSelection, format, input);
+        presenter.getStartSelection(startSelection, format, input);
 
-        assertEquals(expectedCursorPosition, newSelectionStart);
+        Mockito.verify(view).setCursorPosition(expectedCursorPosition);
     }
 
     @Test
@@ -38,11 +42,9 @@ public class FormatEditTextPresenterTest {
             "$$ -- $$, $$ -- $$, 4 | -1"
     })
     public void shouldReturnMinus1_whenCursorIsInValidPosition(String format, String input, int startSelection, int expectedCursorPosition) {
-        int newSelectionStart = presenter.getStartSelection(startSelection, format, input);
-        int newSelectionEnd = presenter.getLastSelection(startSelection, format, input);
+        presenter.getStartSelection(startSelection, format, input);
 
-        assertEquals(expectedCursorPosition, newSelectionStart);
-        assertEquals(expectedCursorPosition, newSelectionEnd);
+        Mockito.verify(view).setCursorPosition(expectedCursorPosition);
     }
 
     @Test

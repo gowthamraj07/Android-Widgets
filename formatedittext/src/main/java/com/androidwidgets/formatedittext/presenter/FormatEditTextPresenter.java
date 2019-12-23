@@ -2,12 +2,19 @@ package com.androidwidgets.formatedittext.presenter;
 
 import android.text.InputFilter;
 
+import com.androidwidgets.formatedittext.view.FormatEditTextView;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 public class FormatEditTextPresenter {
     private boolean isOnSelectionChangeEnable;
+    private FormatEditTextView view;
+
+    public FormatEditTextPresenter(FormatEditTextView view) {
+        this.view = view;
+    }
 
     public InputFilter[] addInputFilterTo(InputFilter[] existingFilters, InputFilter newFilter) {
         Set<InputFilter> filters = new HashSet<>(Arrays.asList(existingFilters));
@@ -37,20 +44,23 @@ public class FormatEditTextPresenter {
         return result;
     }
 
-    public int getStartSelection(int startSelection, String format, String input) {
+    public void getStartSelection(int startSelection, String format, String input) {
         int firstPossibleIndex = format.indexOf('-');
         int lastPossibleCursorPosition = format.lastIndexOf('-') + 1;
 
         if (input == null || input.isEmpty()) {
-            return 0;
+            view.setCursorPosition(0);
+            return;
         }
 
         int result = startSelection < firstPossibleIndex ? firstPossibleIndex : startSelection;
         if (result > firstPossibleIndex && result < lastPossibleCursorPosition) {
-            return -1;
+            view.setCursorPosition(-1);
+            return;
         }
 
-        return result;
+        view.setCursorPosition(result);
+        return;
     }
 
     public void setIsOnSelectionChangeEnable(boolean isOnSelectionChangeEnable) {
