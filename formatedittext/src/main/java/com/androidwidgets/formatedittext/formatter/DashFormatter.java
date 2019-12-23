@@ -33,10 +33,6 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
             formattedCursorPosition = format.indexOf("-", formattedCursorPosition) + 1;
         }
 
-        if (formattedCursorPosition > resultString.length()) {
-            return new Result(resultString, resultString.length());
-        }
-
         return new Result(resultString, formattedCursorPosition);
     }
 
