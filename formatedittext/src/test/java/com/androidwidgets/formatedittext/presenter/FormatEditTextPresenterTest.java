@@ -29,10 +29,19 @@ public class FormatEditTextPresenterTest {
     @Test
     @Parameters({
             "$$ -- $$, $$ -- $$, 0 | 3",
-            "$$ -- $$, $$ -- $$, 7 | 5",
             "$$ -- $$, , 4 | 0"
     })
     public void shouldReturnFirstPossibleCursorPosition(String format, String input, int startSelection, int expectedCursorPosition) {
+        presenter.getStartSelection(startSelection, format, input);
+
+        Mockito.verify(view).setCursorPosition(expectedCursorPosition);
+    }
+
+    @Test
+    @Parameters({
+            "$$ -- $$, $$ -- $$, 4 | -1"
+    })
+    public void shouldReturnMinus1_whenCursorIsInValidPosition(String format, String input, int startSelection, int expectedCursorPosition) {
         presenter.getStartSelection(startSelection, format, input);
 
         Mockito.verify(view).setCursorPosition(expectedCursorPosition);
