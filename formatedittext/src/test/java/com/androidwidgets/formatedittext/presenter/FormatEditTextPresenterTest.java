@@ -53,10 +53,12 @@ public class FormatEditTextPresenterTest {
     public void shouldAddGivenInputFilterToExistingFilters() {
         InputFilter[] existingFilters = new InputFilter[0];
         InputFilter newFilter = Mockito.mock(InputFilter.class);
+        ArgumentCaptor<InputFilter[]> captor = ArgumentCaptor.forClass(InputFilter[].class);
 
-        InputFilter[] resultFilters = presenter.addInputFilterTo(existingFilters, newFilter);
+        presenter.addInputFilterTo(existingFilters, newFilter);
 
-        assertEquals(existingFilters.length + 1, resultFilters.length);
+        Mockito.verify(view).setFilters(captor.capture());
+        assertEquals(existingFilters.length + 1, captor.getValue().length);
     }
 
     @Test
@@ -69,6 +71,6 @@ public class FormatEditTextPresenterTest {
         presenter.removeInputFilterTo(existingFilters, newFilter);
 
         Mockito.verify(view).setFilters(captor.capture());
-        assertEquals(existingFilters.length -1, captor.getValue().length);
+        assertEquals(existingFilters.length - 1, captor.getValue().length);
     }
 }

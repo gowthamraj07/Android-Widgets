@@ -75,7 +75,7 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
 
     @SuppressWarnings("unused")
     public void addFilter(InputFilter.LengthFilter inputFilter) {
-        setFilters(formatEditTextPresenter.addInputFilterTo(getFilters(), inputFilter));
+        formatEditTextPresenter.addInputFilterTo(getFilters(), inputFilter);
     }
 
     @SuppressWarnings("unused")

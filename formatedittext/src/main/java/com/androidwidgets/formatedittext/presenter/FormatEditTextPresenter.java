@@ -16,10 +16,11 @@ public class FormatEditTextPresenter {
         this.view = view;
     }
 
-    public InputFilter[] addInputFilterTo(InputFilter[] existingFilters, InputFilter newFilter) {
+    public void addInputFilterTo(InputFilter[] existingFilters, InputFilter newFilter) {
         Set<InputFilter> filters = new HashSet<>(Arrays.asList(existingFilters));
         filters.add(newFilter);
-        return filters.toArray(new InputFilter[filters.size()]);
+        InputFilter[] newFilters = filters.toArray(new InputFilter[filters.size()]);
+        view.setFilters(newFilters);
     }
 
     public void removeInputFilterTo(InputFilter[] existingFilters, InputFilter newFilter) {
