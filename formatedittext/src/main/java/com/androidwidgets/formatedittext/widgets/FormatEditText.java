@@ -57,9 +57,9 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     textWatcher.setInitialText();
-                    FormatEditText.this.addTextChangedListener(textWatcher);
+                    addTextChangedListener(textWatcher);
                 } else {
-                    FormatEditText.this.removeTextChangedListener(textWatcher);
+                    removeTextChangedListener(textWatcher);
                 }
             }
         });
