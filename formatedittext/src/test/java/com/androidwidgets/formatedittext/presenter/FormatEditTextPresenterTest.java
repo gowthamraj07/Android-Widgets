@@ -32,7 +32,7 @@ public class FormatEditTextPresenterTest {
             "$$ -- $$, $$ -- $$, 7 | 5",
             "$$ -- $$, , 4 | 0"
     })
-    public void shouldSetPossibleCursorPositionForTheFormat(String format, String input, int startSelection, int expectedCursorPosition) {
+    public void shouldReturnFirstPossibleCursorPosition(String format, String input, int startSelection, int expectedCursorPosition) {
         presenter.getStartSelection(startSelection, format, input);
 
         Mockito.verify(view).setCursorPosition(expectedCursorPosition);
