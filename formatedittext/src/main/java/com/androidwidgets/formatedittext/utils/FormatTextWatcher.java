@@ -25,7 +25,6 @@ public class FormatTextWatcher implements TextWatcher {
         String format = formatter.getFormat();
         editText.setHint(format);
         editText.setSelection(0);
-        editText.setText("");
 
         listener.showEmpty();
 
@@ -72,12 +71,12 @@ public class FormatTextWatcher implements TextWatcher {
         editable = true;
     }
 
-    public void setInitialText() {
+    private void setInitialText() {
         String format = formatter.getFormat();
         editText.setText(format.replaceAll("-", " "));
     }
 
-    void setInitialTextWhenEmpty() {
+    public void setInitialTextWhenEmpty() {
         String text = editText.getText().toString();
         if (text.isEmpty()) {
             setInitialText();
