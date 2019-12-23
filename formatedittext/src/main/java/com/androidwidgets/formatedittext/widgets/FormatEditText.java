@@ -62,13 +62,17 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
 
     @Override
     protected void onSelectionChanged(int selStart, int selEnd) {
-        if (isEditTextEditable(selStart, selEnd)) {
-            formatEditTextPresenter.setCursorPosition(selStart, formatter.getFormat(), getText().toString());
-       }
+        if (!isEditTextEditable(selStart, selEnd)) {
+            return;
+        }
+
+        formatEditTextPresenter.setCursorPosition(selStart, formatter.getFormat(), getText().toString());
     }
 
     private boolean isEditTextEditable(int selStart, int selEnd) {
-        return selStart == selEnd && formatter != null && formatEditTextPresenter.isOnSelectionChangeEnable();
+        return selStart == selEnd
+                && formatter != null
+                && formatEditTextPresenter.isOnSelectionChangeEnable();
     }
 
     private void updateWhenCursorIsInInvalidPosition(int selStart, int selEnd) {
