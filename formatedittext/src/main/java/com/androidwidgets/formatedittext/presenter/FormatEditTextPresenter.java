@@ -29,7 +29,7 @@ public class FormatEditTextPresenter {
     }
 
     public void setCursorPosition(int cursorPosition, String format, String input) {
-        int firstPossibleIndex = format.indexOf('-');
+        int firstPossibleCursorPosition = format.indexOf('-');
         int lastPossibleCursorPosition = format.lastIndexOf('-') + 1;
 
         if (input == null || input.isEmpty()) {
@@ -37,12 +37,21 @@ public class FormatEditTextPresenter {
             return;
         }
 
-        if (cursorPosition >= firstPossibleIndex && cursorPosition <= lastPossibleCursorPosition) {
+        if (isValidPosition(cursorPosition, firstPossibleCursorPosition, lastPossibleCursorPosition)) {
             view.setCursorPosition(-1);
             return;
         }
 
-        view.setCursorPosition(cursorPosition < firstPossibleIndex ? firstPossibleIndex : lastPossibleCursorPosition);
+        int possibleInvalidPosition = possibleInvalidPosition(cursorPosition, firstPossibleCursorPosition, lastPossibleCursorPosition);
+        view.setCursorPosition(possibleInvalidPosition);
+    }
+
+    private int possibleInvalidPosition(int cursorPosition, int firstPossibleIndex, int lastPossibleCursorPosition) {
+        return cursorPosition < firstPossibleIndex ? firstPossibleIndex : lastPossibleCursorPosition;
+    }
+
+    private boolean isValidPosition(int cursorPosition, int firstPossibleIndex, int lastPossibleCursorPosition) {
+        return cursorPosition >= firstPossibleIndex && cursorPosition <= lastPossibleCursorPosition;
     }
 
     public void setIsOnSelectionChangeEnable(boolean isOnSelectionChangeEnable) {
