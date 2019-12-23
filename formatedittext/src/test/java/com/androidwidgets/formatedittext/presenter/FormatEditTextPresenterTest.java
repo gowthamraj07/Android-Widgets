@@ -14,6 +14,7 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(JUnitParamsRunner.class)
 public class FormatEditTextPresenterTest {
@@ -88,5 +89,12 @@ public class FormatEditTextPresenterTest {
         presenter.onTextFieldHas(noFocus);
 
         Mockito.verify(view).removeWatcherOnLostFocus();
+    }
+
+    @Test
+    public void shouldSetTrueFor_isInSelectionChangeEnable() {
+        presenter.setIsOnSelectionChangeEnable(true);
+
+        assertTrue(presenter.isOnSelectionChangeEnable());
     }
 }
