@@ -28,7 +28,7 @@ public class FormatEditTextPresenter {
         return filters.toArray(new InputFilter[filters.size()]);
     }
 
-    public void setCursorPosition(int startSelection, String format, String input) {
+    public void setCursorPosition(int cursorPosition, String format, String input) {
         int firstPossibleIndex = format.indexOf('-');
         int lastPossibleCursorPosition = format.lastIndexOf('-') + 1;
 
@@ -37,18 +37,12 @@ public class FormatEditTextPresenter {
             return;
         }
 
-        int result = startSelection;
-        if (result >= firstPossibleIndex && result <= lastPossibleCursorPosition) {
+        if (cursorPosition >= firstPossibleIndex && cursorPosition <= lastPossibleCursorPosition) {
             view.setCursorPosition(-1);
             return;
         }
 
-        if (result < firstPossibleIndex) {
-            view.setCursorPosition(firstPossibleIndex);
-            return;
-        }
-
-        view.setCursorPosition(lastPossibleCursorPosition);
+        view.setCursorPosition(cursorPosition < firstPossibleIndex ? firstPossibleIndex : lastPossibleCursorPosition);
     }
 
     public void setIsOnSelectionChangeEnable(boolean isOnSelectionChangeEnable) {
