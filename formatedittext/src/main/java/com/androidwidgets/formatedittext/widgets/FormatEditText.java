@@ -80,7 +80,7 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
 
     @SuppressWarnings("unused")
     public void removeFilter(InputFilter.LengthFilter inputFilter) {
-        setFilters(formatEditTextPresenter.removeInputFilterTo(getFilters(), inputFilter));
+        formatEditTextPresenter.removeInputFilterTo(getFilters(), inputFilter);
     }
 
     @Override

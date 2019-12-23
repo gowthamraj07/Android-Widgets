@@ -22,10 +22,11 @@ public class FormatEditTextPresenter {
         return filters.toArray(new InputFilter[filters.size()]);
     }
 
-    public InputFilter[] removeInputFilterTo(InputFilter[] existingFilters, InputFilter newFilter) {
+    public void removeInputFilterTo(InputFilter[] existingFilters, InputFilter newFilter) {
         Set<InputFilter> filters = new HashSet<>(Arrays.asList(existingFilters));
         filters.remove(newFilter);
-        return filters.toArray(new InputFilter[filters.size()]);
+        InputFilter[] newFilters = filters.toArray(new InputFilter[filters.size()]);
+        view.setFilters(newFilters);
     }
 
     public void setCursorPosition(int cursorPosition, String format, String input) {

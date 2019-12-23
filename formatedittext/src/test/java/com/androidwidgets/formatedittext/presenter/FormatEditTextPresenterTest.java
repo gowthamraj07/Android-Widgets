@@ -7,6 +7,7 @@ import com.androidwidgets.formatedittext.view.FormatEditTextView;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 import junitparams.JUnitParamsRunner;
@@ -63,9 +64,11 @@ public class FormatEditTextPresenterTest {
         InputFilter[] existingFilters = new InputFilter[1];
         InputFilter newFilter = Mockito.mock(InputFilter.class);
         existingFilters[0] = newFilter;
+        ArgumentCaptor<InputFilter[]> captor = ArgumentCaptor.forClass(InputFilter[].class);
 
-        InputFilter[] resultFilters = presenter.removeInputFilterTo(existingFilters, newFilter);
+        presenter.removeInputFilterTo(existingFilters, newFilter);
 
-        assertEquals(existingFilters.length - 1, resultFilters.length);
+        Mockito.verify(view).setFilters(captor.capture());
+        assertEquals(existingFilters.length -1, captor.getValue().length);
     }
 }
