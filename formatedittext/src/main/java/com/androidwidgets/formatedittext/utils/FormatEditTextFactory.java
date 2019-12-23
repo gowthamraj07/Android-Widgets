@@ -30,8 +30,7 @@ public class FormatEditTextFactory {
     }
 
     public FormatEditText build() {
-        formatEditText.setValidator(validator);
-        formatEditText.setValidationListener(validationListener);
+        formatEditText.setValidator(validator, validationListener);
         formatEditText.setFormat(format);
         return formatEditText;
     }

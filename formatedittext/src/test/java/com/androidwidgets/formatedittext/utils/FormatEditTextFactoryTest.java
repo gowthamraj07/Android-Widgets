@@ -36,8 +36,7 @@ public class FormatEditTextFactoryTest {
                 .build();
 
         InOrder inOrder = Mockito.inOrder(formatEditText);
-        inOrder.verify(formatEditText).setValidator(validator);
-        inOrder.verify(formatEditText).setValidationListener(validationListener);
+        inOrder.verify(formatEditText).setValidator(validator, validationListener);
         inOrder.verify(formatEditText).setFormat(format);
         assertEquals(formatEditText, editText);
     }
@@ -54,8 +53,7 @@ public class FormatEditTextFactoryTest {
                 .setFormat(format)
                 .build();
 
-        verify(formatEditText).setValidator(any(FormatEditTextFactory.EmptyValidator.class));
-        verify(formatEditText).setValidationListener(any(FormatEditTextFactory.EmptyValidationListener.class));
+        verify(formatEditText).setValidator(any(FormatEditTextFactory.EmptyValidator.class), any(FormatEditTextFactory.EmptyValidationListener.class));
     }
 
     @Test

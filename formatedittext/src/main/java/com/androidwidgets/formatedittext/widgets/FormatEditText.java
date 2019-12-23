@@ -50,14 +50,6 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
         this.setOnFocusChangeListener(new OnFocusChangeListener(format));
     }
 
-    public void setValidator(FormatTextWatcher.Validator validator) {
-        this.validator = validator;
-    }
-
-    public void setValidationListener(FormatTextWatcher.ValidationListener validationListener) {
-        this.validationListener = validationListener;
-    }
-
     @SuppressWarnings("unused")
     public void addFilter(InputFilter.LengthFilter inputFilter) {
         formatEditTextPresenter.addInputFilterTo(getFilters(), inputFilter);
@@ -94,6 +86,11 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
     @Override
     public void setCursorPosition(int cursorPosition) {
         updateWhenCursorIsInInvalidPosition(cursorPosition, cursorPosition);
+    }
+
+    public void setValidator(FormatTextWatcher.Validator validator, FormatTextWatcher.ValidationListener listener) {
+        this.validationListener = listener;
+        this.validator = validator;
     }
 
     private class OnFocusChangeListener implements View.OnFocusChangeListener {
