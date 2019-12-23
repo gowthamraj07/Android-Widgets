@@ -8,15 +8,11 @@ import android.view.View;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import com.androidwidgets.formatedittext.formatter.DashFormatter;
+import com.androidwidgets.formatedittext.presenter.FormatEditTextPresenter;
 import com.androidwidgets.formatedittext.utils.FormatTextWatcher;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 public class FormatEditText extends AppCompatEditText {
 
-    private boolean isOnSelectionChangeEnable;
     private FormatTextWatcher.Formatter formatter;
     private FormatTextWatcher.Validator validator;
     private FormatTextWatcher.ValidationListener validationListener;
@@ -34,11 +30,11 @@ public class FormatEditText extends AppCompatEditText {
     }
 
     public void disableOnSelectionChange() {
-        isOnSelectionChangeEnable = false;
+        FormatEditTextPresenter.isOnSelectionChangeEnable = false;
     }
 
     public void enableOnSelectionChange() {
-        isOnSelectionChangeEnable = true;
+        FormatEditTextPresenter.isOnSelectionChangeEnable = true;
     }
 
     public void setFormat(String format) {
@@ -70,19 +66,19 @@ public class FormatEditText extends AppCompatEditText {
 
     @SuppressWarnings("unused")
     public void addFilter(InputFilter.LengthFilter inputFilter) {
-        setFilters(addInputFilterTo(getFilters(), inputFilter));
+        setFilters(FormatEditTextPresenter.addInputFilterTo(getFilters(), inputFilter));
     }
 
     @SuppressWarnings("unused")
     public void removeFilter(InputFilter.LengthFilter inputFilter) {
-        setFilters(removeInputFilterTo(getFilters(), inputFilter));
+        setFilters(FormatEditTextPresenter.removeInputFilterTo(getFilters(), inputFilter));
     }
 
     @Override
     protected void onSelectionChanged(int selStart, int selEnd) {
         if (isEditTextEditable(selStart, selEnd)) {
-            selStart = getStartSelection(selStart, formatter.getFormat(), getText().toString());
-            selStart = getLastSelection(selStart, formatter.getFormat(), getText().toString());
+            selStart = FormatEditTextPresenter.getStartSelection(selStart, formatter.getFormat(), getText().toString());
+            selStart = FormatEditTextPresenter.getLastSelection(selStart, formatter.getFormat(), getText().toString());
 
             selEnd = selStart;
 
@@ -91,7 +87,7 @@ public class FormatEditText extends AppCompatEditText {
     }
 
     private boolean isEditTextEditable(int selStart, int selEnd) {
-        return selStart == selEnd && formatter != null && isOnSelectionChangeEnable;
+        return selStart == selEnd && formatter != null && FormatEditTextPresenter.isOnSelectionChangeEnable;
     }
 
     private void updateWhenCursorIsInInvalidPosition(int selStart, int selEnd) {
@@ -106,47 +102,4 @@ public class FormatEditText extends AppCompatEditText {
         enableOnSelectionChange();
     }
 
-    static InputFilter[] addInputFilterTo(InputFilter[] existingFilters, InputFilter newFilter) {
-        Set<InputFilter> filters = new HashSet<>(Arrays.asList(existingFilters));
-        filters.add(newFilter);
-        return filters.toArray(new InputFilter[filters.size()]);
-    }
-
-    static InputFilter[] removeInputFilterTo(InputFilter[] existingFilters, InputFilter newFilter) {
-        Set<InputFilter> filters = new HashSet<>(Arrays.asList(existingFilters));
-        filters.remove(newFilter);
-        return filters.toArray(new InputFilter[filters.size()]);
-    }
-
-    static int getLastSelection(int startSelection, String format, String input) {
-        int firstPossibleIndex = format.indexOf('-');
-        int lastPossibleCursorPosition = format.lastIndexOf('-') + 1;
-
-        if (input == null || input.isEmpty()) {
-            return 0;
-        }
-
-        int result = startSelection > lastPossibleCursorPosition ? lastPossibleCursorPosition : startSelection;
-        if (result > firstPossibleIndex && result < lastPossibleCursorPosition) {
-            return -1;
-        }
-
-        return result;
-    }
-
-    static int getStartSelection(int startSelection, String format, String input) {
-        int firstPossibleIndex = format.indexOf('-');
-        int lastPossibleCursorPosition = format.lastIndexOf('-') + 1;
-
-        if (input == null || input.isEmpty()) {
-            return 0;
-        }
-
-        int result = startSelection < firstPossibleIndex ? firstPossibleIndex : startSelection;
-        if (result > firstPossibleIndex && result < lastPossibleCursorPosition) {
-            return -1;
-        }
-
-        return result;
-    }
 }
