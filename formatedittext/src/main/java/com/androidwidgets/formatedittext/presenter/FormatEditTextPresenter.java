@@ -62,7 +62,6 @@ public class FormatEditTextPresenter {
         }
 
         view.setCursorPosition(cursorPosition);
-        return;
     }
 
     public void setIsOnSelectionChangeEnable(boolean isOnSelectionChangeEnable) {
