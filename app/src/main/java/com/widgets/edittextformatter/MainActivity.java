@@ -19,9 +19,21 @@ public class MainActivity extends AppCompatActivity {
 
         textInputLayout1 = findViewById(R.id.text_input_layout_1);
 
-        FormatEditText editText = findViewById(R.id.ed_text);
-        editText.setFormat("+91 ----- -----");
-        //editText.setValidator(new EvenNumberValidator(), new ValidationListener());
+        FormatEditText editText1 = findViewById(R.id.ed_text1);
+        editText1.setFormat("----"); // 4 digit Number
+        editText1.setValidator(new EvenNumberValidator(), new ValidationListener());
+
+        FormatEditText editText2 = findViewById(R.id.ed_text2);
+        editText2.setFormat("---- ---- ---- ----"); // VISA Card
+
+        FormatEditText editText3 = findViewById(R.id.ed_text3);
+        editText3.setFormat("---- ------ -----"); // American Express Card
+
+        FormatEditText editText4 = findViewById(R.id.ed_text4);
+        editText4.setFormat("--/---/----"); // Date in dd/MMM/yyyy format
+
+        FormatEditText editText5 = findViewById(R.id.ed_text5);
+        editText5.setFormat("(---) --- ----"); // Telephone number format of Japan (0AA) NXX XXXX
 
     }
 
