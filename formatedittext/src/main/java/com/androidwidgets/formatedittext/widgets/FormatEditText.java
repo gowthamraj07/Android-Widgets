@@ -16,8 +16,8 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
 
     private FormatEditTextPresenter formatEditTextPresenter;
     private FormatTextWatcher.Formatter formatter;
-    private FormatTextWatcher.Validator validator;
-    private FormatTextWatcher.ValidationListener validationListener;
+    private FormatTextWatcher.Validator validator = new AValidator();
+    private FormatTextWatcher.ValidationListener validationListener = new AListener();
     private FormatTextWatcher textWatcher;
     private String format;
 
@@ -111,6 +111,30 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
         @Override
         public void onFocusChange(View v, boolean hasFocus) {
             formatEditTextPresenter.onTextFieldHas(true);
+        }
+    }
+
+    private class AValidator implements FormatTextWatcher.Validator {
+        @Override
+        public boolean validate(String formattedUserInput, String unformattedUserInput) {
+            return true;
+        }
+    }
+
+    private class AListener implements FormatTextWatcher.ValidationListener {
+        @Override
+        public void showSuccess() {
+
+        }
+
+        @Override
+        public void showError() {
+
+        }
+
+        @Override
+        public void showEmpty() {
+
         }
     }
 }

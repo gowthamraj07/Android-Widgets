@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
         FormatEditText editText = findViewById(R.id.ed_text);
         editText.setFormat("+91 ----- -----");
-        editText.setValidator(new EvenNumberValidator(), new ValidationListener());
+        //editText.setValidator(new EvenNumberValidator(), new ValidationListener());
 
     }
 
