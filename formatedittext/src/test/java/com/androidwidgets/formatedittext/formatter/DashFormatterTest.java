@@ -94,7 +94,8 @@ public class DashFormatterTest {
     @Test
     @Parameters({
             "$$--$$, $$  $$, 0 | 2",
-            "$$ -- $$, $$   $$, 3 | 3"
+            "$$ -- $$, $$   $$, 3 | 3",
+            "EUR --, EUR 1, 5 | 5"
     })
     public void shouldReturnCursorPositionOnlyInPossiblePositions(String format, String input, int initialCursorPosition, int expectedCursorPosition) {
         DashFormatter formatter = new DashFormatter(format);
@@ -102,7 +103,7 @@ public class DashFormatterTest {
         Result result = formatter.format(input, initialCursorPosition);
 
         assertEquals(expectedCursorPosition, result.getFormattedCursorPosition());
-        assertTrue(result.getFormattedCursorPosition() < result.getFormattedUserInput().length());
+        assertTrue(result.getFormattedCursorPosition() <= result.getFormattedUserInput().length());
     }
 
     @Test

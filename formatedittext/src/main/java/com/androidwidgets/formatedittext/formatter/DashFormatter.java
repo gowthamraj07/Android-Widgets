@@ -73,11 +73,16 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
     }
 
     private String removeCharacterFromInput(String inputCopy, int index, char characterAtIndex) {
-        if (isDigit(characterAtIndex)) {
+        if (isDigit(characterAtIndex) || isAlphabet(characterAtIndex)) {
             return replaceCharaterPositionWithSpace(inputCopy, index);
         } else {
             return replaceAllMatchedCharactersWithSpace(inputCopy, characterAtIndex);
         }
+    }
+
+    private boolean isAlphabet(char characterAtIndex) {
+        return (characterAtIndex >= 'a' && characterAtIndex <= 'z')
+                || (characterAtIndex >= 'A' && characterAtIndex <= 'Z');
     }
 
     private String replaceAllMatchedCharactersWithSpace(String inputCopy, char characterAtIndex) {
