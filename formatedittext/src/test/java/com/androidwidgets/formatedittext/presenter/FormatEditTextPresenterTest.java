@@ -29,10 +29,11 @@ public class FormatEditTextPresenterTest {
     @Test
     @Parameters({
             "$$ -- $$, $$ -- $$, 0 | 3",
+            "$$ -- $$, $$ -- $$, 7 | 5",
             "$$ -- $$, , 4 | 0"
     })
-    public void shouldReturnFirstPossibleCursorPosition(String format, String input, int startSelection, int expectedCursorPosition) {
-        presenter.getStartSelection(startSelection, format, input);
+    public void shouldSetPossibleCursorPosition(String format, String input, int startSelection, int expectedCursorPosition) {
+        presenter.setCursorPosition(startSelection, format, input);
 
         Mockito.verify(view).setCursorPosition(expectedCursorPosition);
     }
@@ -42,20 +43,9 @@ public class FormatEditTextPresenterTest {
             "$$ -- $$, $$ -- $$, 4 | -1"
     })
     public void shouldReturnMinus1_whenCursorIsInValidPosition(String format, String input, int startSelection, int expectedCursorPosition) {
-        presenter.getStartSelection(startSelection, format, input);
+        presenter.setCursorPosition(startSelection, format, input);
 
         Mockito.verify(view).setCursorPosition(expectedCursorPosition);
-    }
-
-    @Test
-    @Parameters({
-            "$$ -- $$, $$ -- $$, 7 | 5",
-            "$$ -- $$, , 4 | 0"
-    })
-    public void shouldReturnLastPossibleCursorPosition(String format, String input, int startSelection, int expectedCursorPosition) {
-        int newSelectionStart = presenter.getLastSelection(startSelection, format, input);
-
-        assertEquals(expectedCursorPosition, newSelectionStart);
     }
 
     @Test

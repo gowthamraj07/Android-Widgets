@@ -10,24 +10,32 @@ import androidx.appcompat.widget.AppCompatEditText;
 import com.androidwidgets.formatedittext.formatter.DashFormatter;
 import com.androidwidgets.formatedittext.presenter.FormatEditTextPresenter;
 import com.androidwidgets.formatedittext.utils.FormatTextWatcher;
+import com.androidwidgets.formatedittext.view.FormatEditTextView;
 
-public class FormatEditText extends AppCompatEditText {
+public class FormatEditText extends AppCompatEditText implements FormatEditTextView {
 
-    private final FormatEditTextPresenter formatEditTextPresenter = new FormatEditTextPresenter();
+    private FormatEditTextPresenter formatEditTextPresenter;
     private FormatTextWatcher.Formatter formatter;
     private FormatTextWatcher.Validator validator;
     private FormatTextWatcher.ValidationListener validationListener;
 
     public FormatEditText(Context context) {
         super(context);
+        init();
     }
 
     public FormatEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public FormatEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
+    }
+
+    private void init() {
+        formatEditTextPresenter = new FormatEditTextPresenter(this);
     }
 
     public void disableOnSelectionChange() {
@@ -78,13 +86,8 @@ public class FormatEditText extends AppCompatEditText {
     @Override
     protected void onSelectionChanged(int selStart, int selEnd) {
         if (isEditTextEditable(selStart, selEnd)) {
-            selStart = formatEditTextPresenter.getStartSelection(selStart, formatter.getFormat(), getText().toString());
-            selStart = formatEditTextPresenter.getLastSelection(selStart, formatter.getFormat(), getText().toString());
-
-            selEnd = selStart;
-
-            updateWhenCursorIsInInvalidPosition(selStart, selEnd);
-        }
+            formatEditTextPresenter.setCursorPosition(selStart, formatter.getFormat(), getText().toString());
+       }
     }
 
     private boolean isEditTextEditable(int selStart, int selEnd) {
@@ -103,4 +106,8 @@ public class FormatEditText extends AppCompatEditText {
         enableOnSelectionChange();
     }
 
+    @Override
+    public void setCursorPosition(int cursorPosition) {
+        updateWhenCursorIsInInvalidPosition(cursorPosition, cursorPosition);
+    }
 }
