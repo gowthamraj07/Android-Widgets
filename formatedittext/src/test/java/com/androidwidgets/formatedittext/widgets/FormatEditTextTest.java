@@ -22,7 +22,7 @@ public class FormatEditTextTest {
             "$$ -- $$, , 4 | 0"
     })
     public void shouldReturnFirstPossibleCursorPosition(String format, String input, int startSelection, int expectedCursorPosition) {
-        int newSelectionStart = FormatEditTextPresenter.getStartSelection(startSelection, format, input);
+        int newSelectionStart = new FormatEditTextPresenter().getStartSelection(startSelection, format, input);
 
         assertEquals(expectedCursorPosition, newSelectionStart);
     }
@@ -32,8 +32,8 @@ public class FormatEditTextTest {
             "$$ -- $$, $$ -- $$, 4 | -1"
     })
     public void shouldReturnMinus1_whenCursorIsInValidPosition(String format, String input, int startSelection, int expectedCursorPosition) {
-        int newSelectionStart = FormatEditTextPresenter.getStartSelection(startSelection, format, input);
-        int newSelectionEnd = FormatEditTextPresenter.getLastSelection(startSelection, format, input);
+        int newSelectionStart = new FormatEditTextPresenter().getStartSelection(startSelection, format, input);
+        int newSelectionEnd = new FormatEditTextPresenter().getLastSelection(startSelection, format, input);
 
         assertEquals(expectedCursorPosition, newSelectionStart);
         assertEquals(expectedCursorPosition, newSelectionEnd);
@@ -45,7 +45,7 @@ public class FormatEditTextTest {
             "$$ -- $$, , 4 | 0"
     })
     public void shouldReturnLastPossibleCursorPosition(String format, String input, int startSelection, int expectedCursorPosition) {
-        int newSelectionStart = FormatEditTextPresenter.getLastSelection(startSelection, format, input);
+        int newSelectionStart = new FormatEditTextPresenter().getLastSelection(startSelection, format, input);
 
         assertEquals(expectedCursorPosition, newSelectionStart);
     }
@@ -55,7 +55,7 @@ public class FormatEditTextTest {
         InputFilter[] existingFilters = new InputFilter[0];
         InputFilter newFilter = Mockito.mock(InputFilter.class);
 
-        InputFilter[] resultFilters = FormatEditTextPresenter.addInputFilterTo(existingFilters, newFilter);
+        InputFilter[] resultFilters = new FormatEditTextPresenter().addInputFilterTo(existingFilters, newFilter);
 
         assertEquals(existingFilters.length + 1, resultFilters.length);
     }
@@ -66,7 +66,7 @@ public class FormatEditTextTest {
         InputFilter newFilter = Mockito.mock(InputFilter.class);
         existingFilters[0] = newFilter;
 
-        InputFilter[] resultFilters = FormatEditTextPresenter.removeInputFilterTo(existingFilters, newFilter);
+        InputFilter[] resultFilters = new FormatEditTextPresenter().removeInputFilterTo(existingFilters, newFilter);
 
         assertEquals(existingFilters.length - 1, resultFilters.length);
     }

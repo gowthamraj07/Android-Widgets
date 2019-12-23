@@ -7,21 +7,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class FormatEditTextPresenter {
-    public static boolean isOnSelectionChangeEnable;
+    private static boolean isOnSelectionChangeEnable;
 
-    public static InputFilter[] addInputFilterTo(InputFilter[] existingFilters, InputFilter newFilter) {
+    public InputFilter[] addInputFilterTo(InputFilter[] existingFilters, InputFilter newFilter) {
         Set<InputFilter> filters = new HashSet<>(Arrays.asList(existingFilters));
         filters.add(newFilter);
         return filters.toArray(new InputFilter[filters.size()]);
     }
 
-    public static InputFilter[] removeInputFilterTo(InputFilter[] existingFilters, InputFilter newFilter) {
+    public InputFilter[] removeInputFilterTo(InputFilter[] existingFilters, InputFilter newFilter) {
         Set<InputFilter> filters = new HashSet<>(Arrays.asList(existingFilters));
         filters.remove(newFilter);
         return filters.toArray(new InputFilter[filters.size()]);
     }
 
-    public static int getLastSelection(int startSelection, String format, String input) {
+    public int getLastSelection(int startSelection, String format, String input) {
         int firstPossibleIndex = format.indexOf('-');
         int lastPossibleCursorPosition = format.lastIndexOf('-') + 1;
 
@@ -37,7 +37,7 @@ public class FormatEditTextPresenter {
         return result;
     }
 
-    public static int getStartSelection(int startSelection, String format, String input) {
+    public int getStartSelection(int startSelection, String format, String input) {
         int firstPossibleIndex = format.indexOf('-');
         int lastPossibleCursorPosition = format.lastIndexOf('-') + 1;
 
@@ -51,5 +51,13 @@ public class FormatEditTextPresenter {
         }
 
         return result;
+    }
+
+    public void setIsOnSelectionChangeEnable(boolean isOnSelectionChangeEnable) {
+        FormatEditTextPresenter.isOnSelectionChangeEnable = isOnSelectionChangeEnable;
+    }
+
+    public boolean isOnSelectionChangeEnable() {
+        return isOnSelectionChangeEnable;
     }
 }

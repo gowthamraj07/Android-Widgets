@@ -13,6 +13,7 @@ import com.androidwidgets.formatedittext.utils.FormatTextWatcher;
 
 public class FormatEditText extends AppCompatEditText {
 
+    private final FormatEditTextPresenter formatEditTextPresenter = new FormatEditTextPresenter();
     private FormatTextWatcher.Formatter formatter;
     private FormatTextWatcher.Validator validator;
     private FormatTextWatcher.ValidationListener validationListener;
@@ -30,11 +31,11 @@ public class FormatEditText extends AppCompatEditText {
     }
 
     public void disableOnSelectionChange() {
-        FormatEditTextPresenter.isOnSelectionChangeEnable = false;
+        formatEditTextPresenter.setIsOnSelectionChangeEnable(false);
     }
 
     public void enableOnSelectionChange() {
-        FormatEditTextPresenter.isOnSelectionChangeEnable = true;
+        formatEditTextPresenter.setIsOnSelectionChangeEnable(true);
     }
 
     public void setFormat(String format) {
@@ -66,19 +67,19 @@ public class FormatEditText extends AppCompatEditText {
 
     @SuppressWarnings("unused")
     public void addFilter(InputFilter.LengthFilter inputFilter) {
-        setFilters(FormatEditTextPresenter.addInputFilterTo(getFilters(), inputFilter));
+        setFilters(formatEditTextPresenter.addInputFilterTo(getFilters(), inputFilter));
     }
 
     @SuppressWarnings("unused")
     public void removeFilter(InputFilter.LengthFilter inputFilter) {
-        setFilters(FormatEditTextPresenter.removeInputFilterTo(getFilters(), inputFilter));
+        setFilters(formatEditTextPresenter.removeInputFilterTo(getFilters(), inputFilter));
     }
 
     @Override
     protected void onSelectionChanged(int selStart, int selEnd) {
         if (isEditTextEditable(selStart, selEnd)) {
-            selStart = FormatEditTextPresenter.getStartSelection(selStart, formatter.getFormat(), getText().toString());
-            selStart = FormatEditTextPresenter.getLastSelection(selStart, formatter.getFormat(), getText().toString());
+            selStart = formatEditTextPresenter.getStartSelection(selStart, formatter.getFormat(), getText().toString());
+            selStart = formatEditTextPresenter.getLastSelection(selStart, formatter.getFormat(), getText().toString());
 
             selEnd = selStart;
 
@@ -87,7 +88,7 @@ public class FormatEditText extends AppCompatEditText {
     }
 
     private boolean isEditTextEditable(int selStart, int selEnd) {
-        return selStart == selEnd && formatter != null && FormatEditTextPresenter.isOnSelectionChangeEnable;
+        return selStart == selEnd && formatter != null && formatEditTextPresenter.isOnSelectionChangeEnable();
     }
 
     private void updateWhenCursorIsInInvalidPosition(int selStart, int selEnd) {
