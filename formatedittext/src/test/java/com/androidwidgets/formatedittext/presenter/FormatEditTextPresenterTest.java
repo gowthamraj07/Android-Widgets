@@ -73,4 +73,20 @@ public class FormatEditTextPresenterTest {
         Mockito.verify(view).setFilters(captor.capture());
         assertEquals(existingFilters.length - 1, captor.getValue().length);
     }
+
+    @Test
+    public void shouldAddTextWatcher_OnFocus() {
+        boolean focus = true;
+        presenter.onTextFieldHas(focus);
+
+        Mockito.verify(view).addWatcherOnFocus();
+    }
+
+    @Test
+    public void shouldRemoveTextWatcher_OnNoFocus() {
+        boolean noFocus = false;
+        presenter.onTextFieldHas(noFocus);
+
+        Mockito.verify(view).removeWatcherOnLostFocus();
+    }
 }

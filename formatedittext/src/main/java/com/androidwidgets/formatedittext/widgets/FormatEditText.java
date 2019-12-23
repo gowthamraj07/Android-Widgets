@@ -18,6 +18,8 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
     private FormatTextWatcher.Formatter formatter;
     private FormatTextWatcher.Validator validator;
     private FormatTextWatcher.ValidationListener validationListener;
+    private FormatTextWatcher textWatcher;
+    private String format;
 
     public FormatEditText(Context context) {
         super(context);
@@ -47,7 +49,8 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
     }
 
     public void setFormat(final String format) {
-        this.setOnFocusChangeListener(new OnFocusChangeListener(format));
+        this.format = format;
+        this.setOnFocusChangeListener(new OnFocusChangeListener());
     }
 
     @SuppressWarnings("unused")
@@ -88,29 +91,31 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
         }
     }
 
+    @Override
+    public void addWatcherOnFocus() {
+        FormatTextWatcher.Formatter formatter = new DashFormatter(format);
+        textWatcher = new FormatTextWatcher(FormatEditText.this, formatter, validator, validationListener);
+        initWith(formatter);
+        textWatcher.init();
+        textWatcher.setInitialText();
+        addTextChangedListener(textWatcher);
+    }
+
+    @Override
+    public void removeWatcherOnLostFocus() {
+        removeTextChangedListener(textWatcher);
+    }
+
     public void setValidator(FormatTextWatcher.Validator validator, FormatTextWatcher.ValidationListener listener) {
         this.validationListener = listener;
         this.validator = validator;
     }
 
     private class OnFocusChangeListener implements View.OnFocusChangeListener {
-        private final FormatTextWatcher.Formatter formatter;
-
-        OnFocusChangeListener(String format) {
-            formatter = new DashFormatter(format);
-        }
 
         @Override
         public void onFocusChange(View v, boolean hasFocus) {
-            FormatTextWatcher textWatcher = new FormatTextWatcher(FormatEditText.this, formatter, validator, validationListener);
-            if (hasFocus) {
-                initWith(formatter);
-                textWatcher.init();
-                textWatcher.setInitialText();
-                addTextChangedListener(textWatcher);
-            } else {
-                removeTextChangedListener(textWatcher);
-            }
+            formatEditTextPresenter.onTextFieldHas(true);
         }
     }
 }

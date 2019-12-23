@@ -63,4 +63,12 @@ public class FormatEditTextPresenter {
     public boolean isOnSelectionChangeEnable() {
         return isOnSelectionChangeEnable;
     }
+
+    public void onTextFieldHas(boolean focus) {
+        if (focus) {
+            view.addWatcherOnFocus();
+        } else {
+            view.removeWatcherOnLostFocus();
+        }
+    }
 }
