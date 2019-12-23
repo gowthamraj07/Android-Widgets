@@ -80,7 +80,7 @@ public class FormatEditText extends AppCompatEditText {
 
     @Override
     protected void onSelectionChanged(int selStart, int selEnd) {
-        if (selStart == selEnd && formatter != null && isOnSelectionChangeEnable) {
+        if (isEditTextEditable(selStart, selEnd)) {
             selStart = getStartSelection(selStart, formatter.getFormat(), getText().toString());
             selStart = getLastSelection(selStart, formatter.getFormat(), getText().toString());
 
@@ -88,6 +88,10 @@ public class FormatEditText extends AppCompatEditText {
 
             updateWhenCursorIsInInvalidPosition(selStart, selEnd);
         }
+    }
+
+    private boolean isEditTextEditable(int selStart, int selEnd) {
+        return selStart == selEnd && formatter != null && isOnSelectionChangeEnable;
     }
 
     private void updateWhenCursorIsInInvalidPosition(int selStart, int selEnd) {
