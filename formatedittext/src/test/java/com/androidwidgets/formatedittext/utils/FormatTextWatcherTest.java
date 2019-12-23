@@ -154,10 +154,13 @@ public class FormatTextWatcherTest {
         "$--$ | $  $, 1",
     })
     public void shouldPlaceTheCursorAtFirstPossiblePosition(String format, String initialText, int expectedCursorPosition) {
+        Editable editable = Mockito.mock(Editable.class);
+        Mockito.when(editable.toString()).thenReturn("");
+        Mockito.when(editText.getText()).thenReturn(editable);
         Mockito.when(formatter.getFormat()).thenReturn(format);
         FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
 
-        textWatcher.setInitialText();
+        textWatcher.setInitialTextWhenEmpty();
 
         Mockito.verify(editText).setText(initialText);
     }
