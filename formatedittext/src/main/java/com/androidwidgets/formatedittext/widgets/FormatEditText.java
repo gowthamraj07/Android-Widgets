@@ -46,23 +46,8 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
         formatEditTextPresenter.setIsOnSelectionChangeEnable(true);
     }
 
-    public void setFormat(String format) {
-        FormatTextWatcher.Formatter formatter = new DashFormatter(format);
-        final FormatTextWatcher textWatcher = new FormatTextWatcher(this, formatter, validator, validationListener);
-        this.initWith(formatter);
-        textWatcher.init();
-
-        this.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    textWatcher.setInitialText();
-                    addTextChangedListener(textWatcher);
-                } else {
-                    removeTextChangedListener(textWatcher);
-                }
-            }
-        });
+    public void setFormat(final String format) {
+        this.setOnFocusChangeListener(new OnFocusChangeListener(format));
     }
 
     public void setValidator(FormatTextWatcher.Validator validator) {
@@ -109,5 +94,26 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
     @Override
     public void setCursorPosition(int cursorPosition) {
         updateWhenCursorIsInInvalidPosition(cursorPosition, cursorPosition);
+    }
+
+    private class OnFocusChangeListener implements View.OnFocusChangeListener {
+        private final FormatTextWatcher.Formatter formatter;
+
+        OnFocusChangeListener(String format) {
+            formatter = new DashFormatter(format);
+        }
+
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            FormatTextWatcher textWatcher = new FormatTextWatcher(FormatEditText.this, formatter, validator, validationListener);
+            if (hasFocus) {
+                initWith(formatter);
+                textWatcher.init();
+                textWatcher.setInitialText();
+                addTextChangedListener(textWatcher);
+            } else {
+                removeTextChangedListener(textWatcher);
+            }
+        }
     }
 }
