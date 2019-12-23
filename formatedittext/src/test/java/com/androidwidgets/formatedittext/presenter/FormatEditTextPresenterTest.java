@@ -32,7 +32,8 @@ public class FormatEditTextPresenterTest {
     @Parameters({
             "$$ -- $$, $$ -- $$, 0 | 3",
             "$$ -- $$, $$ -- $$, 7 | 5",
-            "$$ -- $$, , 4 | 0"
+            "$$ -- $$, , 4 | 0",
+            "EUR ----, EUR 1, 9 | 5"
     })
     public void shouldSetPossibleCursorPosition(String format, String input, int startSelection, int expectedCursorPosition) {
         presenter.setCursorPosition(startSelection, format, input);

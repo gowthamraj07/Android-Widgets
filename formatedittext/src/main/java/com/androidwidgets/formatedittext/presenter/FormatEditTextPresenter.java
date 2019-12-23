@@ -45,7 +45,11 @@ public class FormatEditTextPresenter {
         }
 
         int possiblePosition = possiblePosition(cursorPosition, firstPossibleCursorPosition, lastPossibleCursorPosition);
-        view.setCursorPosition(possiblePosition);
+        view.setCursorPosition(possibleCursorPositionFor(input, possiblePosition));
+    }
+
+    private int possibleCursorPositionFor(String input, int possiblePosition) {
+        return possiblePosition > input.length() ? input.length() : possiblePosition;
     }
 
     private int possiblePosition(int cursorPosition, int firstPossibleIndex, int lastPossibleCursorPosition) {
