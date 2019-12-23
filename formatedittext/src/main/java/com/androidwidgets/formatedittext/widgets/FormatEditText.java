@@ -78,7 +78,7 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
         textWatcher = new FormatTextWatcher(FormatEditText.this, formatter, validator, validationListener);
         enableOnSelectionChange();
         textWatcher.init();
-        textWatcher.setInitialText();
+        textWatcher.setInitialTextWhenEmpty();
         addTextChangedListener(textWatcher);
     }
 
