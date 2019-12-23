@@ -28,22 +28,6 @@ public class FormatEditTextPresenter {
         return filters.toArray(new InputFilter[filters.size()]);
     }
 
-    public int getLastSelection(int startSelection, String format, String input) {
-        int firstPossibleIndex = format.indexOf('-');
-        int lastPossibleCursorPosition = format.lastIndexOf('-') + 1;
-
-        if (input == null || input.isEmpty()) {
-            return 0;
-        }
-
-        int result = startSelection > lastPossibleCursorPosition ? lastPossibleCursorPosition : startSelection;
-        if (result > firstPossibleIndex && result < lastPossibleCursorPosition) {
-            return -1;
-        }
-
-        return result;
-    }
-
     public void setCursorPosition(int startSelection, String format, String input) {
         int firstPossibleIndex = format.indexOf('-');
         int lastPossibleCursorPosition = format.lastIndexOf('-') + 1;
