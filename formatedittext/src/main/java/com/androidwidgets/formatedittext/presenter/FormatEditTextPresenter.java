@@ -44,7 +44,7 @@ public class FormatEditTextPresenter {
         return result;
     }
 
-    public void getStartSelection(int startSelection, String format, String input) {
+    public void getStartSelection(int cursorPosition, String format, String input) {
         int firstPossibleIndex = format.indexOf('-');
         int lastPossibleCursorPosition = format.lastIndexOf('-') + 1;
 
@@ -53,13 +53,15 @@ public class FormatEditTextPresenter {
             return;
         }
 
-        int result = startSelection < firstPossibleIndex ? firstPossibleIndex : startSelection;
-        if (result > firstPossibleIndex && result < lastPossibleCursorPosition) {
-            view.setCursorPosition(-1);
-            return;
+        if (cursorPosition < firstPossibleIndex) {
+            cursorPosition = firstPossibleIndex;
         }
 
-        view.setCursorPosition(result);
+        if (cursorPosition > lastPossibleCursorPosition) {
+            cursorPosition = lastPossibleCursorPosition;
+        }
+
+        view.setCursorPosition(cursorPosition);
         return;
     }
 
