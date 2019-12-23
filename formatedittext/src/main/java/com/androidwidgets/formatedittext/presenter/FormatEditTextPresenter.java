@@ -44,11 +44,11 @@ public class FormatEditTextPresenter {
             return;
         }
 
-        int possibleInvalidPosition = possibleInvalidPosition(cursorPosition, firstPossibleCursorPosition, lastPossibleCursorPosition);
-        view.setCursorPosition(possibleInvalidPosition);
+        int possiblePosition = possiblePosition(cursorPosition, firstPossibleCursorPosition, lastPossibleCursorPosition);
+        view.setCursorPosition(possiblePosition);
     }
 
-    private int possibleInvalidPosition(int cursorPosition, int firstPossibleIndex, int lastPossibleCursorPosition) {
+    private int possiblePosition(int cursorPosition, int firstPossibleIndex, int lastPossibleCursorPosition) {
         return cursorPosition < firstPossibleIndex ? firstPossibleIndex : lastPossibleCursorPosition;
     }
 
