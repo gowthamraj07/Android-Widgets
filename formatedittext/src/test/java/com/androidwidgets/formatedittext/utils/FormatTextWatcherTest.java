@@ -41,7 +41,6 @@ public class FormatTextWatcherTest {
 
         textWatcher.init();
 
-        Mockito.verify(editText).setText("");
         Mockito.verify(editText).setSelection(0);
     }
 
