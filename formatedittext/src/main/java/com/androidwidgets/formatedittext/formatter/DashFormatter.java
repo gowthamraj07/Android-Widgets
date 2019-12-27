@@ -42,6 +42,17 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
         return formattedCursorPosition;
     }
 
+    private int calculateCursorPositionForUnformattedInput(final String input, final int currentCursorPosition) {
+        int resultCursorPosition = currentCursorPosition;
+        for (int index = 0; index < format.length() && index < input.length() && index < currentCursorPosition; index++) {
+            char charInFormatAtIndex = format.charAt(index);
+            if (charInFormatAtIndex != '-' && charInFormatAtIndex == input.charAt(index)) {
+                resultCursorPosition--;
+            }
+        }
+        return resultCursorPosition;
+    }
+
     private String format(String unformattedInput) {
         String resultString = replaceDashInFormatWith(unformattedInput);
         resultString = replaceDashInFormatWithSpace(resultString);
@@ -63,17 +74,6 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
 
     private Result emptyFormatWithCursorInFirstPossiblePosition() {
         return new Result(format.replaceAll("-", " "), getFirstPossibleCursorPosition());
-    }
-
-    private int calculateCursorPositionForUnformattedInput(final String input, final int currentCursorPosition) {
-        int resultCursorPosition = currentCursorPosition;
-        for (int index = 0; index < format.length() && index < input.length() && index < currentCursorPosition; index++) {
-            char charInFormatAtIndex = format.charAt(index);
-            if (charInFormatAtIndex != '-' && charInFormatAtIndex == input.charAt(index)) {
-                resultCursorPosition--;
-            }
-        }
-        return resultCursorPosition;
     }
 
     private int getFirstPossibleCursorPosition() {
@@ -99,6 +99,10 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
         }
     }
 
+    private boolean isDigit(char characterAtIndex) {
+        return characterAtIndex > 47 && characterAtIndex < 58;
+    }
+
     private boolean isAlphabet(char characterAtIndex) {
         return (characterAtIndex >= 'a' && characterAtIndex <= 'z')
                 || (characterAtIndex >= 'A' && characterAtIndex <= 'Z');
@@ -110,9 +114,5 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
 
     private String replaceCharacterPositionWithSpace(String inputCopy, int index) {
         return inputCopy.substring(0, index) + " " + inputCopy.substring(index + 1);
-    }
-
-    private boolean isDigit(char characterAtIndex) {
-        return characterAtIndex > 47 && characterAtIndex < 58;
     }
 }
