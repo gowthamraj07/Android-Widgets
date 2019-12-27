@@ -93,7 +93,7 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
 
     private String removeCharacterFromInput(String inputCopy, int index, char characterAtIndex) {
         if (isDigit(characterAtIndex) || isAlphabet(characterAtIndex)) {
-            return replaceCharaterPositionWithSpace(inputCopy, index);
+            return replaceCharacterPositionWithSpace(inputCopy, index);
         } else {
             return replaceAllMatchedCharactersWithSpace(inputCopy, characterAtIndex);
         }
@@ -108,7 +108,7 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
         return inputCopy.replaceAll("\\" + characterAtIndex, " ");
     }
 
-    private String replaceCharaterPositionWithSpace(String inputCopy, int index) {
+    private String replaceCharacterPositionWithSpace(String inputCopy, int index) {
         return inputCopy.substring(0, index) + " " + inputCopy.substring(index + 1);
     }
 
