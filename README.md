@@ -25,6 +25,20 @@ as it uses dash (-) operator to specify the format.
         editText.setValidator(new Validator(), new ValidationListener());
         editText.setFormat("<any format>");
         
+## Validator and ValidationListener
+Implement the following interface to define your own Validator and ValidationListener.
+
+##### To define Validator implement
+    com.androidwidgets.formatedittext.utils.FormatTextWatcher.Validator
+    
+##### To define ValidationListener implement
+    com.androidwidgets.formatedittext.utils.FormatTextWatcher.ValidationListener
+
+Validator.validate() method receives 2 inputs as parameters, Formatted and Unformatted inputs respectively,
+to easy the validation steps.
+Based on the validate response (true/false), methods (showSuccess()/showError()) from ValidationListener will get called.
+
+
 
 ## Examples
 ### Credit Card formats
