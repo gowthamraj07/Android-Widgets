@@ -22,8 +22,7 @@ as it uses dash (-) operator to specify the format.
 - If you need validation
         
         final FormatEditText editText = findViewById(R.id.ed_text);
-        editText.setValidator(new Validator());
-        editText.setValidationListener(new ValidationListener());
+        editText.setValidator(new Validator(), new ValidationListener());
         editText.setFormat("<any format>");
         
 
