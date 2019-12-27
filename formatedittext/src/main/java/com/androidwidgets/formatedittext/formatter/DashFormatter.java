@@ -15,25 +15,12 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
 
         String unformattedInput = removeFormatFrom(input);
         if (unformattedInput.isEmpty()) {
-            return new Result(format.replaceAll("-", " "), getFirstPossibleCursorPosition());
+            return formatWithCursorInFirstPossiblePosition();
         }
 
-        int cursorPositionWhenUnformattedInput = calculateCursorPositionForUnformattedInput(input.trim(), currentCursorPosition);
-
-        String resultString = format;
-        for (char ch : unformattedInput.toCharArray()) {
-            resultString = resultString.replaceFirst("\\-", "" + ch);
-        }
-
-        resultString = resultString.replaceAll("\\-", " ");
-        resultString = resultString.trim();
-
-        int formattedCursorPosition = format.indexOf('-');
-        for (int index = 0; index < unformattedInput.length() && index < cursorPositionWhenUnformattedInput; index++) {
-            formattedCursorPosition = format.indexOf("-", formattedCursorPosition) + 1;
-        }
-
-        return new Result(resultString, formattedCursorPosition);
+        String formattedInput = format(unformattedInput);
+        int formattedCursorPosition = getFormattedCursorPosition(input, currentCursorPosition, unformattedInput);
+        return new Result(formattedInput, formattedCursorPosition);
     }
 
     @Override
@@ -44,6 +31,38 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
     @Override
     public String removeFormat(String userInput) {
         return removeFormatFrom(userInput);
+    }
+
+    private int getFormattedCursorPosition(String input, int currentCursorPosition, String unformattedInput) {
+        int formattedCursorPosition = format.indexOf('-');
+        int cursorPositionWhenUnformattedInput = calculateCursorPositionForUnformattedInput(input.trim(), currentCursorPosition);
+        for (int index = 0; index < unformattedInput.length() && index < cursorPositionWhenUnformattedInput; index++) {
+            formattedCursorPosition = format.indexOf("-", formattedCursorPosition) + 1;
+        }
+        return formattedCursorPosition;
+    }
+
+    private String format(String unformattedInput) {
+        String resultString = replaceDashInFormatWith(unformattedInput);
+        resultString = replaceDashInFormatWithSpace(resultString);
+        resultString = resultString.trim();
+        return resultString;
+    }
+
+    private String replaceDashInFormatWithSpace(String resultString) {
+        return resultString.replaceAll("\\-", " ");
+    }
+
+    private String replaceDashInFormatWith(String unformattedInput) {
+        String resultString = format;
+        for (char ch : unformattedInput.toCharArray()) {
+            resultString = resultString.replaceFirst("\\-", "" + ch);
+        }
+        return resultString;
+    }
+
+    private Result formatWithCursorInFirstPossiblePosition() {
+        return new Result(format.replaceAll("-", " "), getFirstPossibleCursorPosition());
     }
 
     private int calculateCursorPositionForUnformattedInput(final String input, final int currentCursorPosition) {
@@ -61,7 +80,7 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
         return format.indexOf('-');
     }
 
-    String removeFormatFrom(final String input) {
+    private String removeFormatFrom(final String input) {
         String inputCopy = input;
         String formatCopy = format;
         for (int index = 0; index < formatCopy.length(); index++) {
@@ -96,5 +115,4 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
     private boolean isDigit(char characterAtIndex) {
         return characterAtIndex > 47 && characterAtIndex < 58;
     }
-
 }
