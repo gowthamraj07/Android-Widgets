@@ -76,3 +76,11 @@ Based on the validate response (true/false), methods (showSuccess()/showError())
 |--------------|-------------|
 | 10:50:45 am  | --:--:-- -- |
 
+
+### Screenshots
+
+![](images/Screenshot_1.png?raw=true)
+
+![](images/Screenshot_2.png?raw=true)
+
+![](images/Screenshot_3.png?raw=true)
