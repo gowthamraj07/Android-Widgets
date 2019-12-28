@@ -12,14 +12,19 @@ So, the following code is important.
 
 ## How to use
 
-### 1. Declare FormatEditText in Layout (xml) file
+### 1. Add library dependency
+Add the following dependency to app/build.gradle or module/build.gradle file.
+
+    implementation 'com.androidwidgets:formatedittext:0.1.0'
+
+### 2. Declare FormatEditText in Layout (xml) file
     <com.androidwidgets.formatedittext.widgets.FormatEditText
             android:id="@+id/ed_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number" />
 
-### 2. Set the format to the FormatEditText in Code
+### 3. Set the format to the FormatEditText in Code
 - If you need only format (when no validation required)
 
         final FormatEditText editText = findViewById(R.id.ed_text);
