@@ -1,4 +1,20 @@
+apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'com.android.library'
+
+publish {
+
+    def groupProjectID = 'com.androidwidgets'
+    def artifactProjectID = 'formatedittext'
+    def publishVersionID = '0.1.0'
+
+    userOrg = 'gowthamraj07'
+    repoName = 'EditText-Formatter'
+    groupId = groupProjectID
+    artifactId = artifactProjectID
+    publishVersion = publishVersionID
+    desc = 'Android library for formatting user inputs based on the given format for FormatEditText widget'
+    website = 'https://github.com/gowthamraj07/EditText-Formatter'
+}
 
 android {
     compileSdkVersion 29
