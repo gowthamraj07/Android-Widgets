@@ -3,6 +3,12 @@ This library helps to format the input (in EditText) while the user types.
 Currently this library supports any formats without dash (-) operator in output, 
 as it uses dash (-) operator to specify the format.
 
+Note : Currently this formatter supports only numbers (as user input).
+But all special characters (obviously except dash operator) including alphabet can be in format.
+So, the following code is important.
+    
+    android:inputType="number"
+
 
 ## How to use
 
