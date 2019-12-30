@@ -30,11 +30,19 @@ public class CurrencyFormatter implements FormatTextWatcher.Formatter {
 
     private String getFormattedWholeNumber(final String input) {
         String formattedWholeAmount = "";
-        if (input.length() > 3) {
-            int thousandSeparatorLocation = input.length() - 3;
-            formattedWholeAmount = input.substring(0, thousandSeparatorLocation) + "," + input.substring(thousandSeparatorLocation);
-        } else {
-            formattedWholeAmount = input;
+        String wholeNumberFormat = getFormat().substring(0, getFormat().indexOf(currency.getDecimalSeparator()));
+
+        int index = input.length() - 1;
+        int indexForFormat = wholeNumberFormat.length() - 1;
+        while (index >= 0) {
+            if ('#' == wholeNumberFormat.charAt(indexForFormat)) {
+                formattedWholeAmount = input.charAt(index) + formattedWholeAmount;
+                index--;
+                indexForFormat--;
+            } else {
+                formattedWholeAmount = wholeNumberFormat.charAt(indexForFormat) + formattedWholeAmount;
+                indexForFormat--;
+            }
         }
 
         return formattedWholeAmount;
