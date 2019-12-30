@@ -1,18 +1,20 @@
 package com.androidwidgets.formatedittext.formatter;
 
+import com.androidwidgets.formatedittext.domain.Currency;
 import com.androidwidgets.formatedittext.utils.FormatTextWatcher;
 import com.androidwidgets.formatedittext.utils.Result;
 
 public class CurrencyFormatter implements FormatTextWatcher.Formatter {
-    private String format;
+
+    private final Currency currency;
 
     public CurrencyFormatter(String format) {
-        this.format = format;
+        currency = new Currency(format);
     }
 
     @Override
     public String getFormat() {
-        return format;
+        return currency.getFormat();
     }
 
     @Override
