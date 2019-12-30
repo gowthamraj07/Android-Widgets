@@ -48,4 +48,25 @@ public class CurrencyFormatterTest {
 
         assertEquals(expectedFormattedAmount, formattedResult.getFormattedUserInput());
     }
+
+    @Test
+    @Parameters ({
+            "1 | 1.00",
+            "12 | 12.00",
+            "123 | 123.00",
+            "1234 | 1\\,234.00",
+            "12345 | 12\\,345.00",
+            "123456 | 123\\,456.00",
+            "1234567 | 1\\,234\\,567.00",
+            "12345678 | 12\\,345\\,678.00",
+            "123456789 | 123\\,456\\,789.00",
+    })
+    public void shouldFormatInputForFormat_US(String amount, String expectedFormattedAmount) {
+        aCurrency = new Currency("#,###,###.##",".",2);
+        CurrencyFormatter formatter = new CurrencyFormatter(aCurrency);
+
+        Result formattedResult = formatter.format(amount, 0);
+
+        assertEquals(expectedFormattedAmount, formattedResult.getFormattedUserInput());
+    }
 }
