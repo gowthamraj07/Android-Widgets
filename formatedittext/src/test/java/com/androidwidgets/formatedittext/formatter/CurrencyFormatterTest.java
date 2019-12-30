@@ -38,6 +38,8 @@ public class CurrencyFormatterTest {
             "12345 | 12\\,345.00",
             "123456 | 1\\,23\\,456.00",
             "1234567 | 12\\,34\\,567.00",
+            "12345678 | 1\\,23\\,45\\,678.00",
+            "123456789 | 12\\,34\\,56\\,789.00",
     })
     public void shouldFormatInput(String amount, String expectedFormattedAmount) {
         CurrencyFormatter formatter = new CurrencyFormatter(aCurrency);
