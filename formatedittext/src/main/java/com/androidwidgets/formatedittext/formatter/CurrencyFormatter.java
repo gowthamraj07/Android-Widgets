@@ -6,10 +6,10 @@ import com.androidwidgets.formatedittext.utils.Result;
 
 public class CurrencyFormatter implements FormatTextWatcher.Formatter {
 
-    private final Currency currency;
+    private Currency currency;
 
-    public CurrencyFormatter(String format) {
-        currency = new Currency(format);
+    public CurrencyFormatter(Currency currency) {
+        this.currency = currency;
     }
 
     @Override
