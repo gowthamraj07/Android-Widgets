@@ -34,7 +34,10 @@ public class CurrencyFormatterTest {
     @Test
     @Parameters ({
             "1 | 1.00",
-            "1234 | 1\\,234.00"
+            "1234 | 1\\,234.00",
+            "12345 | 12\\,345.00",
+            "123456 | 1\\,23\\,456.00",
+            "1234567 | 12\\,34\\,567.00",
     })
     public void shouldFormatInput(String amount, String expectedFormattedAmount) {
         CurrencyFormatter formatter = new CurrencyFormatter(aCurrency);

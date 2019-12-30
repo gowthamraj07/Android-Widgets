@@ -35,6 +35,11 @@ public class CurrencyFormatter implements FormatTextWatcher.Formatter {
         int index = input.length() - 1;
         int indexForFormat = wholeNumberFormat.length() - 1;
         while (index >= 0) {
+            if (indexForFormat < 0) {
+                char separator = wholeNumberFormat.charAt(1);
+                indexForFormat = wholeNumberFormat.indexOf(separator, 2) - 2;
+            }
+
             if ('#' == wholeNumberFormat.charAt(indexForFormat)) {
                 formattedWholeAmount = input.charAt(index) + formattedWholeAmount;
                 index--;
