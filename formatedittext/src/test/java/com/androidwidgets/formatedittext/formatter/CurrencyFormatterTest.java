@@ -25,7 +25,8 @@ public class CurrencyFormatterTest {
 
     @Test
     @Parameters ({
-            "1 | 1.00"
+            "1 | 1.00",
+            "1234 | 1\\,234.00"
     })
     public void shouldFormatInput(String amount, String expectedFormattedAmount) {
         CurrencyFormatter formatter = new CurrencyFormatter("#,##,###.##");

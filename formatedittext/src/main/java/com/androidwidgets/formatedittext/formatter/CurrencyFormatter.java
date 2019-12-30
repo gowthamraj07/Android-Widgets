@@ -22,7 +22,19 @@ public class CurrencyFormatter implements FormatTextWatcher.Formatter {
 
     @Override
     public Result format(String input, int currentCursorPosition) {
-        String formattedAmount = input + ".00";
+        String formattedAmount = getFormattedWholeNumber(input) + ".00";
         return new Result(formattedAmount, 0);
+    }
+
+    private String getFormattedWholeNumber(final String input) {
+        String formattedWholeAmount = "";
+        if (input.length() > 3) {
+            int thousandSeparatorLocation = input.length() - 3;
+            formattedWholeAmount = input.substring(0, thousandSeparatorLocation) + "," + input.substring(thousandSeparatorLocation);
+        } else {
+            formattedWholeAmount = input;
+        }
+
+        return formattedWholeAmount;
     }
 }
