@@ -29,27 +29,53 @@ public class CurrencyFormatter implements FormatTextWatcher.Formatter {
     }
 
     private String getFormattedWholeNumber(final String input) {
-        String formattedWholeAmount = "";
-        String wholeNumberFormat = getFormat().substring(0, getFormat().indexOf(currency.getDecimalSeparator()));
+        int positionOfDecimalSeparator = getFormat().indexOf(currency.getDecimalSeparator());
+        String wholeNumberFormat = getFormat().substring(0, positionOfDecimalSeparator);
 
         int index = input.length() - 1;
         int indexForFormat = wholeNumberFormat.length() - 1;
-        while (index >= 0) {
-            if (indexForFormat < 0) {
-                char separator = wholeNumberFormat.charAt(1);
-                indexForFormat = wholeNumberFormat.indexOf(separator, 2) - 2;
+        String formattedWholeAmount = "";
+
+        while (hasMoreCharactersToFormat(index)) {
+            if (isIndexBeyondFormatLength(indexForFormat)) {
+                indexForFormat = getPreviousSimilarFormatIndex(wholeNumberFormat);
             }
 
-            if ('#' == wholeNumberFormat.charAt(indexForFormat)) {
-                formattedWholeAmount = input.charAt(index) + formattedWholeAmount;
+            if (canPlaceNumberInFormat(wholeNumberFormat, indexForFormat)) {
+                formattedWholeAmount = placeNumberInOutput(input, formattedWholeAmount, index);
                 index--;
                 indexForFormat--;
             } else {
-                formattedWholeAmount = wholeNumberFormat.charAt(indexForFormat) + formattedWholeAmount;
+                formattedWholeAmount = placeCharacterFromFormatInOutput(formattedWholeAmount, wholeNumberFormat, indexForFormat);
                 indexForFormat--;
             }
         }
 
         return formattedWholeAmount;
+    }
+
+    private String placeCharacterFromFormatInOutput(String formattedWholeAmount, String wholeNumberFormat, int indexForFormat) {
+        return wholeNumberFormat.charAt(indexForFormat) + formattedWholeAmount;
+    }
+
+    private String placeNumberInOutput(String input, String formattedWholeAmount, int index) {
+        return input.charAt(index) + formattedWholeAmount;
+    }
+
+    private boolean canPlaceNumberInFormat(String wholeNumberFormat, int indexForFormat) {
+        return '#' == wholeNumberFormat.charAt(indexForFormat);
+    }
+
+    private int getPreviousSimilarFormatIndex(String wholeNumberFormat) {
+        char separator = wholeNumberFormat.charAt(1);
+        return wholeNumberFormat.indexOf(separator, 2) - 2;
+    }
+
+    private boolean isIndexBeyondFormatLength(int indexForFormat) {
+        return indexForFormat < 0;
+    }
+
+    private boolean hasMoreCharactersToFormat(int index) {
+        return index >= 0;
     }
 }
