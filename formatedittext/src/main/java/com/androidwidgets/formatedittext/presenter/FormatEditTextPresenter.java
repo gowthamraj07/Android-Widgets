@@ -30,9 +30,9 @@ public class FormatEditTextPresenter {
         view.setFilters(newFilters);
     }
 
-    public void setCursorPosition(int cursorPosition, String format, String input) {
-        int firstPossibleCursorPosition = format.indexOf('-');
-        int lastPossibleCursorPosition = format.lastIndexOf('-') + 1;
+    public void setCursorPosition(int cursorPosition, String format, String input, char maskCharacter) {
+        int firstPossibleCursorPosition = format.indexOf(maskCharacter);
+        int lastPossibleCursorPosition = format.lastIndexOf(maskCharacter) + 1;
 
         if (input == null || input.isEmpty()) {
             view.setCursorPosition(0);

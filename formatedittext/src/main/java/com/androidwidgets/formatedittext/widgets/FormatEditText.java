@@ -97,7 +97,7 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
             return;
         }
 
-        formatEditTextPresenter.setCursorPosition(selStart, formatter.getFormat(), getText().toString());
+        formatEditTextPresenter.setCursorPosition(selStart, formatter.getFormat(), getText().toString(), formatter.getMaskCharacter());
     }
 
     private void init() {

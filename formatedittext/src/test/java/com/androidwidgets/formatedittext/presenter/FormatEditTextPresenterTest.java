@@ -36,7 +36,7 @@ public class FormatEditTextPresenterTest {
             "EUR ----, EUR 1, 9 | 5"
     })
     public void shouldSetPossibleCursorPosition(String format, String input, int startSelection, int expectedCursorPosition) {
-        presenter.setCursorPosition(startSelection, format, input);
+        presenter.setCursorPosition(startSelection, format, input, '-');
 
         Mockito.verify(view).setCursorPosition(expectedCursorPosition);
     }
@@ -46,7 +46,7 @@ public class FormatEditTextPresenterTest {
             "$$ -- $$, $$ -- $$, 4 | -1"
     })
     public void shouldReturnMinus1_whenCursorIsInValidPosition(String format, String input, int startSelection, int expectedCursorPosition) {
-        presenter.setCursorPosition(startSelection, format, input);
+        presenter.setCursorPosition(startSelection, format, input, '-');
 
         Mockito.verify(view).setCursorPosition(expectedCursorPosition);
     }
