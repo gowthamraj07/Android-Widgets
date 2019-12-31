@@ -33,9 +33,14 @@ public class CurrencyFormatter implements FormatTextWatcher.Formatter {
         int positionOfDecimalSeparator = input.indexOf(currency.getDecimalSeparator());
         String wholeNumber = getWholeNumber(input, positionOfDecimalSeparator);
         String decimalNumber = getDecimalNumber(input, positionOfDecimalSeparator);
+        String formattedWholeNumber = getFormattedWholeNumber(wholeNumber);
+        String formattedAmount = formattedWholeNumber + decimalNumber;
 
-        String formattedAmount = getFormattedWholeNumber(wholeNumber) + decimalNumber;
-        return new Result(formattedAmount, currentCursorPosition);
+        int specialCharactersBeforeFormatting = wholeNumber.replaceAll("[0-9]", "").length();
+        int specialCharactersAfterFormatting = formattedWholeNumber.replaceAll("[0-9]", "").length();
+        int formattedCursorPosition = currentCursorPosition + (specialCharactersAfterFormatting - specialCharactersBeforeFormatting);
+
+        return new Result(formattedAmount, formattedCursorPosition);
     }
 
     private String getDecimalNumber(String input, int positionOfDecimalSeparator) {
