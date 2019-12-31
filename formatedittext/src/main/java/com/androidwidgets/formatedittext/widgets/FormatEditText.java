@@ -38,6 +38,11 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
 
     public void setFormat(final String format) {
         this.format = format;
+        setFormatter(new DashFormatter(format));
+    }
+
+    public void setFormatter(FormatTextWatcher.Formatter formatter) {
+        this.formatter = formatter;
         this.setOnFocusChangeListener(new OnFocusChangeListener());
     }
 
@@ -74,7 +79,6 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
 
     @Override
     public void addWatcherOnFocus() {
-        formatter = new DashFormatter(format);
         textWatcher = new FormatTextWatcher(FormatEditText.this, formatter, validator, validationListener);
         enableOnSelectionChange();
         textWatcher.init();
