@@ -69,4 +69,17 @@ public class CurrencyFormatterTest {
 
         assertEquals(expectedFormattedAmount, formattedResult.getFormattedUserInput());
     }
+
+    @Test
+    @Parameters({
+            "#\\,###\\,###.##, 1\\,234.00 | 1234.00"
+    })
+    public void shouldRemoveFormatFromInput(String format, String formattedInput, String expectedOutput) {
+        aCurrency = new Currency(format,".",2);
+        CurrencyFormatter formatter = new CurrencyFormatter(aCurrency);
+
+        String unformattedInput = formatter.removeFormat(formattedInput);
+
+        assertEquals(expectedOutput, unformattedInput);
+    }
 }

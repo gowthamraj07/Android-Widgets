@@ -19,7 +19,13 @@ public class CurrencyFormatter implements FormatTextWatcher.Formatter {
 
     @Override
     public String removeFormat(String userInput) {
-        return null;
+        String formatWithoutDecimalSeparator = getFormat().replaceAll("\\" + currency.getDecimalSeparator(), "");
+        String unformattedInput = userInput;
+        for (char ch : formatWithoutDecimalSeparator.toCharArray()) {
+            unformattedInput = unformattedInput.replaceAll("\\" + ch, "");
+        }
+
+        return unformattedInput;
     }
 
     @Override
