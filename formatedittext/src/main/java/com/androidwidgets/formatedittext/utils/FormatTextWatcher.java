@@ -89,6 +89,7 @@ public class FormatTextWatcher implements TextWatcher {
         String getFormat();
         String removeFormat(String userInput);
         Result format(String input, int currentCursorPosition);
+        char getMaskCharacter();
     }
 
     public interface Validator {

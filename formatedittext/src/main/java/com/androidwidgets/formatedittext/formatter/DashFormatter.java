@@ -24,6 +24,11 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
     }
 
     @Override
+    public char getMaskCharacter() {
+        return '-';
+    }
+
+    @Override
     public String getFormat() {
         return format;
     }
