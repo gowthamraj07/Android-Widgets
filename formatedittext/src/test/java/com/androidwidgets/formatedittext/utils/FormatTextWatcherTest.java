@@ -157,6 +157,7 @@ public class FormatTextWatcherTest {
         Mockito.when(editable.toString()).thenReturn("");
         Mockito.when(editText.getText()).thenReturn(editable);
         Mockito.when(formatter.getFormat()).thenReturn(format);
+        Mockito.when(formatter.getTextWhenEmpty()).thenReturn(format.replaceAll("-"," "));
         FormatTextWatcher textWatcher = new FormatTextWatcher(editText, formatter, validator, listener);
 
         textWatcher.setInitialTextWhenEmpty();
@@ -171,6 +172,7 @@ public class FormatTextWatcherTest {
     })
     public void shouldSetFormatWithoutDashesAsInitialTextWhenNoInputIsGiven(String format, String input, String expectedResult) {
         Mockito.when(formatter.getFormat()).thenReturn(format);
+        Mockito.when(formatter.getTextWhenEmpty()).thenReturn(format.replaceAll("-", " "));
         Editable editable = Mockito.mock(Editable.class);
         Mockito.when(editable.toString()).thenReturn(input);
         Mockito.when(editText.getText()).thenReturn(editable);

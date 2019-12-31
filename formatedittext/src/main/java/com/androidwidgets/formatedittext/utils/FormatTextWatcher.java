@@ -72,8 +72,8 @@ public class FormatTextWatcher implements TextWatcher {
     }
 
     private void setInitialText() {
-        String format = formatter.getFormat();
-        editText.setText(format.replaceAll("-", " "));
+        String textWhenEmpty = formatter.getTextWhenEmpty();
+        editText.setText(textWhenEmpty);
     }
 
     public void setInitialTextWhenEmpty() {
@@ -90,6 +90,7 @@ public class FormatTextWatcher implements TextWatcher {
         String removeFormat(String userInput);
         Result format(String input, int currentCursorPosition);
         char getMaskCharacter();
+        String getTextWhenEmpty();
     }
 
     public interface Validator {

@@ -29,6 +29,11 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
     }
 
     @Override
+    public String getTextWhenEmpty() {
+        return getFormat().replaceAll("-", " ");
+    }
+
+    @Override
     public String getFormat() {
         return format;
     }

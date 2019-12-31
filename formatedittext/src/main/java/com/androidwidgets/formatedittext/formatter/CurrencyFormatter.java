@@ -39,6 +39,11 @@ public class CurrencyFormatter implements FormatTextWatcher.Formatter {
         return '#';
     }
 
+    @Override
+    public String getTextWhenEmpty() {
+        return "";
+    }
+
     private String getFormattedWholeNumber(final String input) {
         int positionOfDecimalSeparator = getFormat().indexOf(currency.getDecimalSeparator());
         String wholeNumberFormat = getFormat().substring(0, positionOfDecimalSeparator);
