@@ -31,7 +31,7 @@ public class CurrencyFormatter implements FormatTextWatcher.Formatter {
     @Override
     public Result format(String input, int currentCursorPosition) {
         String formattedAmount = getFormattedWholeNumber(input) + ".00";
-        return new Result(formattedAmount, 0);
+        return new Result(formattedAmount, currentCursorPosition);
     }
 
     private String getFormattedWholeNumber(final String input) {
