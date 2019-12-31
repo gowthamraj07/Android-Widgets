@@ -113,8 +113,8 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
     private class OnFocusChangeListener implements View.OnFocusChangeListener {
 
         @Override
-        public void onFocusChange(View v, boolean hasFocus) {
-            formatEditTextPresenter.onTextFieldHas(true);
+        public void onFocusChange(View v, boolean focus) {
+            formatEditTextPresenter.onTextFieldHas(focus);
         }
     }
 
