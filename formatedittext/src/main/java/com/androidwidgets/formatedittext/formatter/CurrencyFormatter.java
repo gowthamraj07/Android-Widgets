@@ -30,7 +30,14 @@ public class CurrencyFormatter implements FormatTextWatcher.Formatter {
 
     @Override
     public Result format(String input, int currentCursorPosition) {
-        String formattedAmount = getFormattedWholeNumber(input) + ".00";
+        int positionOfDecimalSeparator = input.indexOf(currency.getDecimalSeparator());
+        String formattedAmount;
+        if (positionOfDecimalSeparator > 0) {
+            formattedAmount = getFormattedWholeNumber(input.substring(0, positionOfDecimalSeparator)) + ".00";
+        } else {
+            formattedAmount = getFormattedWholeNumber(input) + ".00";
+        }
+
         return new Result(formattedAmount, currentCursorPosition);
     }
 
