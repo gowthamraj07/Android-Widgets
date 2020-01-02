@@ -82,4 +82,20 @@ public class CurrencyFormatterTest {
 
         assertEquals(expectedOutput, unformattedInput);
     }
+
+    @Test
+    @Parameters ({
+            "1 , 1| 1",
+            "12 , 2| 2",
+            "123 , 3| 3",
+            "1234 , 4| 5"
+    })
+    public void shouldReturnCursorPositionAfterFormattingInput(String input, int currentCursorPosition, int formattedCursorPosition) {
+        aCurrency = new Currency("#,##,###.##",".",2);
+        CurrencyFormatter formatter = new CurrencyFormatter(aCurrency);
+
+        Result result = formatter.format(input, currentCursorPosition);
+
+        assertEquals(formattedCursorPosition, result.getFormattedCursorPosition());
+    }
 }
