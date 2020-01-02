@@ -88,7 +88,8 @@ public class CurrencyFormatterTest {
             "1 , 1| 1",
             "12 , 2| 2",
             "123 , 3| 3",
-            "1234 , 4| 5"
+            "1234 , 4| 5",
+            "1234 , 1| 1",
     })
     public void shouldReturnCursorPositionAfterFormattingInput(String input, int currentCursorPosition, int formattedCursorPosition) {
         aCurrency = new Currency("#,##,###.##",".",2);
