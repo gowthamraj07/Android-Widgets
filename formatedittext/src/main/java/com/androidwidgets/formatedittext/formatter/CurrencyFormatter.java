@@ -31,9 +31,7 @@ public class CurrencyFormatter implements FormatTextWatcher.Formatter {
     @Override
     public Result format(String input, int currentCursorPosition) {
 
-        if (currency.getDecimalSeparator().equals("" + input.charAt(currentCursorPosition))) {
-            input = input.substring(0, currentCursorPosition) + input.substring(currentCursorPosition + 1);
-        }
+        input = removeNewCharacterIfDecimalSeparator(input, currentCursorPosition);
 
         int positionOfDecimalSeparator = input.indexOf(currency.getDecimalSeparator());
         String wholeNumber = getWholeNumber(input, positionOfDecimalSeparator);
@@ -47,6 +45,21 @@ public class CurrencyFormatter implements FormatTextWatcher.Formatter {
         int formattedCursorPosition = currentCursorPosition + (specialCharactersAfterFormatting - specialCharactersBeforeFormatting);
 
         return new Result(formattedAmount, formattedCursorPosition);
+    }
+
+    private String removeNewCharacterIfDecimalSeparator(String input, int currentCursorPosition) {
+        boolean isValidCursorPosition = (currentCursorPosition - 1) > -1;
+
+        if (!isValidCursorPosition) {
+            return input;
+        }
+
+        boolean isUserInputsDecimalSeparator = currency.getDecimalSeparator().equals("" + input.charAt(currentCursorPosition - 1));
+        if (isUserInputsDecimalSeparator) {
+            input = input.substring(0, currentCursorPosition) + input.substring(currentCursorPosition + 1);
+        }
+
+        return input;
     }
 
     private int getSpecialCharactersCountOfStringTillPosition(String aString, int aPosition) {
