@@ -113,4 +113,18 @@ public class CurrencyFormatterTest {
         assertEquals(formattedOutput, result.getFormattedUserInput());
         assertEquals(formattedCursorPosition, result.getFormattedCursorPosition());
     }
+
+    @Test
+    @Parameters ({
+            "1..00 , 2| 1.00, 2"
+    })
+    public void shouldMoveCursorToNextPositionWhenUserInputsDecimalSeparator(String input, int currentCursorPosition, String formattedOutput, int formattedCursorPosition) {
+        aCurrency = new Currency("#,##,###.##",".",2);
+        CurrencyFormatter formatter = new CurrencyFormatter(aCurrency);
+
+        Result result = formatter.format(input, currentCursorPosition);
+
+        assertEquals(formattedOutput, result.getFormattedUserInput());
+        assertEquals(formattedCursorPosition, result.getFormattedCursorPosition());
+    }
 }
