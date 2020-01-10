@@ -4,6 +4,7 @@ import com.androidwidgets.formatedittext.domain.Currency;
 import com.androidwidgets.formatedittext.utils.Result;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -126,5 +127,79 @@ public class CurrencyFormatterTest {
 
         assertEquals(formattedOutput, result.getFormattedUserInput());
         assertEquals(formattedCursorPosition, result.getFormattedCursorPosition());
+    }
+
+    @Test
+    @Parameters ({
+            "0.100, 3 | 0.10, 3",
+            "0.110, 4 | 0.11, 4",
+            "0.119, 5 | 0.11, 4",
+            "0.11, 4 | 0.11, 4",
+            "0.1, 3 | 0.10, 3",
+    })
+    public void shouldFormatDecimalNumber(String input, int cursorPosition, String formattedOutput, int formattedCursorPosition) {
+        aCurrency = new Currency("#,##,###.##",".",2);
+        CurrencyFormatter formatter = new CurrencyFormatter(aCurrency);
+
+        Result result = formatter.format(input, cursorPosition);
+
+        assertEquals(formattedOutput, result.getFormattedUserInput());
+        assertEquals(formattedCursorPosition, result.getFormattedCursorPosition());
+    }
+
+    @Test
+    @Parameters ({
+            "0\\,100, 3 | 0\\,10, 3",
+            "0\\,110, 4 | 0\\,11, 4",
+            "0\\,119, 5 | 0\\,11, 4",
+            "0\\,11, 4  | 0\\,11, 4",
+            "0\\,1, 3   | 0\\,10, 3",
+    })
+    public void shouldFormatDecimalNumber_forGermanFormat(String input, int cursorPosition, String formattedOutput, int formattedCursorPosition) {
+        aCurrency = new Currency("# ### ###,##",",",2);
+        CurrencyFormatter formatter = new CurrencyFormatter(aCurrency);
+
+        Result result = formatter.format(input, cursorPosition);
+
+        assertEquals(formattedOutput, result.getFormattedUserInput());
+        assertEquals(formattedCursorPosition, result.getFormattedCursorPosition());
+    }
+
+    @Test
+    @Parameters ({
+            "1 | 1\\,00",
+            "12 | 12\\,00",
+            "123 | 123\\,00",
+            "1234 | 1 234\\,00",
+            "12345 | 12 345\\,00",
+            "123456 | 123 456\\,00",
+            "1234567 | 1 234 567\\,00",
+    })
+    public void shouldFormatInput_forGermanCurrency(String amount, String expectedFormattedAmount) {
+        aCurrency = new Currency("# ### ###,##",",",2);
+        CurrencyFormatter formatter = new CurrencyFormatter(aCurrency);
+
+        Result formattedResult = formatter.format(amount, 0);
+
+        assertEquals(expectedFormattedAmount, formattedResult.getFormattedUserInput());
+    }
+
+    @Test
+    @Ignore
+    @Parameters ({
+            "0100, 2 | 0\\,10, 1",
+            "0110, 2 | 0\\,11, 1",
+            "0119, 2 | 0\\,11, 1",
+            "011, 2  | 0\\,11, 1",
+            "01, 2   | 0\\,10, 1",
+    })
+    public void shouldMaintainFormattedOutput_withCursorPositionMinus1_WhenUserDeletesTheDecimalPlace(String input, int cursorPosition, String formattedOutput, int formattedCursorPosition) {
+        aCurrency = new Currency("# ### ###,##",",",2);
+        CurrencyFormatter formatter = new CurrencyFormatter(aCurrency);
+
+        Result formattedResult = formatter.format(input, cursorPosition);
+
+        assertEquals(formattedOutput, formattedResult.getFormattedUserInput());
+        assertEquals(formattedCursorPosition, formattedResult.getFormattedCursorPosition());
     }
 }

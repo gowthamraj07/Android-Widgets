@@ -4,6 +4,8 @@ import com.androidwidgets.formatedittext.domain.Currency;
 import com.androidwidgets.formatedittext.utils.FormatTextWatcher;
 import com.androidwidgets.formatedittext.utils.Result;
 
+import java.text.DecimalFormat;
+
 public class CurrencyFormatter implements FormatTextWatcher.Formatter {
 
     private Currency currency;
@@ -38,13 +40,53 @@ public class CurrencyFormatter implements FormatTextWatcher.Formatter {
         String decimalNumber = getDecimalNumber(input, positionOfDecimalSeparator);
 
         String formattedWholeNumber = getFormattedWholeNumber(removeFormat(wholeNumber));
-        String formattedAmount = formattedWholeNumber + decimalNumber;
+        String formattedDecimalNumber = getFormattedDecimalNumber(decimalNumber);
+        String formattedAmount = formattedWholeNumber + formattedDecimalNumber;
 
         int specialCharactersBeforeFormatting = getSpecialCharactersCountOfStringTillPosition(wholeNumber, currentCursorPosition);
         int specialCharactersAfterFormatting = getSpecialCharactersCountOfStringTillPosition(formattedWholeNumber, currentCursorPosition);
         int formattedCursorPosition = currentCursorPosition + (specialCharactersAfterFormatting - specialCharactersBeforeFormatting);
+        formattedCursorPosition = formattedCursorPosition > formattedAmount.length() ? formattedAmount.length() : formattedCursorPosition;
 
         return new Result(formattedAmount, formattedCursorPosition);
+    }
+
+    private String getFormattedDecimalNumber(String decimalNumber) {
+        int indexOfDecimalSeparator = decimalNumber.indexOf(currency.getDecimalSeparator());
+
+        // Get valid decimal number for formatting
+        String validDecimalNumber = getValidDecimalNumberFrom(decimalNumber, indexOfDecimalSeparator);
+        validDecimalNumber = validDecimalNumber.replace(currency.getDecimalSeparator(), ".");
+
+        // Convert to float value
+        Float decimalAmount = Float.parseFloat(validDecimalNumber);
+
+        // Setup formatting for decimal value
+        DecimalFormat decimalFormat = new DecimalFormat();
+        decimalFormat.setMaximumFractionDigits(2);
+        decimalFormat.setMinimumFractionDigits(2);
+
+        // Return formatted decimal value
+        String formattedDecimalValue = decimalFormat.format(decimalAmount);
+        formattedDecimalValue = formattedDecimalValue.replace(".", currency.getDecimalSeparator());
+        return formattedDecimalValue.substring(formattedDecimalValue.indexOf(currency.getDecimalSeparator()));
+    }
+
+    private String getValidDecimalNumberFrom(String decimalNumber, int indexOfDecimalSeparator) {
+        String decimalNumberWithoutDecimal = decimalNumber.substring(indexOfDecimalSeparator + 1);
+        if (decimalNumberWithoutDecimal.length() > currency.getDecimals()) {
+            return currency.getDecimalSeparator() + decimalNumberWithoutDecimal.substring(0, currency.getDecimals());
+        }
+
+        if (decimalNumberWithoutDecimal.length() == currency.getDecimals()) {
+            return currency.getDecimalSeparator() + decimalNumberWithoutDecimal;
+        }
+
+        for (int index = decimalNumberWithoutDecimal.length(); index < currency.getDecimals(); index++) {
+            decimalNumberWithoutDecimal += "0";
+        }
+
+        return currency.getDecimalSeparator() + decimalNumberWithoutDecimal;
     }
 
     private String removeNewCharacterIfDecimalSeparator(String input, int currentCursorPosition) {
@@ -68,7 +110,7 @@ public class CurrencyFormatter implements FormatTextWatcher.Formatter {
     }
 
     private String getDecimalNumber(String input, int positionOfDecimalSeparator) {
-        return positionOfDecimalSeparator > 0 ? input.substring(positionOfDecimalSeparator) : ".00";
+        return positionOfDecimalSeparator > 0 ? input.substring(positionOfDecimalSeparator) : currency.getDecimalSeparator() + "00";
     }
 
     private String getWholeNumber(String input, int positionOfDecimalSeparator) {
