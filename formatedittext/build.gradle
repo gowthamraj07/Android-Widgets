@@ -5,7 +5,7 @@ publish {
 
     def groupProjectID = 'com.androidwidgets'
     def artifactProjectID = 'formatedittext'
-    def publishVersionID = '0.1.0'
+    def publishVersionID = '0.2.0'
 
     userOrg = 'gowthamraj07'
     repoName = 'EditText-Formatter'
