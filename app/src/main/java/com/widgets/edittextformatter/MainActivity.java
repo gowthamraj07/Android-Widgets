@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.androidwidgets.formatedittext.domain.Currency;
+import com.androidwidgets.formatedittext.formatter.CurrencyFormatter;
 import com.androidwidgets.formatedittext.utils.FormatTextWatcher;
 import com.androidwidgets.formatedittext.widgets.FormatEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -34,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
 
         FormatEditText editText5 = findViewById(R.id.ed_text5);
         editText5.setFormat("(---) --- ----"); // Telephone number format of Japan (0AA) NXX XXXX
+
+        FormatEditText editText6 = findViewById(R.id.ed_text6);
+        Currency currency = new Currency("# ### ###,##", ",", 2);
+        editText6.setFormatter(new CurrencyFormatter(currency));
 
     }
 
