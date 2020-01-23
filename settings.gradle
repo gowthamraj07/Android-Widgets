@@ -1,2 +1,2 @@
-include ':app', ':formatedittext'
+include ':app', ':libraries:formatedittext'
 rootProject.name='EditTextFormatter'
