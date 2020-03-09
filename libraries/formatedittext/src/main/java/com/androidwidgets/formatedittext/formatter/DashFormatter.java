@@ -30,7 +30,7 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
 
     @Override
     public String getTextWhenEmpty() {
-        return getFormat().replaceAll("-", " ");
+        return getFormat().replaceAll(""+getMaskCharacter(), " ");
     }
 
     @Override
@@ -44,10 +44,10 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
     }
 
     private int getFormattedCursorPosition(String input, int currentCursorPosition, String unformattedInput) {
-        int formattedCursorPosition = format.indexOf('-');
+        int formattedCursorPosition = format.indexOf(getMaskCharacter());
         int cursorPositionWhenUnformattedInput = calculateCursorPositionForUnformattedInput(input.trim(), currentCursorPosition);
         for (int index = 0; index < unformattedInput.length() && index < cursorPositionWhenUnformattedInput; index++) {
-            formattedCursorPosition = format.indexOf("-", formattedCursorPosition) + 1;
+            formattedCursorPosition = format.indexOf(""+getMaskCharacter(), formattedCursorPosition) + 1;
         }
         return formattedCursorPosition;
     }
@@ -56,7 +56,7 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
         int resultCursorPosition = currentCursorPosition;
         for (int index = 0; index < format.length() && index < input.length() && index < currentCursorPosition; index++) {
             char charInFormatAtIndex = format.charAt(index);
-            if (charInFormatAtIndex != '-' && charInFormatAtIndex == input.charAt(index)) {
+            if (charInFormatAtIndex != getMaskCharacter() && charInFormatAtIndex == input.charAt(index)) {
                 resultCursorPosition--;
             }
         }
@@ -71,23 +71,23 @@ public class DashFormatter implements FormatTextWatcher.Formatter {
     }
 
     private String replaceDashInFormatWithSpace(String resultString) {
-        return resultString.replaceAll("\\-", " ");
+        return resultString.replaceAll("\\"+getMaskCharacter(), " ");
     }
 
     private String replaceDashInFormatWith(String unformattedInput) {
         String resultString = format;
         for (char ch : unformattedInput.toCharArray()) {
-            resultString = resultString.replaceFirst("\\-", "" + ch);
+            resultString = resultString.replaceFirst("\\"+getMaskCharacter(), "" + ch);
         }
         return resultString;
     }
 
     private Result emptyFormatWithCursorInFirstPossiblePosition() {
-        return new Result(format.replaceAll("-", " "), getFirstPossibleCursorPosition());
+        return new Result(format.replaceAll(""+getMaskCharacter(), " "), getFirstPossibleCursorPosition());
     }
 
     private int getFirstPossibleCursorPosition() {
-        return format.indexOf('-');
+        return format.indexOf(getMaskCharacter());
     }
 
     private String removeFormatFrom(final String input) {
