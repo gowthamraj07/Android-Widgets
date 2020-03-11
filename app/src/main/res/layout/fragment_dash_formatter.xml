@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
     tools:context=".DashFormatterFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_1"
@@ -15,10 +20,10 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:hint="4 digit number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:hint="4 digit number">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.androidwidgets.formatedittext.widgets.FormatEditText
                 android:id="@+id/ed_text1"
@@ -36,10 +41,10 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:hint="VISA Card"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_input_layout_1"
-            android:hint="VISA Card">
+            app:layout_constraintTop_toBottomOf="@id/text_input_layout_1">
 
             <com.androidwidgets.formatedittext.widgets.FormatEditText
                 android:id="@+id/ed_text2"
@@ -57,10 +62,10 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:hint="American Express"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_input_layout_2"
-            android:hint="American Express">
+            app:layout_constraintTop_toBottomOf="@id/text_input_layout_2">
 
             <com.androidwidgets.formatedittext.widgets.FormatEditText
                 android:id="@+id/ed_text3"
@@ -78,15 +83,15 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:hint="dd/MMM/yyyy"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_input_layout_3"
-            android:hint="dd/MMM/yyyy">
+            app:layout_constraintTop_toBottomOf="@id/text_input_layout_3">
 
             <com.androidwidgets.formatedittext.widgets.FormatEditText
                 android:id="@+id/ed_text4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -98,10 +103,10 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:hint="Phone # (0AA) NXX XXXX"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_input_layout_4"
-            android:hint="Phone # (0AA) NXX XXXX">
+            app:layout_constraintTop_toBottomOf="@id/text_input_layout_4">
 
             <com.androidwidgets.formatedittext.widgets.FormatEditText
                 android:id="@+id/ed_text5"
@@ -119,10 +124,10 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:hint="Amount in Rupees"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_input_layout_5"
-            android:hint="Amount in Rupees">
+            app:layout_constraintTop_toBottomOf="@id/text_input_layout_5">
 
             <com.androidwidgets.formatedittext.widgets.FormatEditText
                 android:id="@+id/ed_text6"
@@ -132,4 +137,5 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
