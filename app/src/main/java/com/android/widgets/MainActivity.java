@@ -9,7 +9,6 @@ import com.androidwidgets.formatedittext.formatter.CurrencyFormatter;
 import com.androidwidgets.formatedittext.utils.FormatTextWatcher;
 import com.androidwidgets.formatedittext.widgets.FormatEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.widgets.edittextformatter.R;
 
 public class MainActivity extends AppCompatActivity {
 
