@@ -10,4 +10,9 @@
         android:name="com.android.widgets.DashFormatterFragment"
         android:label="fragment_dash_formatter"
         tools:layout="@layout/fragment_dash_formatter" />
+    <fragment
+        android:id="@+id/hashFormatter"
+        android:name="com.android.widgets.HashFormatterFragment"
+        android:label="fragment_hash_formatter"
+        tools:layout="@layout/fragment_hash_formatter" />
 </navigation>

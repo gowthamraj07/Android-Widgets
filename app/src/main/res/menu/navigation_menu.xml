@@ -7,4 +7,11 @@
         android:orderInCategory="1"
         android:title="Dash Format Examples"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/hashFormatter"
+        android:icon="@android:drawable/ic_menu_add"
+        android:orderInCategory="1"
+        android:title="Hash Format Examples"
+        app:showAsAction="always" />
 </menu>
