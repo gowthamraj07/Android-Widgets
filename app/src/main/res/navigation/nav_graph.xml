@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nav_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/dashFormatter">
 
+    <fragment
+        android:id="@+id/dashFormatter"
+        android:name="com.android.widgets.DashFormatterFragment"
+        android:label="fragment_dash_formatter"
+        tools:layout="@layout/fragment_dash_formatter" />
 </navigation>
