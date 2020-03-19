@@ -1,2 +1,3 @@
 include ':app', ':libraries:formatedittext'
 rootProject.name='EditTextFormatter'
+include ':libraries:listview'
