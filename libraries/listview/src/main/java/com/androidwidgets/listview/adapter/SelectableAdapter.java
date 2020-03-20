@@ -5,9 +5,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.androidwidgets.listview.domains.ListItem;
+
 import java.util.List;
 
-public class SelectableAdapter<T> extends RecyclerView.Adapter {
+public class SelectableAdapter<T extends ListItem> extends RecyclerView.Adapter {
     private List<T> list;
 
     public SelectableAdapter(List<T> list) {
