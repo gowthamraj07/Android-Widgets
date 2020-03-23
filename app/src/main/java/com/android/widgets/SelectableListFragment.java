@@ -29,10 +29,10 @@ public class SelectableListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         SelectableRecyclerView recyclerView = view.findViewById(R.id.selectable_recycler_view);
         RecyclerView.Adapter adapter = new SelectableAdapter(getListItems());
         recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
     }
 
     private List<ListItem> getListItems() {
