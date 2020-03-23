@@ -23,7 +23,7 @@ public class SelectableAdapter<T extends ListItem> extends RecyclerView.Adapter 
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
+        list.get(position).bindView(holder, position);
     }
 
     @Override

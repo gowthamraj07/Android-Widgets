@@ -2,6 +2,8 @@ package com.androidwidgets.listview.adapter;
 
 import android.view.ViewGroup;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.androidwidgets.listview.domains.ListItem;
 
 import org.junit.Test;
@@ -35,5 +37,17 @@ public class SelectableAdapterTest {
         adapter.onCreateViewHolder(parent, viewType);
 
         verify(mockItem).getViewHolder();
+    }
+
+    @Test
+    public void shouldCallOnBindViewHolderOfListItem_WhenOnBindViewHolderOfAdapterIsCalled() {
+        ListItem mockItem = mock(ListItem.class);
+        SelectableAdapter<ListItem> adapter = new SelectableAdapter<>(Collections.singletonList(mockItem));
+
+        RecyclerView.ViewHolder viewHolder = mock(RecyclerView.ViewHolder.class);
+        int position = 0;
+        adapter.onBindViewHolder(viewHolder, position);
+
+        verify(mockItem).bindView(viewHolder, position);
     }
 }
