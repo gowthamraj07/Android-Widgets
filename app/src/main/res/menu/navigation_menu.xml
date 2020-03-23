@@ -11,7 +11,13 @@
     <item
         android:id="@+id/hashFormatter"
         android:icon="@android:drawable/ic_menu_add"
-        android:orderInCategory="1"
+        android:orderInCategory="2"
         android:title="Hash Format Examples"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/listFragment"
+        android:icon="@android:drawable/ic_menu_call"
+        android:orderInCategory="3"
+        android:title="List View Examples"
         app:showAsAction="always" />
 </menu>

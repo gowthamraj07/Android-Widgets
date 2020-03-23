@@ -9,10 +9,10 @@ import com.androidwidgets.listview.domains.ListItem;
 
 import java.util.List;
 
-public class SelectableAdapter<T extends ListItem> extends RecyclerView.Adapter {
-    private List<T> list;
+public class SelectableAdapter extends RecyclerView.Adapter {
+    private List<ListItem> list;
 
-    public SelectableAdapter(List<T> list) {
+    public SelectableAdapter(List<ListItem> list) {
         this.list = list;
     }
 
