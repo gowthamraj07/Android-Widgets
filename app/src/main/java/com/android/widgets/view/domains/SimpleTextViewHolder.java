@@ -5,15 +5,15 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class SimpleTextViewHolder extends RecyclerView.ViewHolder {
+class SimpleTextViewHolder extends RecyclerView.ViewHolder {
     private final TextView tvText;
 
-    public SimpleTextViewHolder(View view) {
+    SimpleTextViewHolder(View view) {
         super(view);
         tvText = view.findViewById(android.R.id.text1);
     }
 
-    public TextView getTextView() {
+    TextView getTextView() {
         return tvText;
     }
 }
