@@ -5,6 +5,7 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.widgets.R;
 import com.androidwidgets.listview.domains.ListItem;
 
 public class SelectableListItem implements ListItem {
@@ -18,7 +19,7 @@ public class SelectableListItem implements ListItem {
 
     @Override
     public RecyclerView.ViewHolder getViewHolder() {
-        View view = layoutInflater.inflate(android.R.layout.activity_list_item, null);
+        View view = layoutInflater.inflate(R.layout.layout_selectable_list_item, null);
         return new SimpleTextViewHolder(view);
     }
 
