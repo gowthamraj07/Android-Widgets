@@ -18,7 +18,7 @@ public class SelectableAdapter<T extends ListItem> extends RecyclerView.Adapter 
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        return list.get(0).getViewHolder();
     }
 
     @Override
