@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.widgets.view.domains.SimpleTextViewHolder;
+import com.android.widgets.view.domains.SelectableListItem;
 import com.androidwidgets.listview.SelectableRecyclerView;
 import com.androidwidgets.listview.adapter.SelectableAdapter;
 import com.androidwidgets.listview.domains.ListItem;
@@ -36,29 +36,12 @@ public class SelectableListFragment extends Fragment {
     }
 
     private List<ListItem> getListItems() {
-        ListItem item1 = new SelectableListItem("Item 1");
-        ListItem item2 = new SelectableListItem("Item 2");
-        ListItem item3 = new SelectableListItem("Item 3");
-        ListItem item4 = new SelectableListItem("Item 4");
+        LayoutInflater layoutInflater = getLayoutInflater();
+        ListItem item1 = new SelectableListItem("Item 1", layoutInflater);
+        ListItem item2 = new SelectableListItem("Item 2", layoutInflater);
+        ListItem item3 = new SelectableListItem("Item 3", layoutInflater);
+        ListItem item4 = new SelectableListItem("Item 4", layoutInflater);
         return Arrays.asList(item1, item2, item3, item4);
     }
 
-    private class SelectableListItem implements ListItem {
-        private String text;
-
-        SelectableListItem(String text) {
-            this.text = text;
-        }
-
-        @Override
-        public RecyclerView.ViewHolder getViewHolder() {
-            View view = getLayoutInflater().inflate(android.R.layout.activity_list_item, null);
-            return new SimpleTextViewHolder(view);
-        }
-
-        @Override
-        public void bindView(RecyclerView.ViewHolder viewHolder, int position) {
-            ((SimpleTextViewHolder) viewHolder).getTextView().setText(text);
-        }
-    }
 }
