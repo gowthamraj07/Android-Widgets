@@ -4,13 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.widgets.view.domains.SimpleTextViewHolder;
 import com.androidwidgets.listview.SelectableRecyclerView;
 import com.androidwidgets.listview.adapter.SelectableAdapter;
 import com.androidwidgets.listview.domains.ListItem;
@@ -58,16 +58,7 @@ public class SelectableListFragment extends Fragment {
 
         @Override
         public void bindView(RecyclerView.ViewHolder viewHolder, int position) {
-            ((SimpleTextViewHolder) viewHolder).tvText.setText(text);
-        }
-
-        private class SimpleTextViewHolder extends RecyclerView.ViewHolder {
-            private final TextView tvText;
-
-            SimpleTextViewHolder(View view) {
-                super(view);
-                tvText = view.findViewById(android.R.id.text1);
-            }
+            ((SimpleTextViewHolder) viewHolder).getTextView().setText(text);
         }
     }
 }
