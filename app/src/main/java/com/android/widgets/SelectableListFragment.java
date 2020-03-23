@@ -53,18 +53,18 @@ public class SelectableListFragment extends Fragment {
         @Override
         public RecyclerView.ViewHolder getViewHolder() {
             View view = getLayoutInflater().inflate(android.R.layout.activity_list_item, null);
-            return new MyViewHolder(view);
+            return new SimpleTextViewHolder(view);
         }
 
         @Override
         public void bindView(RecyclerView.ViewHolder viewHolder, int position) {
-            ((MyViewHolder) viewHolder).tvText.setText(text);
+            ((SimpleTextViewHolder) viewHolder).tvText.setText(text);
         }
 
-        private class MyViewHolder extends RecyclerView.ViewHolder {
+        private class SimpleTextViewHolder extends RecyclerView.ViewHolder {
             private final TextView tvText;
 
-            MyViewHolder(View view) {
+            SimpleTextViewHolder(View view) {
                 super(view);
                 tvText = view.findViewById(android.R.id.text1);
             }
