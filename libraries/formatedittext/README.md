@@ -1,7 +1,9 @@
 # Format Edit Text
 This library helps to format the input (in EditText) while the user types. 
 Currently this library supports any formats without dash (-) operator in output, 
-as it uses dash (-) operator to specify the format.
+as it uses dash (-) operator to specify the format. 
+
+<a href='https://bintray.com/gowthamraj07/EditText-Formatter/formatedittext?source=watch' alt='Get automatic notifications about new "formatedittext" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>
 
 Note :  
 Due to a bug in emulator [*Check this answer*](https://stackoverflow.com/a/9146166/1679946),
