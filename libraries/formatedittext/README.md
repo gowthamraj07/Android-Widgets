@@ -15,7 +15,7 @@ If no input type is mentioned (example: as below), then characters might be dupl
 ### 1. Add library dependency
 Add the following dependency to app/build.gradle or module/build.gradle file.
 
-    implementation 'com.androidwidgets:formatedittext:0.1.0'
+    implementation 'com.androidwidgets:formatedittext:0.2.0'
 
 ### 2. Declare FormatEditText in Layout (xml) file
     <com.androidwidgets.formatedittext.widgets.FormatEditText
