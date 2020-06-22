@@ -1,3 +1,5 @@
+[ ![Download](https://api.bintray.com/packages/gowthamraj07/EditText-Formatter/formatedittext/images/download.svg) ](https://bintray.com/gowthamraj07/EditText-Formatter/formatedittext/_latestVersion)
+
 # Format Edit Text
 This library helps to format the input (in EditText) while the user types. 
 Currently this library supports any formats without dash (-) operator in output, 
