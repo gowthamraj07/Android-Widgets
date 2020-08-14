@@ -1,11 +1,39 @@
 apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'com.android.library'
 
+def getVersionCode = { ->
+    try {
+        def code = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'tag', '--list'
+            standardOutput = code
+        }
+        return code.toString().split("\n").size()
+    }
+    catch (ignored) {
+        return -1
+    }
+}
+
+def getVersionName = { ->
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'describe', '--tags', '--dirty'
+            standardOutput = stdout
+        }
+        return stdout.toString().split('-')[0].trim()
+    }
+    catch (ignored) {
+        return null
+    }
+}
+
 publish {
 
     def groupProjectID = 'com.androidwidgets'
     def artifactProjectID = 'formatedittext'
-    def publishVersionID = '0.2.0'
+    def publishVersionID = getVersionName().substring(1)
 
     userOrg = 'gowthamraj07'
     repoName = 'EditText-Formatter'
@@ -24,8 +52,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode = getVersionCode()
+        versionName = getVersionName()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
