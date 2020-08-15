@@ -1,16 +1,16 @@
-package com.android.widgets;
+package com.androidwidgets.widgets;
 
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
+
+import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
-
-import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 

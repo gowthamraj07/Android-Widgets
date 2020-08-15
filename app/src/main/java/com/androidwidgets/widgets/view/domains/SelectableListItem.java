@@ -1,12 +1,12 @@
-package com.android.widgets.view.domains;
+package com.androidwidgets.widgets.view.domains;
 
 import android.view.LayoutInflater;
 import android.view.View;
 
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.android.widgets.R;
 import com.androidwidgets.listview.domains.ListItem;
+import com.androidwidgets.widgets.R;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class SelectableListItem implements ListItem {
     private String text;

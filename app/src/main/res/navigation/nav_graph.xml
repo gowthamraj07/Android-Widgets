@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/dashFormatter"
-        android:name="com.android.widgets.DashFormatterFragment"
+        android:name="com.androidwidgets.widgets.DashFormatterFragment"
         android:label="fragment_dash_formatter"
         tools:layout="@layout/fragment_dash_formatter" />
     <fragment
         android:id="@+id/hashFormatter"
-        android:name="com.android.widgets.HashFormatterFragment"
+        android:name="com.androidwidgets.widgets.HashFormatterFragment"
         android:label="fragment_hash_formatter"
         tools:layout="@layout/fragment_hash_formatter" />
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.android.widgets.SelectableListFragment"
+        android:name="com.androidwidgets.widgets.SelectableListFragment"
         android:label="fragment_hash_formatter"
         tools:layout="@layout/fragment_selectable_list" />
 </navigation>
