@@ -1,5 +1,6 @@
 package com.androidwidgets.widgets;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -23,6 +24,12 @@ import com.androidwidgets.formatedittext.widgets.FormatEditText;
 public class DashFormatterExampleFragment extends Fragment {
 
     private String generatedCode;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        getActivity().setTitle("Formatted Edit-text");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
