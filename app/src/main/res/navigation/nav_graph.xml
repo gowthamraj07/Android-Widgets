@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/dashFormatter"
-        android:name="com.androidwidgets.widgets.DashFormatterFragment"
+        android:name="com.androidwidgets.widgets.DashFormatterExampleFragment"
         android:label="fragment_dash_formatter"
         tools:layout="@layout/fragment_dash_formatter" />
     <fragment
