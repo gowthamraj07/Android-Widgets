@@ -30,7 +30,7 @@ public class DashFormatterExampleFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView tvResultCode = view.findViewById(R.id.tvResultCode);
+        final TextView tvResultCode = view.findViewById(R.id.tvResultCode);
         final FormatEditText etOutput = view.findViewById(R.id.etOutput);
         EditText edFormat = view.findViewById(R.id.edFormat);
         edFormat.setFilters(getFilterForDashFormatter());
@@ -48,7 +48,13 @@ public class DashFormatterExampleFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable format) {
                 etOutput.setText("");
-                etOutput.setFormat(format.toString());
+                String formatString = format.toString();
+                etOutput.setFormat(formatString);
+
+                String generatedCode = "\n" +
+                        "final FormatEditText editText = findViewById(R.id.ed_text);\n" +
+                        "editText.setFormat("+formatString+");";
+                tvResultCode.setText(generatedCode);
             }
         });
     }
