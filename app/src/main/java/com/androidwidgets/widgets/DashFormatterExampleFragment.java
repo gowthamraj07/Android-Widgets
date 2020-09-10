@@ -1,5 +1,6 @@
 package com.androidwidgets.widgets;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,8 @@ import com.androidwidgets.formatedittext.widgets.FormatEditText;
 
 
 public class DashFormatterExampleFragment extends Fragment {
+
+    private String generatedCode;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,10 +55,22 @@ public class DashFormatterExampleFragment extends Fragment {
                 String formatString = format.toString();
                 etOutput.setFormat(formatString);
 
-                String generatedCode = "\n" +
+                generatedCode = "\n" +
                         "final FormatEditText editText = findViewById(R.id.ed_text);\n" +
                         "editText.setFormat("+formatString+");";
                 tvResultCode.setText(generatedCode);
+            }
+        });
+
+        ImageView ivShare = view.findViewById(R.id.ivShare);
+        ivShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Generated code");
+                intent.putExtra(android.content.Intent.EXTRA_TEXT, generatedCode);
+                startActivity(Intent.createChooser(intent, "Android Widget - Code Generator"));
             }
         });
     }
