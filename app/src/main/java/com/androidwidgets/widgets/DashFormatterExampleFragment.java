@@ -67,6 +67,8 @@ public class DashFormatterExampleFragment extends Fragment {
                         "final FormatEditText editText = findViewById(R.id.ed_text);\n" +
                         "editText.setFormat("+formatString+");";
                 tvResultCode.setText(generatedCode);
+
+                sendAnalyticsFor(formatString);
             }
         });
 
@@ -83,6 +85,13 @@ public class DashFormatterExampleFragment extends Fragment {
         });
 
         FirebaseAnalytics.getInstance(requireContext()).logEvent("Formatted_Edittext_example_screen", Bundle.EMPTY);
+    }
+
+    private void sendAnalyticsFor(String formatString) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "format");
+        bundle.putString(FirebaseAnalytics.Param.VALUE, formatString);
+        FirebaseAnalytics.getInstance(requireContext()).logEvent("Formatted_Edittext_example", bundle);
     }
 
     private InputFilter[] getFilterForDashFormatter() {
