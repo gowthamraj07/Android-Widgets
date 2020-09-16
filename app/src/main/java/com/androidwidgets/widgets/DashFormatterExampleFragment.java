@@ -14,11 +14,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.androidwidgets.formatedittext.widgets.FormatEditText;
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.androidwidgets.formatedittext.widgets.FormatEditText;
 
 
 public class DashFormatterExampleFragment extends Fragment {
@@ -80,6 +81,8 @@ public class DashFormatterExampleFragment extends Fragment {
                 startActivity(Intent.createChooser(intent, "Android Widget - Code Generator"));
             }
         });
+
+        FirebaseAnalytics.getInstance(requireContext()).logEvent("Formatted_Edittext_example_screen", Bundle.EMPTY);
     }
 
     private InputFilter[] getFilterForDashFormatter() {
