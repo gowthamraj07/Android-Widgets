@@ -53,7 +53,7 @@ public class DashFormatterFragment extends Fragment {
         editText6.setFormatter(new CurrencyFormatter(currency));
     }
 
-    private class EvenNumberValidator implements FormatTextWatcher.Validator {
+    private static class EvenNumberValidator implements FormatTextWatcher.Validator {
         @Override
         public boolean validate(String formattedUserInput, String unformattedUserInput) {
             if (unformattedUserInput == null || unformattedUserInput.isEmpty()) {
