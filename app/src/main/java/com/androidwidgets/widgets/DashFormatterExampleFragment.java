@@ -29,7 +29,7 @@ public class DashFormatterExampleFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        getActivity().setTitle("Formatted Edit-text");
+        getActivity().setTitle("FormatEditText - Demo");
     }
 
     @Override
