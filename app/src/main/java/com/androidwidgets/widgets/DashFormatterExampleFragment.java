@@ -83,14 +83,11 @@ public class DashFormatterExampleFragment extends Fragment {
                 startActivity(Intent.createChooser(intent, "Android Widget - Code Generator"));
             }
         });
-
-        FirebaseAnalytics.getInstance(requireContext()).logEvent("Formatted_Edittext_example_screen", Bundle.EMPTY);
     }
 
     private void sendAnalyticsFor(String formatString) {
         Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "format");
-        bundle.putString(FirebaseAnalytics.Param.VALUE, formatString);
+        bundle.putString("dash_format", formatString.replaceAll("-", "0"));
         FirebaseAnalytics.getInstance(requireContext()).logEvent("Formatted_Edittext_example", bundle);
     }
 
