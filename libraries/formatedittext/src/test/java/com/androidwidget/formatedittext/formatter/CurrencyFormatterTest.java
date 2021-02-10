@@ -1,7 +1,7 @@
-package com.androidwidgets.formatedittext.formatter;
+package com.androidwidget.formatedittext.formatter;
 
-import com.androidwidgets.formatedittext.domain.Currency;
-import com.androidwidgets.formatedittext.utils.Result;
+import com.androidwidget.formatedittext.domain.Currency;
+import com.androidwidget.formatedittext.utils.Result;
 
 import org.junit.Before;
 import org.junit.Ignore;

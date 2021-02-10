@@ -1,8 +1,8 @@
-package com.androidwidgets.formatedittext.presenter;
+package com.androidwidget.formatedittext.presenter;
 
 import android.text.InputFilter;
 
-import com.androidwidgets.formatedittext.view.FormatEditTextView;
+import com.androidwidget.formatedittext.view.FormatEditTextView;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class FormatEditTextPresenter {
     private boolean isOnSelectionChangeEnable;
-    private FormatEditTextView view;
+    private final FormatEditTextView view;
 
     public FormatEditTextPresenter(FormatEditTextView view) {
         this.view = view;

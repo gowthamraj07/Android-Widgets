@@ -1,14 +1,14 @@
-package com.androidwidgets.formatedittext.formatter;
+package com.androidwidget.formatedittext.formatter;
 
-import com.androidwidgets.formatedittext.domain.Currency;
-import com.androidwidgets.formatedittext.utils.FormatTextWatcher;
-import com.androidwidgets.formatedittext.utils.Result;
+import com.androidwidget.formatedittext.domain.Currency;
+import com.androidwidget.formatedittext.utils.FormatTextWatcher;
+import com.androidwidget.formatedittext.utils.Result;
 
 import java.text.DecimalFormat;
 
 public class CurrencyFormatter implements FormatTextWatcher.Formatter {
 
-    private Currency currency;
+    private final Currency currency;
 
     public CurrencyFormatter(Currency currency) {
         this.currency = currency;

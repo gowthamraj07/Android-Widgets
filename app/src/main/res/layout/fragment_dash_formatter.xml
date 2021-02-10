@@ -25,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.androidwidgets.formatedittext.widgets.FormatEditText
+            <com.androidwidget.formatedittext.widgets.FormatEditText
                 android:id="@+id/ed_text1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_input_layout_1">
 
-            <com.androidwidgets.formatedittext.widgets.FormatEditText
+            <com.androidwidget.formatedittext.widgets.FormatEditText
                 android:id="@+id/ed_text2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_input_layout_2">
 
-            <com.androidwidgets.formatedittext.widgets.FormatEditText
+            <com.androidwidget.formatedittext.widgets.FormatEditText
                 android:id="@+id/ed_text3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_input_layout_3">
 
-            <com.androidwidgets.formatedittext.widgets.FormatEditText
+            <com.androidwidget.formatedittext.widgets.FormatEditText
                 android:id="@+id/ed_text4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -108,7 +108,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_input_layout_4">
 
-            <com.androidwidgets.formatedittext.widgets.FormatEditText
+            <com.androidwidget.formatedittext.widgets.FormatEditText
                 android:id="@+id/ed_text5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_input_layout_5">
 
-            <com.androidwidgets.formatedittext.widgets.FormatEditText
+            <com.androidwidget.formatedittext.widgets.FormatEditText
                 android:id="@+id/ed_text6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

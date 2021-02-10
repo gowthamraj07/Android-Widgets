@@ -1,4 +1,4 @@
-package com.androidwidgets.formatedittext.domain;
+package com.androidwidget.formatedittext.domain;
 
 public class Currency {
     private final String format;

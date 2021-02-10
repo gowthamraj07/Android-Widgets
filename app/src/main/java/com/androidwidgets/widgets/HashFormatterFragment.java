@@ -5,12 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.androidwidgets.formatedittext.formatter.HashFormatter;
-import com.androidwidgets.formatedittext.widgets.FormatEditText;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.androidwidget.formatedittext.formatter.HashFormatter;
+import com.androidwidget.formatedittext.widgets.FormatEditText;
 
 public class HashFormatterFragment extends Fragment {
 

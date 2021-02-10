@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".DashFormatterExampleFragment">
 
-    <com.androidwidgets.formatedittext.widgets.FormatEditText
+    <com.androidwidget.formatedittext.widgets.FormatEditText
         android:id="@+id/etOutput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

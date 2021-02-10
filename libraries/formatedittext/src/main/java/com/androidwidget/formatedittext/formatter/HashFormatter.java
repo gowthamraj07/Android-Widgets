@@ -1,4 +1,4 @@
-package com.androidwidgets.formatedittext.formatter;
+package com.androidwidget.formatedittext.formatter;
 
 public class HashFormatter extends DashFormatter {
     public HashFormatter(String format) {

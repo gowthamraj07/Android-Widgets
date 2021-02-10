@@ -1,8 +1,8 @@
-package com.androidwidgets.formatedittext.presenter;
+package com.androidwidget.formatedittext.presenter;
 
 import android.text.InputFilter;
 
-import com.androidwidgets.formatedittext.view.FormatEditTextView;
+import com.androidwidget.formatedittext.view.FormatEditTextView;
 
 import org.junit.Before;
 import org.junit.Test;

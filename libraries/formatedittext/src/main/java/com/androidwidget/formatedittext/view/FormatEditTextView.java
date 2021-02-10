@@ -1,4 +1,4 @@
-package com.androidwidgets.formatedittext.view;
+package com.androidwidget.formatedittext.view;
 
 import android.text.InputFilter;
 

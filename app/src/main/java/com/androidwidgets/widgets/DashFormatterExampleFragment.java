@@ -14,12 +14,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.androidwidgets.formatedittext.widgets.FormatEditText;
-import com.google.firebase.analytics.FirebaseAnalytics;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.androidwidget.formatedittext.widgets.FormatEditText;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 
 public class DashFormatterExampleFragment extends Fragment {

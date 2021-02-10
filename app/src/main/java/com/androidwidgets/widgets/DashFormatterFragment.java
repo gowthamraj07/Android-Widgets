@@ -5,15 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.androidwidgets.formatedittext.domain.Currency;
-import com.androidwidgets.formatedittext.formatter.CurrencyFormatter;
-import com.androidwidgets.formatedittext.utils.FormatTextWatcher;
-import com.androidwidgets.formatedittext.widgets.FormatEditText;
-import com.google.android.material.textfield.TextInputLayout;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.androidwidget.formatedittext.domain.Currency;
+import com.androidwidget.formatedittext.formatter.CurrencyFormatter;
+import com.androidwidget.formatedittext.utils.FormatTextWatcher;
+import com.androidwidget.formatedittext.widgets.FormatEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 
 public class DashFormatterFragment extends Fragment {

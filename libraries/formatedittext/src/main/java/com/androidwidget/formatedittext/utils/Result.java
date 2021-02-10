@@ -1,4 +1,4 @@
-package com.androidwidgets.formatedittext.utils;
+package com.androidwidget.formatedittext.utils;
 
 public class Result {
     private final String formattedUserInput;

@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.androidwidgets.formatedittext.widgets.FormatEditText
+        <com.androidwidget.formatedittext.widgets.FormatEditText
             android:id="@+id/et_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

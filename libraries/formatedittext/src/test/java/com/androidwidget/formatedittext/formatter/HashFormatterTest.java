@@ -1,6 +1,6 @@
-package com.androidwidgets.formatedittext.formatter;
+package com.androidwidget.formatedittext.formatter;
 
-import com.androidwidgets.formatedittext.utils.Result;
+import com.androidwidget.formatedittext.utils.Result;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

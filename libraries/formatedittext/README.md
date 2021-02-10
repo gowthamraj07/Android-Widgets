@@ -22,7 +22,7 @@ Add the following dependency to app/build.gradle or module/build.gradle file.
     implementation 'com.androidwidgets:formatedittext:0.2.0'
 
 ### 2. Declare FormatEditText in Layout (xml) file
-    <com.androidwidgets.formatedittext.widgets.FormatEditText
+    <FormatEditText
             android:id="@+id/ed_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,10 +44,10 @@ Add the following dependency to app/build.gradle or module/build.gradle file.
 Implement the following interface to define your own Validator and ValidationListener.
 
 ##### To define Validator implement
-    com.androidwidgets.formatedittext.utils.FormatTextWatcher.Validator
+    FormatTextWatcher.Validator
     
 ##### To define ValidationListener implement
-    com.androidwidgets.formatedittext.utils.FormatTextWatcher.ValidationListener
+    FormatTextWatcher.ValidationListener
 
 Validator.validate() method receives 2 inputs as parameters, Formatted and Unformatted inputs respectively,
 to easy the validation steps.

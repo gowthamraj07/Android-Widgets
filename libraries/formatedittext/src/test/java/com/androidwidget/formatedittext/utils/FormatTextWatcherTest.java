@@ -1,9 +1,9 @@
-package com.androidwidgets.formatedittext.utils;
+package com.androidwidget.formatedittext.utils;
 
 import android.text.Editable;
 
-import com.androidwidgets.formatedittext.formatter.DashFormatter;
-import com.androidwidgets.formatedittext.widgets.FormatEditText;
+import com.androidwidget.formatedittext.formatter.DashFormatter;
+import com.androidwidget.formatedittext.widgets.FormatEditText;
 
 import org.junit.Before;
 import org.junit.Test;
