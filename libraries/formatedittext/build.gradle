@@ -1,4 +1,3 @@
-apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'com.android.library'
 
 def getVersionCode = { ->
@@ -27,21 +26,6 @@ def getVersionName = { ->
     catch (ignored) {
         return null
     }
-}
-
-publish {
-
-    def groupProjectID = 'com.androidwidgets'
-    def artifactProjectID = 'formatedittext'
-    def publishVersionID = getVersionName().substring(1)
-
-    userOrg = 'gowthamraj07'
-    repoName = 'EditText-Formatter'
-    groupId = groupProjectID
-    artifactId = artifactProjectID
-    publishVersion = publishVersionID
-    desc = 'Android library for formatting user inputs based on the given format for FormatEditText widget'
-    website = 'https://github.com/gowthamraj07/EditText-Formatter'
 }
 
 android {
