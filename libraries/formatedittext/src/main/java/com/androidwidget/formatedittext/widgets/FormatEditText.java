@@ -93,6 +93,7 @@ public class FormatEditText extends AppCompatEditText implements FormatEditTextV
 
     @Override
     protected void onSelectionChanged(int selStart, int selEnd) {
+        super.onSelectionChanged(selStart, selEnd);
         if (!isEditTextEditable(selStart, selEnd)) {
             return;
         }
