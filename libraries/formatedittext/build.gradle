@@ -1,5 +1,8 @@
 apply plugin: 'com.android.library'
 
+apply plugin: 'signing'
+apply plugin: 'maven-publish'
+
 def getVersionCode = { ->
     try {
         def code = new ByteArrayOutputStream()
@@ -25,6 +28,38 @@ def getVersionName = { ->
     }
     catch (ignored) {
         return null
+    }
+}
+
+// ---------------------------------
+// The following block copied from https://developer.android.com/studio/build/maven-publish-plugin
+// And it is updated to publish plugin to maven central repository
+// ---------------------------------
+// Because the components are created only during the afterEvaluate phase, you must
+// configure your publications using the afterEvaluate() lifecycle method.
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                // Applies the component for the release build variant.
+                from components.release
+
+                // You can then customize attributes of the publication as shown below.
+                groupId = 'com.android-widget'
+                artifactId = 'formatedittext'
+                version = getVersionCode()
+            }
+            // Creates a Maven publication called “debug”.
+            debug(MavenPublication) {
+                // Applies the component for the debug build variant.
+                from components.debug
+
+                groupId = 'com.android-widget'
+                artifactId = 'formatedittext-debug'
+                version = getVersionCode()
+            }
+        }
     }
 }
 
