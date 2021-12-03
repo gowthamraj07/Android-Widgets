@@ -30,8 +30,8 @@ allprojects {
     }
 
     plugins.withId("com.vanniktech.maven.publish.base") {
-        //group = "com.androidwidget"
-        //version = "1.0.0"
+        group = "com.android-widget"
+        version = "1.0.0"
 
         mavenPublishing {
             publishToMavenCentral("DEFAULT")
