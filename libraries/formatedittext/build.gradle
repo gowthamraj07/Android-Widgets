@@ -1,35 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.vanniktech.maven.publish'
-
-def getVersionCode = { ->
-    try {
-        def code = new ByteArrayOutputStream()
-        exec {
-            commandLine 'git', 'tag', '--list'
-            standardOutput = code
-        }
-        return code.toString().split("\n").size()
-    }
-    catch (ignored) {
-        return -1
-    }
-}
-
-def getVersionName = { ->
-    try {
-        def stdout = new ByteArrayOutputStream()
-        exec {
-            commandLine 'git', 'describe', '--tags', '--dirty'
-            standardOutput = stdout
-        }
-        return stdout.toString().split('-')[0].trim()
-    }
-    catch (ignored) {
-        return null
-    }
-}
-
-
+apply from: '../../scripts/version-generator.gradle'
 
 android {
     compileSdkVersion 31
