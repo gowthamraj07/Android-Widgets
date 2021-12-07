@@ -1,4 +1,4 @@
-def getVersionCode = { ->
+ext.getVersionCode = { ->
     try {
         def code = new ByteArrayOutputStream()
         exec {
@@ -12,7 +12,7 @@ def getVersionCode = { ->
     }
 }
 
-def getVersionName = { ->
+ext.getVersionName = { ->
     try {
         def stdout = new ByteArrayOutputStream()
         exec {
@@ -20,6 +20,20 @@ def getVersionName = { ->
             standardOutput = stdout
         }
         return stdout.toString().split('-')[0].trim()
+    }
+    catch (ignored) {
+        return null
+    }
+}
+
+ext.getVersionForMavenCentral = { ->
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'describe', '--tags', '--dirty'
+            standardOutput = stdout
+        }
+        return stdout.toString().split('-')[0].trim().substring(1)
     }
     catch (ignored) {
         return null

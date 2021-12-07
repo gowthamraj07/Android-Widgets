@@ -1,5 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-import com.vanniktech.maven.publish.SonatypeHost
+apply from: 'scripts/version-generator.gradle'
 
 buildscript {
     repositories {
@@ -31,7 +31,7 @@ allprojects {
 
     plugins.withId("com.vanniktech.maven.publish.base") {
         group = "com.android-widget"
-        version = "1.0.0"
+        version = getVersionForMavenCentral()
 
         mavenPublishing {
             publishToMavenCentral("DEFAULT")
