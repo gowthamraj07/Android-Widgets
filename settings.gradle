@@ -1,3 +1,4 @@
 include ':app', ':libraries:formatedittext'
 rootProject.name='Android-Widgets'
 include ':libraries:listview'
+include ':libraries:login'
