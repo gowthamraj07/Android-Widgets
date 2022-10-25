@@ -8,7 +8,9 @@ def getVersionCode = { ->
             commandLine 'git', 'tag', '--list'
             standardOutput = code
         }
-        return code.toString().split("\n").size()
+        def versionCode = code.toString().split("\n").size()
+        println("formatedittext versionCode: $versionCode")
+        return versionCode
     }
     catch (ignored) {
         return -1
@@ -22,7 +24,10 @@ def getVersionName = { ->
             commandLine 'git', 'describe', '--tags', '--dirty'
             standardOutput = stdout
         }
-        return stdout.toString().split('-')[0].trim()
+
+        def versionName = stdout.toString().split('-')[0].trim()
+        println("formatedittext versionName: $versionName")
+        return versionName
     }
     catch (ignored) {
         return null
@@ -38,7 +43,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 32
-
+        versionCode getVersionCode()
+        versionName getVersionName()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
@@ -69,4 +75,10 @@ dependencies {
     implementation AndroidX.appCompat
     implementation Google.android.material
     implementation AndroidX.cardView
+}
+
+mavenPublishing {
+    publishToMavenCentral("DEFAULT")
+
+    signAllPublications()
 }
