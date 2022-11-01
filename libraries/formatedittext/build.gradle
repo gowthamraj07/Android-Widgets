@@ -34,11 +34,25 @@ def getVersionName = { ->
     }
 }
 
+def getVersionNameWithoutV = { ->
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'describe', '--tags', '--dirty'
+            standardOutput = stdout
+        }
 
+        def versionName = stdout.toString().split('-')[0].trim().substring(1)
+        println("formatedittext versionName without v: $versionName")
+        return versionName
+    }
+    catch (ignored) {
+        return null
+    }
+}
 
 android {
     compileSdkVersion 32
-
 
     defaultConfig {
         minSdkVersion 15
@@ -77,8 +91,8 @@ dependencies {
     implementation AndroidX.cardView
 }
 
+version = getVersionNameWithoutV()
 mavenPublishing {
     publishToMavenCentral("DEFAULT")
-
     signAllPublications()
 }
