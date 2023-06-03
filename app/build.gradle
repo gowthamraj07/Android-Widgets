@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
-
 def getVersionCode = { ->
     try {
         def code = new ByteArrayOutputStream()

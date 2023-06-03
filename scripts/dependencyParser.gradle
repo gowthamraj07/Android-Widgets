@@ -1,0 +1,34 @@
+import groovy.json.JsonOutput
+
+// The task name is listAllDependencies
+task listAllDependencies {
+    doLast {
+        def allProjectsDependencies = [:]
+
+        // Iterate through all modules including 'app'
+        allprojects.each { project ->
+            // Exclude the ones without a 'implementation' configuration
+            if (project.configurations.findByName('implementation')) {
+                def projectDependencies = []
+
+                // Iterate over dependencies
+                project.configurations.getByName('implementation').allDependencies.each { dependency ->
+                    // Exclude non-module dependencies
+                    if (dependency instanceof ProjectDependency) {
+                        projectDependencies.add(dependency.dependencyProject.name)
+                    }
+                }
+                allProjectsDependencies.put(project.name, projectDependencies)
+            }
+        }
+
+        // Convert the map to JSON
+        def json = JsonOutput.toJson(allProjectsDependencies)
+
+        // Pretty print JSON
+        def prettyJson = JsonOutput.prettyPrint(json)
+
+        // Print out JSON
+        println(prettyJson)
+    }
+}

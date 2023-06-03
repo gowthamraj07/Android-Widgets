@@ -17,6 +17,8 @@ buildscript {
     }
 }
 
+apply from: 'scripts/dependencyParser.gradle'
+
 allprojects {
     repositories {
         google()
@@ -28,3 +30,4 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
