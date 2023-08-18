@@ -1,9 +1,17 @@
 import groovy.json.JsonOutput
 
+apply plugin: 'java'
+
+// Define repositories
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
 // The task name is listAllDependencies
 task listAllDependencies {
     doLast {
-        def allProjectsDependencies = [:]
+        def allProjectsDependencies = []
 
         // Iterate through all modules including 'app'
         allprojects.each { project ->
@@ -18,7 +26,11 @@ task listAllDependencies {
                         projectDependencies.add(dependency.dependencyProject.name)
                     }
                 }
-                allProjectsDependencies.put(project.name, projectDependencies)
+
+                def projectObject = new LinkedHashMap()
+                projectObject.put("libraryName", project.name)
+                projectObject.put("dependencies", projectDependencies)
+                allProjectsDependencies.add(projectObject)
             }
         }
 
@@ -31,4 +43,22 @@ task listAllDependencies {
         // Print out JSON
         println(prettyJson)
     }
+}
+
+// Define a task to download LibraryDependencies.java
+task downloadLibraryDependencies(type: Copy) {
+    from 'https://raw.githubusercontent.com/<YourGithubUsername>/<YourRepoName>/main/LibraryDependencies.java'
+    into "$buildDir/downloaded"
+    rename '(.*).java', 'LibraryDependencies.java'
+}
+
+// Define a task to run LibraryDependencies.java
+task runLibraryDependencies(type: JavaExec, dependsOn: ['downloadLibraryDependencies', 'listModulesDependencies']) {
+    main = 'LibraryDependencies'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
