@@ -8,3 +8,5 @@
 .externalNativeBuild
 .cxx
 upload-library.sh
+
+/fastlane/*.json
