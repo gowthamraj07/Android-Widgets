@@ -57,8 +57,6 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 32
-        versionCode getVersionCode()
-        versionName getVersionName()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
