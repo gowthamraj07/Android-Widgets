@@ -1,0 +1,2 @@
+A demo app for Formatted edit text widget.
+ - Updated with informative UI
