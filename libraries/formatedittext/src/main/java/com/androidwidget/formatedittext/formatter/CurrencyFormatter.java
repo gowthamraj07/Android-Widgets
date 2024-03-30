@@ -5,6 +5,7 @@ import com.androidwidget.formatedittext.utils.FormatTextWatcher;
 import com.androidwidget.formatedittext.utils.Result;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 
 public class CurrencyFormatter implements FormatTextWatcher.Formatter {
 
@@ -46,7 +47,7 @@ public class CurrencyFormatter implements FormatTextWatcher.Formatter {
         int specialCharactersBeforeFormatting = getSpecialCharactersCountOfStringTillPosition(wholeNumber, currentCursorPosition);
         int specialCharactersAfterFormatting = getSpecialCharactersCountOfStringTillPosition(formattedWholeNumber, currentCursorPosition);
         int formattedCursorPosition = currentCursorPosition + (specialCharactersAfterFormatting - specialCharactersBeforeFormatting);
-        formattedCursorPosition = formattedCursorPosition > formattedAmount.length() ? formattedAmount.length() : formattedCursorPosition;
+        formattedCursorPosition = Math.min(formattedCursorPosition, formattedAmount.length());
 
         return new Result(formattedAmount, formattedCursorPosition);
     }
@@ -62,14 +63,21 @@ public class CurrencyFormatter implements FormatTextWatcher.Formatter {
         Float decimalAmount = Float.parseFloat(validDecimalNumber);
 
         // Setup formatting for decimal value
+        DecimalFormatSymbols decimalFormatSymbols = DecimalFormatSymbols.getInstance();
+        decimalFormatSymbols.setDecimalSeparator('.');
         DecimalFormat decimalFormat = new DecimalFormat();
         decimalFormat.setMaximumFractionDigits(2);
         decimalFormat.setMinimumFractionDigits(2);
+        decimalFormat.setDecimalFormatSymbols(decimalFormatSymbols);
 
         // Return formatted decimal value
         String formattedDecimalValue = decimalFormat.format(decimalAmount);
         formattedDecimalValue = formattedDecimalValue.replace(".", currency.getDecimalSeparator());
-        return formattedDecimalValue.substring(formattedDecimalValue.indexOf(currency.getDecimalSeparator()));
+        int beginIndex = formattedDecimalValue.indexOf(currency.getDecimalSeparator());
+        if (beginIndex < 0) {
+            beginIndex = 0;
+        }
+        return formattedDecimalValue.substring(beginIndex);
     }
 
     private String getValidDecimalNumberFrom(String decimalNumber, int indexOfDecimalSeparator) {
