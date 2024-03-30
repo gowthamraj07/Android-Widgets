@@ -30,11 +30,11 @@ def getVersionName = { ->
 }
 
 android {
-    compileSdkVersion 32
+    compileSdk 34
     defaultConfig {
         applicationId "com.androidwidgets"
         minSdkVersion 21
-        targetSdkVersion 32
+        targetSdk 34
         versionCode getVersionCode()
         versionName getVersionName()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

@@ -21,8 +21,7 @@ apply from: 'scripts/dependencyParser.gradle'
 allprojects {
     repositories {
         google()
-        jcenter()
-        
+        mavenCentral()
     }
 }
 
