@@ -1,0 +1,39 @@
+name: Manual Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number for the tag'
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7' # Specify your Ruby version
+
+      - name: Install Fastlane
+        run: gem install fastlane
+
+      - name: Create Git tag
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git tag ${{ github.event.inputs.version }}
+          git push origin ${{ github.event.inputs.version }}
+
+      - name: Write google-services.json
+        run: echo "${{ secrets.GOOGLE_SERVICES_JSON }}" > app/google-services.json
+
+      - name: Run Fastlane
+        run: fastlane android deploy
+        env:
+          GOOGLE_PLAY_JSON_KEY: ${{ secrets.GOOGLE_PLAY_JSON_KEY }} # Ensure you have this secret set in your repository
