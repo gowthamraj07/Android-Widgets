@@ -6,14 +6,20 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath Android.tools.build.gradlePlugin
-        classpath Google.playServicesGradlePlugin
+        classpath 'com.android.tools.build:gradle:8.12.0' // Replace VERSION with actual version, e.g., 8.2.2
+        classpath 'com.google.gms:google-services:4.4.1' // Replace VERSION with actual version, e.g., 4.4.1
+
+        // Publishing and documentation plugins
+        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.34.0' // Replace VERSION
+        classpath 'org.jetbrains.dokka:dokka-gradle-plugin:2.0.0' // Replace VERSION
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-
-        classpath 'com.vanniktech:gradle-maven-publish-plugin:_' // NEW
-        classpath 'org.jetbrains.dokka:dokka-gradle-plugin:_'
     }
+}
+
+plugins {
+    id "com.vanniktech.maven.publish" version "0.34.0"
 }
 
 apply from: 'scripts/dependencyParser.gradle'

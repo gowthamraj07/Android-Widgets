@@ -91,6 +91,6 @@ dependencies {
 
 version = getVersionNameWithoutV()
 mavenPublishing {
-    publishToMavenCentral("DEFAULT")
+    publishToMavenCentral()
     signAllPublications()
 }
