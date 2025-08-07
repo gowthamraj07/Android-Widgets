@@ -30,7 +30,7 @@ def getVersionName = { ->
 }
 
 android {
-    compileSdk 34
+    compileSdk 35
     defaultConfig {
         applicationId "com.androidwidgets"
         minSdkVersion 21

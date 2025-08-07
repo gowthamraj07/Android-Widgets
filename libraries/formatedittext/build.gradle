@@ -29,6 +29,7 @@ def getVersionNameWithoutV = { ->
 }
 
 android {
+    compileSdk=35
     defaultConfig {
         minSdk 15
         targetSdk 35
