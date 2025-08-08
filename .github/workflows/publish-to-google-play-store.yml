@@ -48,10 +48,21 @@ jobs:
           mkdir -p app
           echo "$GOOGLE_SERVICES_JSON_B64" | base64 -d > app/google-services.json
           echo "google-services.json written to app/ directory"
-          cat app/google-services.json
+          wc -c app/google-services.json
         env:
           GOOGLE_SERVICES_JSON_B64: ${{ secrets.GOOGLE_SERVICES_JSON_B64 }}
 
+      - name: Validate google-services.json
+        run: |
+          python - <<'PY'
+          import json, sys, hashlib
+          p = 'app/google-services.json'
+          b = open(p,'rb').read()
+          print("bytes:", len(b))
+          print("sha256:", hashlib.sha256(b).hexdigest())
+          json.load(open(p))
+          print("JSON OK")
+          PY
 
       - name: Restore Android upload keystore & signing props
         shell: bash
@@ -78,13 +89,13 @@ jobs:
         if: ${{ !vars.USE_OIDC }}
         run: echo "${{ secrets.GOOGLE_PLAY_JSON_KEY }}" > service_account.json
 
-      # ===== Auth B: OIDC (keyless) =====
-      - name: Authenticate to Google via OIDC
-        if: ${{ vars.USE_OIDC }}
-        uses: google-github-actions/auth@v2
-        with:
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDP }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+#      # ===== Auth B: OIDC (keyless) =====
+#      - name: Authenticate to Google via OIDC
+#        if: ${{ vars.USE_OIDC }}
+#        uses: google-github-actions/auth@v2
+#        with:
+#          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDP }}
+#          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
       - name: Publish to Play (Fastlane)
         run: |
