@@ -68,7 +68,22 @@ jobs:
       - name: Restore Android upload keystore & signing props
         shell: bash
         run: |
+          # Create the release.keystore file from the base64 encoded secret
+          echo "Restoring Android upload keystore from base64 secret..."
           echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > release.keystore
+          wc -c release.keystore
+          # Ensure the keystore file has the correct permissions
+          chmod 600 release.keystore
+          echo "Keystore file created:"
+          ls -l release.keystore
+          # Print the current working directory to verify the file location
+          echo "Current directory:"
+          pwd release.keystore
+          
+          # Create the .gradle directory and write the signing properties
+          # This is needed for Gradle to sign the APKs
+          # and bundles automatically during the build process.
+          # The file is named ci-signing.properties to avoid conflicts with local properties.
           mkdir -p ~/.gradle
           {
             echo "RELEASE_STORE_FILE=release.keystore"
