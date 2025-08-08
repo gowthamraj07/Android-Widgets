@@ -60,7 +60,11 @@ android {
         release {
             minifyEnabled true
             shrinkResources true
-            signingConfig signingConfigs.release
+            if (new File(System.getProperty("user.home"), ".gradle/ci-signing.properties").exists()) {
+                signingConfig signingConfigs.release
+            } else {
+                println "No signing props found -> building UNSIGNED release locally"
+            }
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
