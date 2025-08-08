@@ -86,7 +86,7 @@ jobs:
           # The file is named ci-signing.properties to avoid conflicts with local properties.
           mkdir -p ~/.gradle
           {
-            echo "RELEASE_STORE_FILE=release.keystore"
+            echo "RELEASE_STORE_FILE=../release.keystore"
             echo "RELEASE_STORE_PASSWORD=$ANDROID_KEYSTORE_PASSWORD"
             echo "RELEASE_KEY_ALIAS=$ANDROID_KEY_ALIAS"
             echo "RELEASE_KEY_PASSWORD=$ANDROID_KEY_PASSWORD"
