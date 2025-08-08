@@ -42,17 +42,19 @@ android {
 
     signingConfigs {
         release {
-            storeFile file(RELEASE_STORE_FILE)
-            storePassword RELEASE_STORE_PASSWORD
-            keyAlias RELEASE_KEY_ALIAS
-            keyPassword RELEASE_KEY_PASSWORD
+            // Load CI signing properties from ~/.gradle/ci-signing.properties if present
+            def props = new Properties()
+            def propsFile = new File(System.getProperty("user.home"), ".gradle/ci-signing.properties")
+            if (propsFile.exists()) {
+                propsFile.withInputStream { props.load(it) }
+            }
 
-            // Optional, specify signing versions used
-            // v1SigningEnabled true
-            // v2SigningEnabled true
+            storeFile = file(props.getProperty("RELEASE_STORE_FILE", "release.keystore"))
+            storePassword = props.getProperty("RELEASE_STORE_PASSWORD")
+            keyAlias = props.getProperty("RELEASE_KEY_ALIAS")
+            keyPassword = props.getProperty("RELEASE_KEY_PASSWORD")
         }
     }
-
 
     buildTypes {
         release {
