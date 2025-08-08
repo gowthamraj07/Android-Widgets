@@ -101,9 +101,9 @@ jobs:
         run: ./gradlew --no-daemon :app:bundleRelease
 
       # ===== Auth A: Service Account JSON key (fastest) =====
-      - name: Write Google Play JSON key
-        if: ${{ !vars.USE_OIDC }}
-        run: echo "${{ secrets.GOOGLE_PLAY_JSON_KEY }}" > service_account.json
+#      - name: Write Google Play JSON key
+#        if: ${{ !vars.USE_OIDC }}
+#        run: echo "${{ secrets.GOOGLE_PLAY_JSON_KEY }}" > service_account.json
 
 #      # ===== Auth B: OIDC (keyless) =====
 #      - name: Authenticate to Google via OIDC
@@ -113,18 +113,22 @@ jobs:
 #          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDP }}
 #          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
-      - name: Publish to Play (Fastlane)
-        run: |
-          if [ -f Gemfile ]; then
-            if [ "${{ vars.USE_OIDC }}" = "true" ]; then
-              bundle exec fastlane android deploy use_oauth:true
-            else
-              bundle exec fastlane android deploy json_key:service_account.json
-            fi
-          else
-            if [ "${{ vars.USE_OIDC }}" = "true" ]; then
-              fastlane android deploy use_oauth:true
-            else
-              fastlane android deploy json_key:service_account.json
-            fi
-          fi
+#      - name: Publish to Play (Fastlane)
+#        run: |
+#          if [ -f Gemfile ]; then
+#            if [ "${{ vars.USE_OIDC }}" = "true" ]; then
+#              bundle exec fastlane android deploy use_oauth:true
+#            else
+#              bundle exec fastlane android deploy json_key:service_account.json
+#            fi
+#          else
+#            if [ "${{ vars.USE_OIDC }}" = "true" ]; then
+#              fastlane android deploy use_oauth:true
+#            else
+#              fastlane android deploy json_key:service_account.json
+#            fi
+#          fi
+      - name: Run Fastlane
+        run: fastlane android deploy
+        env:
+          GOOGLE_PLAY_JSON_KEY: ${{ secrets.GOOGLE_PLAY_JSON_KEY }} # Ensure you have this secret set in your repository
