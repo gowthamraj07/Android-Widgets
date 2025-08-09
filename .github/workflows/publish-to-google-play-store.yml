@@ -130,6 +130,6 @@ jobs:
 #          fi
 
       - name: Run Fastlane
-        run: fastlane android deploy json_key:app/google-services.json
+        run: fastlane android deploy
         env:
-          GOOGLE_SERVICES_JSON_B64: ${{ secrets.GOOGLE_SERVICES_JSON_B64 }}
+          GOOGLE_PLAY_JSON_KEY: ${{ secrets.GOOGLE_PLAY_JSON_KEY }} # Ensure you have this secret set in your repository
