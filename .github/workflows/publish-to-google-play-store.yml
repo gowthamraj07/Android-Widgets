@@ -134,5 +134,10 @@ jobs:
 #            fi
 #          fi
 
+      - name: Create publish_with_fastlane_ file
+        run: echo "$PUBLISH_WITH_FASTLANE" > fastlane/publish-with-fastlane-37b6b5b3a28c.json
+        env:
+          PUBLISH_WITH_FASTLANE: ${{ secrets.PUBLISH_WITH_FASTLANE }}
+
       - name: Run Fastlane
         run: bundle exec fastlane deploy
