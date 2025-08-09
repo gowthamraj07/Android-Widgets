@@ -47,9 +47,9 @@ jobs:
       - name: Write google-services.json
         run: |
           mkdir -p app
-          echo "$GOOGLE_SERVICES_JSON_B64" | base64 -d > google-services.json
-          echo "google-services.json written to / directory"
-          wc -c google-services.json
+          echo "$GOOGLE_SERVICES_JSON_B64" | base64 -d > app/google-services.json
+          echo "google-services.json written to app directory"
+          wc -c app/google-services.json
         env:
           GOOGLE_SERVICES_JSON_B64: ${{ secrets.GOOGLE_SERVICES_JSON_B64 }}
 
@@ -57,7 +57,7 @@ jobs:
         run: |
           python - <<'PY'
           import json, sys, hashlib
-          p = 'google-services.json'
+          p = 'app/google-services.json'
           b = open(p,'rb').read()
           print("bytes:", len(b))
           print("sha256:", hashlib.sha256(b).hexdigest())
