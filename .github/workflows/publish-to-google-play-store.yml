@@ -47,9 +47,9 @@ jobs:
       - name: Write google-services.json
         run: |
           mkdir -p app
-          echo "$GOOGLE_SERVICES_JSON_B64" | base64 -d > app/google-services.json
-          echo "google-services.json written to app/ directory"
-          wc -c app/google-services.json
+          echo "$GOOGLE_SERVICES_JSON_B64" | base64 -d > google-services.json
+          echo "google-services.json written to / directory"
+          wc -c google-services.json
         env:
           GOOGLE_SERVICES_JSON_B64: ${{ secrets.GOOGLE_SERVICES_JSON_B64 }}
 
@@ -57,13 +57,18 @@ jobs:
         run: |
           python - <<'PY'
           import json, sys, hashlib
-          p = 'app/google-services.json'
+          p = 'google-services.json'
           b = open(p,'rb').read()
           print("bytes:", len(b))
           print("sha256:", hashlib.sha256(b).hexdigest())
           json.load(open(p))
           print("JSON OK")
           PY
+
+      - name: Write Google Play JSON key
+        run: echo "$GOOGLE_PLAY_JSON_B64" | base64 -d > service_account.json
+        env:
+          GOOGLE_PLAY_JSON_B64: ${{ secrets.GOOGLE_PLAY_JSON_B64 }}
 
       - name: Restore Android upload keystore & signing props
         shell: bash
@@ -130,6 +135,4 @@ jobs:
 #          fi
 
       - name: Run Fastlane
-        run: fastlane android deploy
-        env:
-          GOOGLE_PLAY_JSON_KEY: ${{ secrets.GOOGLE_PLAY_JSON_KEY }} # Ensure you have this secret set in your repository
+        run: fastlane action upload_to_play_store
