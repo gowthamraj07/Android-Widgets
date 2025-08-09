@@ -32,10 +32,10 @@ platform :android do
 
   desc "Deploy a new version to the Google Play"
   lane :deploy do
-    gradle(task: "assemble", build_type: "Release")
+    gradle(task: "clean bundleRelease")
     upload_to_play_store(
       aab: Dir["app/build/outputs/bundle/release/*.aab"].first,
-      track: "internal"
+      track: "production"
     )
   end
 end
