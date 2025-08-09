@@ -2,10 +2,10 @@ name: Publish to Google Play Store
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version number for the new tag (Normally next version number of the existing tag)'
-        required: true
+#    inputs:
+#      version:
+#        description: 'Version number for the new tag (Normally next version number of the existing tag)'
+#        required: true
 
 permissions:
   contents: write
@@ -37,12 +37,12 @@ jobs:
         if: ${{ !hashFiles('Gemfile') }}
         run: gem install fastlane
 
-      - name: Create Git tag
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git tag ${{ github.event.inputs.version }}
-          git push origin ${{ github.event.inputs.version }}
+#      - name: Create Git tag
+#        run: |
+#          git config --global user.name 'github-actions[bot]'
+#          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+#          git tag ${{ github.event.inputs.version }}
+#          git push origin ${{ github.event.inputs.version }}
 
       - name: Write google-services.json
         run: |
