@@ -72,7 +72,7 @@ def commitVersionUpdate(newVersionCode, newVersionName) {
         commandLine 'git', 'config', '--global', 'user.email', System.getenv('GIT_EMAIL') ?: "gowthamraj07@gmail.com"
     }
     exec {
-        commandLine 'git', 'remote', 'set-url', 'origin', "https://x-access-token:${System.getenv('GH_TOKEN')}@github.com/Neptune-NISH/NEPtune-Android.git"
+        commandLine 'git', 'remote', 'set-url', 'origin', "https://x-access-token:${System.getenv('GH_TOKEN')}@github.com/gowthamraj07/Android-Widgets.git"
     }
     exec {
         commandLine 'git', 'add', 'build.gradle'
