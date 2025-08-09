@@ -86,7 +86,7 @@ def commitVersionUpdate(newVersionCode, newVersionName) {
         commandLine 'git', 'tag', "v${newVersionName}"
     }
     exec {
-        commandLine 'git', 'push', 'origin', 'main', '--tags'
+        commandLine 'git', 'push', 'origin', 'master', '--tags'
     }
     exec {
         commandLine 'gh', 'release', 'create', "v${newVersionName}", '--title', "Release v${newVersionName}", '--notes', "Version ${newVersionName} release\n\nCommits:\n${commitMessages}"
