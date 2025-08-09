@@ -16,7 +16,7 @@ def updateVersionInBuildFile() {
 
         def newVersionCode = currentVersionCode + 1
         currentVersionName[-1] += 1
-        def newVersionName = currentVersionName.join('.')
+        def newVersionName = "v"+currentVersionName.join('.')
 
         buildFileText = buildFileText.replaceFirst(versionCodePattern, "versionCode ${newVersionCode}")
         buildFileText = buildFileText.replaceFirst(versionNamePattern, "versionName \"${newVersionName}\"")
