@@ -83,7 +83,7 @@ def commitVersionUpdate(newVersionCode, newVersionName) {
 
     def commitMessages = getCommitMessages().replace("\n", "\\n")
     exec {
-        commandLine 'git', 'tag', "v${newVersionName}"
+        commandLine 'git', 'tag', "${newVersionName}"
     }
     exec {
         commandLine 'git', 'push', 'origin', 'master', '--tags'
