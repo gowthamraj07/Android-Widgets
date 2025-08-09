@@ -1,0 +1,135 @@
+import java.util.regex.Pattern
+
+def updateVersionInBuildFile() {
+    def buildFile = file('build.gradle')
+    def buildFileText = buildFile.text
+
+    def versionCodePattern = Pattern.compile(/versionCode\s+(\d+)/)
+    def versionNamePattern = Pattern.compile(/versionName\s+"(\d+\.\d+\.\d+)"/)
+
+    def versionCodeMatcher = versionCodePattern.matcher(buildFileText)
+    def versionNameMatcher = versionNamePattern.matcher(buildFileText)
+
+    if (versionCodeMatcher.find() && versionNameMatcher.find()) {
+        def currentVersionCode = versionCodeMatcher.group(1).toInteger()
+        def currentVersionName = versionNameMatcher.group(1).split('\\.').collect { it.toInteger() }
+
+        def newVersionCode = currentVersionCode + 1
+        currentVersionName[-1] += 1
+        def newVersionName = currentVersionName.join('.')
+
+        buildFileText = buildFileText.replaceFirst(versionCodePattern, "versionCode ${newVersionCode}")
+        buildFileText = buildFileText.replaceFirst(versionNamePattern, "versionName \"${newVersionName}\"")
+
+        buildFile.write(buildFileText)
+        buildFile.write(buildFileText) // Ensure the file is written correctly
+
+        println "Updated versionCode to ${newVersionCode} and versionName to ${newVersionName} in build.gradle"
+
+        return [newVersionCode, newVersionName]
+    } else {
+        throw new GradleException("Failed to find versionCode or versionName in build.gradle")
+    }
+}
+
+static def isSharedRunner() {
+    return System.getenv('GITHUB_ACTIONS') != null
+}
+
+def getCommitMessages() {
+    if(isSharedRunner()) {
+        exec {
+            commandLine 'git', 'fetch', '--unshallow'
+        }
+    }
+
+    def lastTag = new ByteArrayOutputStream()
+    exec {
+        standardOutput = new PrintStream(lastTag)
+        commandLine 'git', 'describe', '--tags', '--abbrev=0'
+    }
+
+    def commitMessages = new ByteArrayOutputStream()
+    exec {
+        println("Last tag: ${lastTag.toString().trim()}")
+        standardOutput = new PrintStream(commitMessages)
+        commandLine 'git', 'rev-list', '--pretty=format:: %s', "${lastTag.toString().trim()}..HEAD"
+    }
+    println("Commit messages: ${commitMessages.toString().trim()}")
+    def commitMessagesString = commitMessages.toString().trim()
+    def formattedMessages = commitMessagesString.replaceAll("\n", " ").replaceAll("commit ", "\n").trim()
+    def commitMessagesList = formattedMessages.split('\n').collect { "- ${it}" }
+    def markdownCommitMessages = commitMessagesList.join("\r")
+    println "Commit messages since last tag:\n${markdownCommitMessages}"
+    return markdownCommitMessages
+}
+
+def commitVersionUpdate(newVersionCode, newVersionName) {
+    exec {
+        commandLine 'git', 'config', '--global', 'user.name', System.getenv('GIT_USER') ?: "Gowtham Shanmugaraj Ganesan"
+    }
+    exec {
+        commandLine 'git', 'config', '--global', 'user.email', System.getenv('GIT_EMAIL') ?: "gowthamraj07@gmail.com"
+    }
+    exec {
+        commandLine 'git', 'remote', 'set-url', 'origin', "https://x-access-token:${System.getenv('GH_TOKEN')}@github.com/Neptune-NISH/NEPtune-Android.git"
+    }
+    exec {
+        commandLine 'git', 'add', 'build.gradle'
+    }
+    exec {
+        commandLine 'git', 'commit', '-m', "Update version to ${newVersionCode} (${newVersionName})"
+    }
+
+    def commitMessages = getCommitMessages().replace("\n", "\\n")
+    exec {
+        commandLine 'git', 'tag', "v${newVersionName}"
+    }
+    exec {
+        commandLine 'git', 'push', 'origin', 'main', '--tags'
+    }
+    exec {
+        commandLine 'gh', 'release', 'create', "v${newVersionName}", '--title', "Release v${newVersionName}", '--notes', "Version ${newVersionName} release\n\nCommits:\n${commitMessages}"
+    }
+}
+
+tasks.register('updateVersion') {
+    doLast {
+        def (newVersionCode, newVersionName) = updateVersionInBuildFile()
+        commitVersionUpdate(newVersionCode, newVersionName)
+    }
+}
+
+def readVersionFromBuildGradleFile() {
+    def buildFile = file('build.gradle')
+    def buildFileText = buildFile.text
+
+    def versionCodePattern = Pattern.compile(/versionCode\s+(\d+)/)
+    def versionNamePattern = Pattern.compile(/versionName\s+"(\d+\.\d+\.\d+)"/)
+
+    def versionCodeMatcher = versionCodePattern.matcher(buildFileText)
+    def versionNameMatcher = versionNamePattern.matcher(buildFileText)
+
+    if (versionCodeMatcher.find() && versionNameMatcher.find()) {
+        def currentVersionCode = versionCodeMatcher.group(1).toInteger()
+        def currentVersionName = versionNameMatcher.group(1)
+
+        return [currentVersionCode, currentVersionName]
+    } else {
+        throw new GradleException("Failed to find versionCode or versionName in build.gradle")
+    }
+}
+
+tasks.register('displayVersionToBePublished') {
+    doLast {
+        def (newVersionCode, newVersionName) = readVersionFromBuildGradleFile()
+        println "Version to be published in Google Play store console: ${newVersionName} (${newVersionCode})"
+    }
+}
+
+//tasks.whenTaskAdded { task ->
+//    if (task.name == 'assembleRelease' || task.name == 'bundleRelease') {
+//        task.dependsOn updateVersion
+//        task.dependsOn displayVersionToBePublished
+//    }
+//}

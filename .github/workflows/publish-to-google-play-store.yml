@@ -102,8 +102,8 @@ jobs:
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
 
-      - name: Build Release bundle (Gradle)
-        run: ./gradlew --no-daemon :app:bundleRelease
+#      - name: Build Release bundle (Gradle)
+#        run: ./gradlew --no-daemon :app:bundleRelease
 
       # ===== Auth A: Service Account JSON key (fastest) =====
 #      - name: Write Google Play JSON key
@@ -133,6 +133,9 @@ jobs:
 #              fastlane android deploy json_key:service_account.json
 #            fi
 #          fi
+
+      - name: Update version in build.gradle
+        run: ./gradlew updateVersion
 
       - name: Create publish_with_fastlane_ file
         run: echo "$PUBLISH_WITH_FASTLANE" > fastlane/publish-with-fastlane-37b6b5b3a28c.json
