@@ -134,6 +134,35 @@ jobs:
 #            fi
 #          fi
 
+      - name: Install git command line tools
+        run: sudo apt-get install git
+
+      - name: Configure git user
+        run: |
+          git config --global user.name "Gowtham Shanmugaraj Ganesan"
+          git config --global user.email "gowthamraj07@gmail.com"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install GitHub CLI
+        run: sudo apt-get install gh
+
+
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Debug - Install tree command
+        if: ${{ github.event.inputs.debug_mode == 'true' }}
+        run: sudo apt-get install tree
+
+      - name: Debug - Execute tree command
+        if: ${{ github.event.inputs.debug_mode == 'true' }}
+        run: tree
+
       - name: Update version in build.gradle
         run: ./gradlew updateVersion
 
