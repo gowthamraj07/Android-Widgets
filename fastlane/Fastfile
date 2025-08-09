@@ -35,7 +35,6 @@ platform :android do
     gradle(task: "bundle", build_type: "Release")
     upload_to_play_store(
       aab: Dir["app/build/outputs/bundle/release/*.aab"].first,
-      json_key: "service_account.json",
       track: "internal"
     )
   end

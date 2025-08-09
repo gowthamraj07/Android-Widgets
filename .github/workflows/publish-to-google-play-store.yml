@@ -129,10 +129,7 @@ jobs:
 #            fi
 #          fi
 
-      - name: Write Google Play JSON key
-        run: echo "${{ secrets.GOOGLE_PLAY_JSON_KEY }}" > service_account.json
-
       - name: Run Fastlane
-        run: fastlane android deploy
+        run: fastlane android deploy json_key:app/google-services.json
         env:
-          GOOGLE_PLAY_JSON_KEY: ${{ secrets.GOOGLE_PLAY_JSON_KEY }} # Ensure you have this secret set in your repository
+          GOOGLE_SERVICES_JSON_B64: ${{ secrets.GOOGLE_SERVICES_JSON_B64 }}
