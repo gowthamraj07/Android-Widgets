@@ -105,7 +105,7 @@ def readVersionFromBuildGradleFile() {
     def buildFileText = buildFile.text
 
     def versionCodePattern = Pattern.compile(/versionCode\s+(\d+)/)
-    def versionNamePattern = Pattern.compile(/versionName\s+"(\d+\.\d+\.\d+)"/)
+    def versionNamePattern = Pattern.compile(/versionName\s+"v(\d+\.\d+\.\d+)"/)
 
     def versionCodeMatcher = versionCodePattern.matcher(buildFileText)
     def versionNameMatcher = versionNamePattern.matcher(buildFileText)
