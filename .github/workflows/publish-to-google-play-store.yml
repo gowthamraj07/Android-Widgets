@@ -137,10 +137,13 @@ jobs:
       - name: Update version in build.gradle
         run: ./gradlew updateVersion
 
+      - name: Display the version to be published to the Play Store
+        run: ./gradlew displayVersionToBePublished
+
       - name: Create publish_with_fastlane_ file
         run: echo "$PUBLISH_WITH_FASTLANE" > fastlane/publish-with-fastlane-37b6b5b3a28c.json
         env:
           PUBLISH_WITH_FASTLANE: ${{ secrets.PUBLISH_WITH_FASTLANE }}
 
-      - name: Run Fastlane
+      - name: Publish release
         run: bundle exec fastlane deploy
