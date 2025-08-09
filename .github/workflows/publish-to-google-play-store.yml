@@ -135,4 +135,4 @@ jobs:
 #          fi
 
       - name: Run Fastlane
-        run: bundle exec fastlane action upload_to_play_store
+        run: bundle exec fastlane deploy
