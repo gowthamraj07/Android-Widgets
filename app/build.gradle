@@ -7,11 +7,11 @@ apply from: "../dependencies/updateAppVersion.gradle"
 
 
 android {
-    compileSdk 35
+    compileSdk=35
     defaultConfig {
         applicationId "com.androidwidgets"
-        minSdkVersion 21
-        targetSdk 34
+        minSdk 21
+        targetSdkVersion 35
         versionCode 45
         versionName "v0.2.45"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
