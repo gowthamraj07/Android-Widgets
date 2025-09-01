@@ -6,7 +6,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.12.0' // Replace VERSION with actual version, e.g., 8.2.2
+        classpath 'com.android.tools.build:gradle:8.12.2'
+        // Replace VERSION with actual version, e.g., 8.2.2
         classpath 'com.google.gms:google-services:4.4.1' // Replace VERSION with actual version, e.g., 4.4.1
 
         // Publishing and documentation plugins
